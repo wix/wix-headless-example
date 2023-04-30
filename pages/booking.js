@@ -47,13 +47,25 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${styles.grid}`}>
-        <a href="#">
-          {serviceList.map((service) => <p key={service._id} onClick={() => fetchAvailability(service)}>{service.name}</p>)}
-        </a>
-        <a href="#">
-          {availabilityEntries.map((entry) => <p key={entry.slot.startDate} onClick={() => createRedirect(entry)}>{entry.slot.startDate}</p>)}
-        </a>
+      <main className={styles.main}>
+        <div className={styles.grid}>
+          <div>
+            <h2>Choose Service:</h2>
+            {serviceList.map((service) => {
+              return <a href="#" key={service._id} onClick={() => fetchAvailability(service)}>
+                <div className={styles.card}>{service.name}</div>
+              </a>;
+            })}
+          </div>
+          <div>
+            <h2>Choose Slot:</h2>
+            {availabilityEntries.map((entry) => {
+              return <a href="#" key={entry.slot.startDate} onClick={() => createRedirect(entry)}>
+                <div className={styles.card}>{entry.slot.startDate}</div>
+              </a>;
+            })}
+          </div>
+        </div>
       </main>
     </>
   )
