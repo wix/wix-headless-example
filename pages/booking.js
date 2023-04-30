@@ -1,10 +1,13 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
+import { Inter } from 'next/font/google'
+import { useEffect, useState } from 'react';
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { availabilityCalendar, services } from '@wix/bookings';
 import { redirects } from '@wix/redirects';
-import { useEffect, useState } from 'react';
+
+const inter = Inter({ subsets: ['latin'] })
 
 const myWixClient = createClient({
   modules: { services, availabilityCalendar, redirects },
@@ -31,9 +34,10 @@ export default function Home() {
     setAvailabilityEntries(availability.availabilityEntries);
   }
 
-  async function createRedirect(entry) {
+  async function createRedirect(slotAvailability) {
+    const serviceId = slotAvailability.slot.serviceId;
     const redirect = await myWixClient.redirects.createRedirectSession({
-      bookingsCheckout: { serviceId: entry.slot.serviceId, slotAvailability: entry, timezone: 'UTC' }
+      bookingsCheckout: { serviceId, slotAvailability, timezone: 'UTC' }
     });
     window.location = redirect.redirectSession.fullUrl;
   }
@@ -47,22 +51,18 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.grid}>
           <div>
             <h2>Choose Service:</h2>
             {serviceList.map((service) => {
-              return <a href="#" key={service._id} onClick={() => fetchAvailability(service)}>
-                <div className={styles.card}>{service.name}</div>
-              </a>;
+              return <div className={styles.card} key={service._id} onClick={() => fetchAvailability(service)}>{service.name}</div>;
             })}
           </div>
           <div>
             <h2>Choose Slot:</h2>
             {availabilityEntries.map((entry) => {
-              return <a href="#" key={entry.slot.startDate} onClick={() => createRedirect(entry)}>
-                <div className={styles.card}>{entry.slot.startDate}</div>
-              </a>;
+              return <div className={styles.card} key={entry.slot.startDate} onClick={() => createRedirect(entry)}>{entry.slot.startDate}</div>;
             })}
           </div>
         </div>
