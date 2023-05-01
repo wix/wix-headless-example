@@ -20,23 +20,18 @@ export default function Tickets() {
 
   async function fetchEvents() {
     const eventsList = await myWixClient.wixEvents.queryEventsV2({ query: { paging: { limit: 10 } } });
-    console.log(eventsList)
     setEventsList(eventsList.events);
   }
 
   async function fetchTicketsAvailability(event) {
     const tickets = await myWixClient.checkout.queryAvailableTickets({
       filter: { eventId: event._id },
-      offset: 0,
-      limit: 100,
-      sort: 'orderIndex:asc',
+      limit: 10,
     });
-    console.log(tickets);
     setTicketsAvailability(tickets.definitions);
   }
 
   async function createRedirect(ticket) {
-    debugger;
     const eventSlug = eventsList.find((event) => event._id === ticket.eventId).slug;
     const reservation = await myWixClient.checkout.createReservation(ticket.eventId, {
       ticketQuantities: [{
