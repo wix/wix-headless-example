@@ -22,7 +22,6 @@ export default function Store() {
   async function fetchProducts() {
     const productList = await myWixClient.products.queryProducts().find();
     setProductList(productList.items);
-    console.log(productList.items);
   }
 
   async function addToCart(product) {
@@ -42,11 +41,9 @@ export default function Store() {
 
   async function createRedirect() {
     const { checkoutId } = await myWixClient.currentCart.createCheckoutFromCurrentCart({ channelType: currentCart.ChannelType.WEB });
-    console.log(checkoutId);
     const redirect = await myWixClient.redirects.createRedirectSession({
       ecomCheckout: { checkoutId }
     });
-    console.log(redirect);
     window.location = redirect.redirectSession.fullUrl;
   }
 
