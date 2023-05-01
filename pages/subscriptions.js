@@ -23,7 +23,6 @@ export default function Subscriptions() {
   }
 
   async function createRedirect(plan) {
-    const serviceId = slotAvailability.slot.serviceId;
     const redirect = await myWixClient.redirects.createRedirectSession({
       paidPlansCheckout: { planId: plan._id },
     });
