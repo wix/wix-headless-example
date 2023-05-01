@@ -38,7 +38,8 @@ export default function Store() {
   async function createRedirect() {
     const { checkoutId } = await myWixClient.currentCart.createCheckoutFromCurrentCart({ channelType: currentCart.ChannelType.WEB });
     const redirect = await myWixClient.redirects.createRedirectSession({
-      ecomCheckout: { checkoutId }, callbacks: { postFlowUrl: window.location }
+      ecomCheckout: { checkoutId },
+      callbacks: { postFlowUrl: window.location }
     });
     window.location = redirect.redirectSession.fullUrl;
   }

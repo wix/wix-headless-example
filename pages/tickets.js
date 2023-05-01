@@ -36,7 +36,8 @@ export default function Tickets() {
       }],
     });
     const redirect = await myWixClient.redirects.createRedirectSession({
-      eventsCheckout: { eventSlug, reservationId: reservation._id }
+      eventsCheckout: { eventSlug, reservationId: reservation._id },
+      callbacks: { postFlowUrl: window.location }
     });
     window.location = redirect.redirectSession.fullUrl;
   }
