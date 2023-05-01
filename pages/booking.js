@@ -42,7 +42,7 @@ export default function Home() {
     window.location = redirect.redirectSession.fullUrl;
   }
 
-  useEffect(() => { fetchServices(); });
+  useEffect(() => { fetchServices(); }, []);
 
   return (
     <>

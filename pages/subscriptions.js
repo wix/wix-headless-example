@@ -30,7 +30,7 @@ export default function Home() {
     window.location = redirect.redirectSession.fullUrl;
   }
 
-  useEffect(() => { fetchPlans(); });
+  useEffect(() => { fetchPlans(); }, []);
 
   return (
     <>
