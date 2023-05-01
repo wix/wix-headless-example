@@ -14,7 +14,7 @@ const myWixClient = createClient({
   auth: OAuthStrategy({ clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849` })
 });
 
-export default function Home() {
+export default function Booking() {
   const [serviceList, setServiceList] = useState([]);
   const [availabilityEntries, setAvailabilityEntries] = useState([]);
 
