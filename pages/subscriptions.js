@@ -15,6 +15,23 @@ const myWixClient = createClient({
 });
 
 export default function Home() {
+  const [planList, setPlanList] = useState([]);
+
+  async function fetchPlans() {
+    const planList = await myWixClient.plans.queryPublicPlans().find();
+    setPlanList(planList.items);
+  }
+
+  async function createRedirect(plan) {
+    const serviceId = slotAvailability.slot.serviceId;
+    const redirect = await myWixClient.redirects.createRedirectSession({
+      paidPlansCheckout: { planId: plan._id },
+    });
+    window.location = redirect.redirectSession.fullUrl;
+  }
+
+  useEffect(() => { fetchPlans(); });
+
   return (
     <>
       <Head>
@@ -24,7 +41,12 @@ export default function Home() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.grid}>
-          Hello world!
+          <div>
+            <h2>Choose Plan:</h2>
+            {planList.map((plan) => {
+              return <div className={styles.card} key={plan._id} onClick={() => createRedirect(plan)}>{plan.name}</div>;
+            })}
+          </div>
         </div>
       </main>
     </>
