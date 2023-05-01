@@ -1,14 +1,10 @@
-import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
-import { Inter } from 'next/font/google'
 import { useEffect, useState } from 'react';
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { products } from '@wix/stores';
 import { currentCart } from '@wix/ecom';
 import { redirects } from '@wix/redirects';
-
-const inter = Inter({ subsets: ['latin'] })
 
 const myWixClient = createClient({
   modules: { products, currentCart, redirects },
@@ -42,7 +38,7 @@ export default function Store() {
   async function createRedirect() {
     const { checkoutId } = await myWixClient.currentCart.createCheckoutFromCurrentCart({ channelType: currentCart.ChannelType.WEB });
     const redirect = await myWixClient.redirects.createRedirectSession({
-      ecomCheckout: { checkoutId }
+      ecomCheckout: { checkoutId }, callbacks: { postFlowUrl: window.location }
     });
     window.location = redirect.redirectSession.fullUrl;
   }
@@ -50,31 +46,22 @@ export default function Store() {
   useEffect(() => { fetchProducts(); }, []);
 
   return (
-    <>
-      <Head>
-        <title>Wix Headless Store</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.grid}>
-          <div>
-            <h2>Choose Products:</h2>
-            {productList.map((product) => {
-              return <div className={styles.card} key={product._id} onClick={() => addToCart(product)}>{product.name}</div>;
-            })}
+    <div className={styles.grid}>
+      <div>
+        <h2>Choose Products:</h2>
+        {productList.map((product) => {
+          return <div className={styles.card} key={product._id} onClick={() => addToCart(product)}>{product.name}</div>;
+        })}
+      </div>
+      <div>
+        <h2>Cart:</h2>
+        {cart.lineItems?.length > 0 && <>
+          <div className={styles.card} onClick={() => createRedirect()}>
+            <h3>{cart.lineItems.length} items ({cart.subtotal.formattedAmount})</h3>
+            <span>Checkout</span>
           </div>
-          <div>
-            <h2>Cart:</h2>
-            {cart.lineItems?.length > 0 && <>
-              <div className={styles.card} onClick={() => createRedirect()}>
-                <h3>{cart.lineItems.length} items ({cart.subtotal.formattedAmount})</h3>
-                <span>Checkout</span>
-              </div>
-            </>}
-          </div>
-        </div>
-      </main>
-    </>
+        </>}
+      </div>
+    </div>
   )
 }

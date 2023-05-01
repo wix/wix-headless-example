@@ -1,13 +1,9 @@
-import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
-import { Inter } from 'next/font/google'
 import { useEffect, useState } from 'react';
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { wixEvents, checkout } from '@wix/events';
 import { redirects } from '@wix/redirects';
-
-const inter = Inter({ subsets: ['latin'] })
 
 const myWixClient = createClient({
   modules: { wixEvents, checkout, redirects },
@@ -48,28 +44,19 @@ export default function Tickets() {
   useEffect(() => { fetchEvents(); }, []);
 
   return (
-    <>
-      <Head>
-        <title>Wix Headless Tickets</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.grid}>
-          <div>
-            <h2>Choose Event:</h2>
-            {eventsList.map((event) => {
-              return <div className={styles.card} key={event._id} onClick={() => fetchTicketsAvailability(event)}>{event.title}</div>;
-            })}
-          </div>
-          <div>
-            <h2>Choose Tickets:</h2>
-            {ticketsAvailability.map((ticket) => {
-              return <div className={styles.card} key={ticket._id} onClick={() => createRedirect(ticket)}>{ticket.name}</div>;
-            })}
-          </div>
-        </div>
-      </main>
-    </>
+    <div className={styles.grid}>
+      <div>
+        <h2>Choose Event:</h2>
+        {eventsList.map((event) => {
+          return <div className={styles.card} key={event._id} onClick={() => fetchTicketsAvailability(event)}>{event.title}</div>;
+        })}
+      </div>
+      <div>
+        <h2>Choose Tickets:</h2>
+        {ticketsAvailability.map((ticket) => {
+          return <div className={styles.card} key={ticket._id} onClick={() => createRedirect(ticket)}>{ticket.name}</div>;
+        })}
+      </div>
+    </div>
   )
 }
