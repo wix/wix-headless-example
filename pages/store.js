@@ -12,12 +12,8 @@ const myWixClient = createClient({
   auth: OAuthStrategy({ clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849` })
 });
 
-const tokens = JSON.parse(Cookies.get('visitorTokens') || 'null');
-if (tokens) {
-  myWixClient.auth.setTokens(tokens);
-} else {
-  myWixClient.auth.generateVisitorTokens().then(tokens => Cookies.set('visitorTokens', JSON.stringify(tokens)));
-}
+const tokens = JSON.parse(Cookies.get('visitorTokens') || '{}');
+myWixClient.auth.setTokens(tokens);
 
 export default function Store() {
   const [productList, setProductList] = useState([]);
@@ -30,6 +26,7 @@ export default function Store() {
 
   async function fetchCart() {
     try { setCart(await myWixClient.currentCart.getCurrentCart()); } catch { }
+    Cookies.set('visitorTokens', JSON.stringify(myWixClient.auth.getTokens()));
   }
 
   async function addToCart(product) {
@@ -56,8 +53,8 @@ export default function Store() {
     window.location = redirect.redirectSession.fullUrl;
   }
 
-  useEffect(() => { fetchProducts(); }, []);
-  useEffect(() => { fetchCart(); }, []);
+  useEffect(() => { fetchProducts() }, []);
+  useEffect(() => { fetchCart() }, []);
 
   return (
     <div className={styles.grid}>
