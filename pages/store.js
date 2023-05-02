@@ -44,6 +44,11 @@ export default function Store() {
     setCart(cart);
   }
 
+  async function clearCart() {
+    await myWixClient.currentCart.deleteCurrentCart();
+    setCart({});
+  }
+
   async function createRedirect() {
     const { checkoutId } = await myWixClient.currentCart.createCheckoutFromCurrentCart({ channelType: currentCart.ChannelType.WEB });
     const redirect = await myWixClient.redirects.createRedirectSession({
@@ -70,6 +75,9 @@ export default function Store() {
           <div className={styles.card} onClick={() => createRedirect()}>
             <h3>{cart.lineItems.length} items ({cart.subtotal.formattedAmount})</h3>
             <span>Checkout</span>
+          </div>
+          <div className={styles.card} onClick={() => clearCart()}>
+            <span>Clear cart</span>
           </div>
         </>}
       </div>
