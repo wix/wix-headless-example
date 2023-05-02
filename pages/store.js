@@ -1,5 +1,6 @@
 import styles from '@/styles/Home.module.css'
 import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { products } from '@wix/stores';
@@ -18,6 +19,14 @@ export default function Store() {
   async function fetchProducts() {
     const productList = await myWixClient.products.queryProducts().find();
     setProductList(productList.items);
+  }
+
+  async function fetchCart() {
+    let tokens = JSON.parse(Cookies.get('visitorTokens') || 'null');
+    tokens = await myWixClient.auth.generateVisitorTokens(tokens);
+    Cookies.set('visitorTokens', JSON.stringify(tokens));
+    myWixClient.auth.setTokens(tokens);
+    try { setCart(await myWixClient.currentCart.getCurrentCart()); } catch { }
   }
 
   async function addToCart(product) {
@@ -39,12 +48,13 @@ export default function Store() {
     const { checkoutId } = await myWixClient.currentCart.createCheckoutFromCurrentCart({ channelType: currentCart.ChannelType.WEB });
     const redirect = await myWixClient.redirects.createRedirectSession({
       ecomCheckout: { checkoutId },
-      callbacks: { postFlowUrl: window.location }
+      callbacks: { postFlowUrl: window.location.href }
     });
     window.location = redirect.redirectSession.fullUrl;
   }
 
   useEffect(() => { fetchProducts(); }, []);
+  useEffect(() => { fetchCart(); }, []);
 
   return (
     <div className={styles.grid}>
