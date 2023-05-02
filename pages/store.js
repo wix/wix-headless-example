@@ -9,11 +9,11 @@ import { redirects } from '@wix/redirects';
 
 const myWixClient = createClient({
   modules: { products, currentCart, redirects },
-  auth: OAuthStrategy({ clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849` })
+  auth: OAuthStrategy({
+    clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849`,
+    tokens: JSON.parse(Cookies.get('session') || '{}')
+  })
 });
-
-const tokens = JSON.parse(Cookies.get('visitorTokens') || '{}');
-myWixClient.auth.setTokens(tokens);
 
 export default function Store() {
   const [productList, setProductList] = useState([]);
@@ -26,7 +26,7 @@ export default function Store() {
 
   async function fetchCart() {
     try { setCart(await myWixClient.currentCart.getCurrentCart()); } catch { }
-    Cookies.set('visitorTokens', JSON.stringify(myWixClient.auth.getTokens()));
+    Cookies.set('session', JSON.stringify(myWixClient.auth.getTokens()));
   }
 
   async function addToCart(product) {
