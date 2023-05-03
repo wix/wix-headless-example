@@ -4,7 +4,19 @@ import '@/styles/globals.css'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 
-const inter = Inter({ subsets: ['latin'] })
+import { createClient, OAuthStrategy } from '@wix/api-client';
+import { collections, items } from '@wix/data';
+
+const myWixClient = createClient({
+  modules: { collections, items },
+  auth: OAuthStrategy({ clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849` })
+});
+
+const inter = Inter({ subsets: ['latin'] });
+
+myWixClient.items.queryDataItems({ dataCollectionId: 'examples' }).find().then(records => {
+  console.log(records);
+});
 
 export default function App({ Component, pageProps }) {
   return (
