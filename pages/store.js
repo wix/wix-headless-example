@@ -67,6 +67,10 @@ export default function Store() {
     window.location = authUrl;
   }
 
+  async function logout() {
+    window.location = await myWixClient.auth.logout(window.location.href);
+  }
+
   async function fetchMember() {
     if (myWixClient.auth.loggedIn()) {
       const { member } = await myWixClient.members.getMyMember();
@@ -90,7 +94,7 @@ export default function Store() {
         <h2>Cart:</h2>
         {cart.lineItems?.length > 0 && <>
           <div className={styles.card} onClick={() => myWixClient.auth.loggedIn() ? logout() : login()}>
-            <h3>Hello {myWixClient.auth.loggedIn() ? member.profile.nickname || member.profile.slug || '' : 'visitor'},</h3>
+            <h3>Hello {myWixClient.auth.loggedIn() ? member?.profile?.nickname || member?.profile?.slug || '' : 'visitor'},</h3>
             <span>{myWixClient.auth.loggedIn() ? 'Logout' : 'Login'}</span>
           </div>
           <div className={styles.card} onClick={() => createRedirect()}>
