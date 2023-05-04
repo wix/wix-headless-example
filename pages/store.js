@@ -58,6 +58,13 @@ export default function Store() {
     window.location = redirect.redirectSession.fullUrl;
   }
 
+  async function login() {
+    const data = myWixClient.auth.generateOAuthData(window.location.origin, window.location.href);
+    localStorage.setItem('oauthRedirectData', JSON.stringify(data));
+    const { authUrl } = await myWixClient.auth.getAuthUrl(data);
+    window.location = authUrl;
+  }
+
   useEffect(() => { fetchProducts() }, []);
   useEffect(() => { fetchCart() }, []);
 
@@ -72,6 +79,10 @@ export default function Store() {
       <div>
         <h2>Cart:</h2>
         {cart.lineItems?.length > 0 && <>
+          <div className={styles.card} onClick={() => login()}>
+            <h3>current member name</h3>
+            <span>Login</span>
+          </div>
           <div className={styles.card} onClick={() => createRedirect()}>
             <h3>{cart.lineItems.length} items ({cart.subtotal.formattedAmount})</h3>
             <span>Checkout</span>
