@@ -28,7 +28,6 @@ export default function Store() {
 
   async function fetchCart() {
     try { setCart(await myWixClient.currentCart.getCurrentCart()); } catch { }
-    Cookies.set('session', JSON.stringify(myWixClient.auth.getTokens()));
   }
 
   async function addToCart(product) {
@@ -69,6 +68,7 @@ export default function Store() {
 
   async function logout() {
     const { logoutUrl } = await myWixClient.auth.logout(window.location.href);
+    Cookies.remove('session');
     window.location = logoutUrl;
   }
 
