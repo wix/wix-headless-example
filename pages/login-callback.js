@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { createClient, OAuthStrategy } from '@wix/api-client';
+import { useEffect, useState } from 'react';
 
 const myWixClient = createClient({
   auth: OAuthStrategy({
@@ -8,8 +9,11 @@ const myWixClient = createClient({
   })
 });
 
-async function verifyLogin() {
-  if (typeof window !== 'undefined') {
+export default function Home() {
+  const [nextPage, setNextPage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  async function verifyLogin() {
     const { code, state } = myWixClient.auth.parseFromUrl();
     const data = JSON.parse(localStorage.getItem('oauthRedirectData'));
     localStorage.removeItem('oauthRedirectData');
@@ -21,12 +25,22 @@ async function verifyLogin() {
     } catch {
       //
     }
-    window.location = data?.originalUri || '/';
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('error')) {
+      setNextPage(data?.originalUri || '/');
+      setErrorMessage(`${params.get('error')}: ${params.get('error_description')}`);
+    } else {
+      window.location = data?.originalUri || '/';
+    }
   }
-}
 
-verifyLogin();
+  useEffect(() => { verifyLogin(); }, []);
 
-export default function Home() {
-  return <>Loading...</>;
+  return (
+    <div>
+      {errorMessage && <><span>{errorMessage}</span><br /><br /></>}
+      {nextPage ? <a href={nextPage}>Continue</a> : <>Loading...</>}
+    </div>
+  );
 }
