@@ -31,9 +31,8 @@ export default function Booking() {
   }
 
   async function createRedirect(slotAvailability) {
-    const serviceId = slotAvailability.slot.serviceId;
     const redirect = await myWixClient.redirects.createRedirectSession({
-      bookingsCheckout: { serviceId, slotAvailability, timezone: 'UTC' },
+      bookingsCheckout: { slotAvailability, timezone: 'UTC' },
       callbacks: { postFlowUrl: window.location.href }
     });
     window.location = redirect.redirectSession.fullUrl;
