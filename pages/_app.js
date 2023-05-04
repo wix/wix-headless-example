@@ -14,9 +14,9 @@ const myWixClient = createClient({
 
 const inter = Inter({ subsets: ['latin'] });
 
-// myWixClient.items.queryDataItems({ dataCollectionId: 'examples' }).find().then(records => {
-//   console.log(records);
-// });
+myWixClient.items.queryDataItems({ dataCollectionId: 'examples' }).find().then(records => {
+  console.log(records);
+});
 
 export default function App({ Component, pageProps }) {
   return (
