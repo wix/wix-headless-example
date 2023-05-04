@@ -19,6 +19,7 @@ const myWixClient = createClient({
 export default function Store() {
   const [productList, setProductList] = useState([]);
   const [cart, setCart] = useState({});
+  const [member, setMember] = useState({});
 
   async function fetchProducts() {
     const productList = await myWixClient.products.queryProducts().find();
@@ -68,8 +69,8 @@ export default function Store() {
 
   async function fetchMember() {
     if (myWixClient.auth.loggedIn()) {
-      const member = await myWixClient.members.getMyMember();
-      console.log('member', member);
+      const { member } = await myWixClient.members.getMyMember();
+      setMember(member);
     }
   }
 
@@ -88,9 +89,9 @@ export default function Store() {
       <div>
         <h2>Cart:</h2>
         {cart.lineItems?.length > 0 && <>
-          <div className={styles.card} onClick={() => login()}>
-            <h3>current member name</h3>
-            <span>Login</span>
+          <div className={styles.card} onClick={() => myWixClient.auth.loggedIn() ? logout() : login()}>
+            <h3>Hello {myWixClient.auth.loggedIn() ? member.profile.nickname || member.profile.slug || '' : 'visitor'},</h3>
+            <span>{myWixClient.auth.loggedIn() ? 'Logout' : 'Login'}</span>
           </div>
           <div className={styles.card} onClick={() => createRedirect()}>
             <h3>{cart.lineItems.length} items ({cart.subtotal.formattedAmount})</h3>

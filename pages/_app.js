@@ -6,6 +6,7 @@ import styles from '@/styles/Home.module.css'
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { collections, items } from '@wix/data';
+import { useEffect, useState } from 'react'
 
 const myWixClient = createClient({
   modules: { collections, items },
@@ -14,11 +15,16 @@ const myWixClient = createClient({
 
 const inter = Inter({ subsets: ['latin'] });
 
-myWixClient.items.queryDataItems({ dataCollectionId: 'examples' }).find().then(records => {
-  console.log(records);
-});
-
 export default function App({ Component, pageProps }) {
+  const [examples, setExamples] = useState([]);
+
+  async function fetchExamples() {
+    const examples = await myWixClient.items.queryDataItems({ dataCollectionId: 'examples' }).ascending('orderId').find();
+    setExamples(examples.items);
+  }
+
+  useEffect(() => { fetchExamples(); }, []);
+
   return (
     <>
       <Head>
@@ -29,22 +35,12 @@ export default function App({ Component, pageProps }) {
       <main className={`${styles.main} ${inter.className}`}>
         <Component {...pageProps} />
         <div className={styles.grid}>
-          <Link href="/booking" className={styles.card}>
-            <h2>Booking <span>-&gt;</span></h2>
-            <p>Blah blah.</p>
-          </Link>
-          <Link href="/store" className={styles.card}>
-            <h2>Store <span>-&gt;</span></h2>
-            <p>Blah blah.</p>
-          </Link>
-          <Link href="/tickets" className={styles.card}>
-            <h2>Tickets <span>-&gt;</span></h2>
-            <p>Blah blah.</p>
-          </Link>
-          <Link href="/subscriptions" className={styles.card}>
-            <h2>Subscriptions <span>-&gt;</span></h2>
-            <p>Blah blah.</p>
-          </Link>
+          {examples.map((example) => (
+            <Link href={example.data.slug} className={styles.card} key={example._id}>
+              <h2>{example.data.title} <span>-&gt;</span></h2>
+              <p>{example.data.description}</p>
+            </Link>
+          ))}
         </div>
       </main>
     </>
