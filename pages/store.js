@@ -60,10 +60,7 @@ export default function Store() {
   }
 
   async function login() {
-    const data = myWixClient.auth.generateOAuthData(
-      window.location.origin + '/login',
-      window.location.href
-    );
+    const data = myWixClient.auth.generateOAuthData(`${window.location.origin}/login-callback`, window.location.href);
     localStorage.setItem('oauthRedirectData', JSON.stringify(data));
     const { authUrl } = await myWixClient.auth.getAuthUrl(data);
     window.location = authUrl;

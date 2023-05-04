@@ -1,5 +1,4 @@
 import Cookies from 'js-cookie';
-
 import { createClient, OAuthStrategy } from '@wix/api-client';
 
 const myWixClient = createClient({
@@ -29,5 +28,5 @@ async function verifyLogin() {
 verifyLogin();
 
 export default function Home() {
-  return <>...</>;
+  return <>Loading...</>;
 }
