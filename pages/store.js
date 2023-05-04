@@ -25,7 +25,6 @@ async function verifyLogin() {
       console.log(tokens);
       myWixClient.auth.setTokens(tokens);
     }
-    console.log(returnedOAuthData);
   }
 }
 
