@@ -68,7 +68,8 @@ export default function Store() {
   }
 
   async function logout() {
-    window.location = await myWixClient.auth.logout(window.location.href);
+    const { logoutUrl } = await myWixClient.auth.logout(window.location.href);
+    window.location = logoutUrl;
   }
 
   async function fetchMember() {
