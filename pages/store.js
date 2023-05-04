@@ -14,6 +14,21 @@ const myWixClient = createClient({
     tokens: JSON.parse(Cookies.get('session') || '{}')
   })
 });
+verifyLogin();
+
+async function verifyLogin() {
+  if (typeof window !== 'undefined') {
+    const { code, state } = myWixClient.auth.parseFromUrl();
+    if (code && state) {
+      const data = JSON.parse(localStorage.getItem('oauthRedirectData'));
+      const tokens = await myWixClient.auth.getMemberTokens(code, state, data);
+      console.log(tokens);
+      myWixClient.auth.setTokens(tokens);
+    }
+    console.log(returnedOAuthData);
+  }
+}
+
 
 export default function Store() {
   const [productList, setProductList] = useState([]);
@@ -59,7 +74,10 @@ export default function Store() {
   }
 
   async function login() {
-    const data = myWixClient.auth.generateOAuthData(window.location.origin, window.location.href);
+    const data = myWixClient.auth.generateOAuthData(
+      window.location.origin + window.location.pathname,
+      window.location.href
+    );
     localStorage.setItem('oauthRedirectData', JSON.stringify(data));
     const { authUrl } = await myWixClient.auth.getAuthUrl(data);
     window.location = authUrl;
