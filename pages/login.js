@@ -12,14 +12,17 @@ const myWixClient = createClient({
 async function verifyLogin() {
   if (typeof window !== 'undefined') {
     const { code, state } = myWixClient.auth.parseFromUrl();
-    if (code && state) {
-      const data = JSON.parse(localStorage.getItem('oauthRedirectData'));
+    const data = JSON.parse(localStorage.getItem('oauthRedirectData'));
+    localStorage.removeItem('oauthRedirectData');
+
+    try {
       const tokens = await myWixClient.auth.getMemberTokens(code, state, data);
-      console.log(tokens);
       myWixClient.auth.setTokens(tokens);
       Cookies.set('session', JSON.stringify(myWixClient.auth.getTokens()));
-      window.location = data.originalUri || '/';
+    } catch {
+      //
     }
+    window.location = data?.originalUri || '/';
   }
 }
 
