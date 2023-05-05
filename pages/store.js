@@ -8,15 +8,16 @@ import { currentCart } from '@wix/ecom';
 import { members } from '@wix/members';
 import { redirects } from '@wix/redirects';
 
-const myWixClient = createClient({
-  modules: { products, currentCart, redirects, members },
-  auth: OAuthStrategy({
-    clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849`,
-    tokens: JSON.parse(Cookies.get('session') || '{}')
-  })
-});
+export async function getServerSideProps({ req }) {
+  return { props: { tokens: JSON.parse(req.headers['x-wix-session']) } };
+}
 
-export default function Store() {
+export default function Store({ tokens }) {
+  const myWixClient = createClient({
+    modules: { products, currentCart, redirects, members },
+    auth: OAuthStrategy({ clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849`, tokens })
+  });
+
   const [productList, setProductList] = useState([]);
   const [cart, setCart] = useState({});
   const [member, setMember] = useState({});
@@ -94,10 +95,6 @@ export default function Store() {
       <div>
         <h2>Cart:</h2>
         {cart.lineItems?.length > 0 && <>
-          <div className={styles.card} onClick={() => myWixClient.auth.loggedIn() ? logout() : login()}>
-            <h3>Hello {myWixClient.auth.loggedIn() ? member?.profile?.nickname || member?.profile?.slug || '' : 'visitor'},</h3>
-            <span>{myWixClient.auth.loggedIn() ? 'Logout' : 'Login'}</span>
-          </div>
           <div className={styles.card} onClick={() => createRedirect()}>
             <h3>{cart.lineItems.length} items ({cart.subtotal.formattedAmount})</h3>
             <span>Checkout</span>
@@ -106,6 +103,13 @@ export default function Store() {
             <span>Clear cart</span>
           </div>
         </>}
+      </div>
+      <div>
+        <h2>Auth:</h2>
+        <div className={styles.card} onClick={() => myWixClient.auth.loggedIn() ? logout() : login()}>
+          <h3>Hello {myWixClient.auth.loggedIn() ? member?.profile?.nickname || member?.profile?.slug || '' : 'visitor'},</h3>
+          <span>{myWixClient.auth.loggedIn() ? 'Logout' : 'Login'}</span>
+        </div>
       </div>
     </div>
   )

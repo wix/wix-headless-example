@@ -18,20 +18,23 @@ export default function Home() {
     const data = JSON.parse(localStorage.getItem('oauthRedirectData'));
     localStorage.removeItem('oauthRedirectData');
 
-    try {
-      const tokens = await myWixClient.auth.getMemberTokens(code, state, data);
-      myWixClient.auth.setTokens(tokens);
-      Cookies.set('session', JSON.stringify(myWixClient.auth.getTokens()));
-    } catch {
-      //
-    }
-
     const params = new URLSearchParams(window.location.search);
     if (params.get('error')) {
       setNextPage(data?.originalUri || '/');
       setErrorMessage(`${params.get('error')}: ${params.get('error_description')}`);
-    } else {
+      return;
+    }
+
+    try {
+      let tokens = await myWixClient.auth.getMemberTokens(code, state, data);
+      while (!tokens?.refreshToken?.value) {
+        tokens = await myWixClient.auth.getMemberTokens(code, state, data);
+      }
+      Cookies.set('session', JSON.stringify(tokens));
       window.location = data?.originalUri || '/';
+    } catch (e) {
+      setNextPage(data?.originalUri || '/');
+      setErrorMessage(e.toString());
     }
   }
 
