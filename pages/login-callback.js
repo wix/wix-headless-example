@@ -14,22 +14,12 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState(null);
 
   async function verifyLogin() {
-    const { code, state } = myWixClient.auth.parseFromUrl();
     const data = JSON.parse(localStorage.getItem('oauthRedirectData'));
     localStorage.removeItem('oauthRedirectData');
 
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('error')) {
-      setNextPage(data?.originalUri || '/');
-      setErrorMessage(`${params.get('error')}: ${params.get('error_description')}`);
-      return;
-    }
-
     try {
-      let tokens = await myWixClient.auth.getMemberTokens(code, state, data);
-      while (!tokens?.refreshToken?.value) {
-        tokens = await myWixClient.auth.getMemberTokens(code, state, data);
-      }
+      const { code, state } = myWixClient.auth.parseFromUrl();
+      const tokens = await myWixClient.auth.getMemberTokens(code, state, data);
       Cookies.set('session', JSON.stringify(tokens));
       window.location = data?.originalUri || '/';
     } catch (e) {

@@ -5,11 +5,11 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
-import { collections, items } from '@wix/data';
+import { items } from '@wix/data';
 import { useEffect, useState } from 'react'
 
 const myWixClient = createClient({
-  modules: { collections, items },
+  modules: { items },
   auth: OAuthStrategy({ clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849` })
 });
 
