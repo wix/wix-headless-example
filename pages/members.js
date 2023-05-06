@@ -1,9 +1,9 @@
-import styles from '@/styles/style.module.css'
 import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import styles from '@/styles/pages.module.css'
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { members } from '@wix/members';
-import { useEffect, useState } from 'react';
 
 const myWixClient = createClient({
   modules: { members },

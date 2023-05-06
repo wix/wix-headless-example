@@ -1,10 +1,10 @@
 import Link from 'next/link'
-import styles from '@/styles/style.module.css'
 import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import styles from '@/styles/pages.module.css'
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { items } from '@wix/data';
-import { useEffect, useState } from 'react';
 
 const myWixClient = createClient({
   modules: { items },

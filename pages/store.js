@@ -1,6 +1,6 @@
-import styles from '@/styles/style.module.css'
-import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import styles from '@/styles/pages.module.css'
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { products } from '@wix/stores';

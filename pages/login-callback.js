@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
-import { createClient, OAuthStrategy } from '@wix/api-client';
 import { useEffect, useState } from 'react';
+import { createClient, OAuthStrategy } from '@wix/api-client';
 
 const myWixClient = createClient({
   auth: OAuthStrategy({

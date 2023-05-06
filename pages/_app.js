@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import '@/styles/globals.css'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/style.module.css'
+
+import '@/styles/globals.css'
+import styles from '@/styles/pages.module.css'
 
 import LoginBar from './members';
 import Footer from './content';
