@@ -12,3 +12,9 @@ export async function middleware(request) {
   response.headers.set('x-wix-session', tokens);
   return response;
 }
+
+export const config = {
+  unstable_allowDynamic: [
+    '**/node_modules/lodash/lodash.js',
+  ],
+};
