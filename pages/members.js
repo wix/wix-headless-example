@@ -3,21 +3,23 @@ import Cookies from 'js-cookie';
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { members } from '@wix/members';
+import { useEffect, useState } from 'react';
 
-export async function getServerSideProps({ req }) {
-  const tokens = JSON.parse(req.headers['x-wix-session']); // this header is set in middleware.js
-  const myWixClient = createClient({
-    modules: { members },
-    auth: OAuthStrategy({ clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849`, tokens })
-  });
-  const { member } = myWixClient.auth.loggedIn() ? await myWixClient.members.getMyMember() : {};
-  return { props: { tokens, member: member || null } };
-}
+const myWixClient = createClient({
+  modules: { members },
+  auth: OAuthStrategy({
+    clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849`,
+    tokens: JSON.parse(Cookies.get('session') || '{}')
+  })
+});
 
-export default function Store({ tokens, member }) {
-  const myWixClient = createClient({
-    auth: OAuthStrategy({ clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849`, tokens })
-  });
+export default function Store() {
+  const [member, setMember] = useState(null);
+
+  async function fetchMember() {
+    const { member } = myWixClient.auth.loggedIn() ? await myWixClient.members.getMyMember() : {};
+    setMember(member || undefined);
+  }
 
   async function login() {
     const data = myWixClient.auth.generateOAuthData(`${window.location.origin}/login-callback`, window.location.href);
@@ -32,14 +34,16 @@ export default function Store({ tokens, member }) {
     window.location = logoutUrl;
   }
 
+  useEffect(() => { fetchMember(); }, []);
+
   return (
     <div className={styles.grid}>
       <div>
         <h2>Auth:</h2>
-        <div className={styles.card} onClick={() => myWixClient.auth.loggedIn() ? logout() : login()}>
-          <h3>Hello {myWixClient.auth.loggedIn() ? member?.profile?.nickname || member?.profile?.slug || '' : 'visitor'},</h3>
+        {member !== null && <div className={styles.card} onClick={() => myWixClient.auth.loggedIn() ? logout() : login()}>
+          <h3>Hello {myWixClient.auth.loggedIn() ? member.profile?.nickname || member.profile?.slug || '' : 'visitor'},</h3>
           <span>{myWixClient.auth.loggedIn() ? 'Logout' : 'Login'}</span>
-        </div>
+        </div>}
       </div>
     </div>
   )
