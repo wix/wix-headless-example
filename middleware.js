@@ -10,3 +10,9 @@ export async function middleware(request) {
     return response;
   }
 }
+
+export const config = {
+  unstable_allowDynamic: [
+    '**/node_modules/lodash/lodash.js',
+  ],
+};
