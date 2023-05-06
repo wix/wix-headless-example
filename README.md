@@ -1,3 +1,5 @@
+# Wix Headless Examples
+
 This is a [Next.js](https://nextjs.org/) project demonstrating (extremely) basic/naive usage of Wix Headless APIs.
 In implementing the examples here we greatly preferred simplicity and readability over feature richness, performance and completeness.
 It can be a good reference for creating quickly bootstrapping a Wix Headless application, but should not be a reference for best practice usage.
