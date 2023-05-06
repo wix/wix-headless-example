@@ -13,7 +13,7 @@ const myWixClient = createClient({
   })
 });
 
-export default function Store() {
+export default function LoginBar() {
   const [member, setMember] = useState(null);
 
   async function fetchMember() {
@@ -37,14 +37,11 @@ export default function Store() {
   useEffect(() => { fetchMember(); }, []);
 
   return (
-    <div className={styles.grid}>
-      <div>
-        <h2>Auth:</h2>
-        {member !== null && <div className={styles.card} onClick={() => myWixClient.auth.loggedIn() ? logout() : login()}>
-          <h3>Hello {myWixClient.auth.loggedIn() ? member.profile?.nickname || member.profile?.slug || '' : 'visitor'},</h3>
-          <span>{myWixClient.auth.loggedIn() ? 'Logout' : 'Login'}</span>
-        </div>}
-      </div>
+    <div>
+      {member !== null && <div className={styles.card} onClick={() => myWixClient.auth.loggedIn() ? logout() : login()}>
+        <h3>Hello {myWixClient.auth.loggedIn() ? member.profile?.nickname || member.profile?.slug || '' : 'visitor'},</h3>
+        <span>{myWixClient.auth.loggedIn() ? 'Logout' : 'Login'}</span>
+      </div>}
     </div>
   )
 }
