@@ -20,7 +20,10 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 The following files demonstrate usage of Wix Headless APIs:
-* Authentication: [pages/members.js](./pages/members.js)
+* Authentication: 
+  * Login/Logout button: [pages/members.js](./pages/members.js)
+  * Login callback page: [pages/login-callback.js](./pages/login-callback.js)
+  * Visitor cookie generation: [middleware.js](./middleware.js)
 * Headless CMS: [pages/content.js](./pages/content.js)
 * Headless Booking: [pages/booking.js](./pages/booking.js)
 * Headless Store: [pages/store.js](./pages/store.js)
