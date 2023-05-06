@@ -21,8 +21,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 The following files demonstrate usage of Wix Headless APIs:
 * Authentication: [pages/members.js](./pages/members.js)
-* Headless CMS: [pages/members.js](./pages/content.js)
-* Headless Booking: [pages/members.js](./pages/booking.js)
-* Headless Store: [pages/members.js](./pages/store.js)
-* Headless Tickets: [pages/members.js](./pages/tickets.js)
-* Headless Subscriptions: [pages/members.js](./pages/subscriptions.js)
+* Headless CMS: [pages/content.js](./pages/content.js)
+* Headless Booking: [pages/booking.js](./pages/booking.js)
+* Headless Store: [pages/store.js](./pages/store.js)
+* Headless Tickets: [pages/tickets.js](./pages/tickets.js)
+* Headless Subscriptions: [pages/subscriptions.js](./pages/subscriptions.js)
