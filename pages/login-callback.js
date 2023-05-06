@@ -19,7 +19,10 @@ export default function Home() {
 
     try {
       const { code, state } = myWixClient.auth.parseFromUrl();
-      const tokens = await myWixClient.auth.getMemberTokens(code, state, data);
+      let tokens = await myWixClient.auth.getMemberTokens(code, state, data);
+      while (!tokens?.refreshToken?.value) {
+        tokens = await myWixClient.auth.getMemberTokens(code, state, data);
+      }
       Cookies.set('session', JSON.stringify(tokens));
       window.location = data?.originalUri || '/';
     } catch (e) {
