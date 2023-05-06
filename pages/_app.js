@@ -19,15 +19,15 @@ export default function App({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.description}>
-          <div>
+        <div className={styles.content}>
+          <div className={styles.header}>
             <Link href="/">
-              <Image src="/wix.svg" alt="Wix Logo" className={styles.vercelLogo} width={88} height={34} priority />
+              <Image src="/wix.svg" alt="Wix Logo" width={88} height={34} priority />
             </Link>
+            <LoginBar />
           </div>
-          <LoginBar />
+          <Component {...pageProps} />
         </div>
-        <Component {...pageProps} />
         <Footer />
       </main>
     </>
