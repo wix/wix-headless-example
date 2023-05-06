@@ -23,7 +23,7 @@ export default function Store({ tokens, member }) {
     const data = myWixClient.auth.generateOAuthData(`${window.location.origin}/login-callback`, window.location.href);
     localStorage.setItem('oauthRedirectData', JSON.stringify(data));
     const { authUrl } = await myWixClient.auth.getAuthUrl(data);
-    window.location = authUrl;
+    window.location = authUrl; // wix auth will send the user back to the callback page (login-callback.js)
   }
 
   async function logout() {
