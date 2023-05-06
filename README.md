@@ -1,38 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project demonstrating (extremely) basic/naive usage of Wix Headless APIs.
+In implementing the examples here we greatly preferred simplicity and readability over feature richness, performance and completeness.
+It can be a good reference for creating quickly bootstrapping a Wix Headless application, but should not be a reference for best practice usage.
+
+For a deeper example of how to integrate with Wix headless we recommend looking into our [stater templates](https://www.wix.com/developers/headless/templates)
+
+The latest version of this repo is deployed at: [https://wix-headless-example.vercel.app/](https://wix-headless-example.vercel.app/) but we recommend cloning it and playing with it locally.
 
 ## Getting Started
 
 First, run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The following files demonstrate usage of Wix Headless APIs:
+* Authentication: [pages/members.js](./pages/members.js)
+* Headless CMS: [pages/members.js](./pages/content.js)
+* Headless Booking: [pages/members.js](./pages/booking.js)
+* Headless Store: [pages/members.js](./pages/store.js)
+* Headless Tickets: [pages/members.js](./pages/tickets.js)
+* Headless Subscriptions: [pages/members.js](./pages/subscriptions.js)
