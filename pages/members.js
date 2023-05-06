@@ -1,4 +1,4 @@
-import styles from '@/styles/Home.module.css'
+import styles from '@/styles/style.module.css'
 import Cookies from 'js-cookie';
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
@@ -9,7 +9,7 @@ const myWixClient = createClient({
   modules: { members },
   auth: OAuthStrategy({
     clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849`,
-    tokens: JSON.parse(Cookies.get('session') || '{}')
+    tokens: JSON.parse(Cookies.get('session') || null)
   })
 });
 
