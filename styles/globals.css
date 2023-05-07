@@ -115,6 +115,7 @@ section {
   background: rgba(var(--card-rgb), 0);
   border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
+  cursor: pointer;
 }
 
 section span {
