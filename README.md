@@ -4,7 +4,7 @@ This [Next.js](https://nextjs.org/) project provides a minimal example site to d
 
 For a more comprehensive example of Wix Headless integration, we recommend checking out our [stater templates](https://www.wix.com/developers/headless/templates).
 
-You can view the latest version of this repo deployed at https://wix-headless-example.vercel.app/, but we recommend cloning it and experimenting with it locally.
+You can view the latest version of this repo deployed at [https://wix-headless-example.vercel.app/](https://wix-headless-example.vercel.app/), but we recommend cloning it and experimenting with it locally.
 
 ## Getting Started
 
