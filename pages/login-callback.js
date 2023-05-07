@@ -34,9 +34,9 @@ export default function Home() {
   useEffect(() => { verifyLogin(); }, []);
 
   return (
-    <div>
+    <article>
       {errorMessage && <><span>{errorMessage}</span><br /><br /></>}
       {nextPage ? <a href={nextPage}>Continue</a> : <>Loading...</>}
-    </div>
+    </article>
   );
 }
