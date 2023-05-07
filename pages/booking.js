@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
-import styles from '@/styles/pages.module.css'
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { availabilityCalendar, services } from '@wix/bookings';
@@ -45,19 +44,19 @@ export default function Booking() {
   useEffect(() => { fetchServices(); }, []);
 
   return (
-    <div className={styles.grid}>
+    <main>
       <div>
         <h2>Choose Service:</h2>
         {serviceList.map((service) => {
-          return <div className={styles.card} key={service._id} onClick={() => fetchAvailability(service)}>{service.name}</div>;
+          return <section key={service._id} onClick={() => fetchAvailability(service)}>{service.name}</section>;
         })}
       </div>
       <div>
         <h2>Choose Slot:</h2>
         {availabilityEntries.map((entry) => {
-          return <div className={styles.card} key={entry.slot.startDate} onClick={() => createRedirect(entry)}>{entry.slot.startDate}</div>;
+          return <section key={entry.slot.startDate} onClick={() => createRedirect(entry)}>{entry.slot.startDate}</section>;
         })}
       </div>
-    </div>
+    </main>
   )
 }

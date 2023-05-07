@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
 import '@/styles/globals.css'
-import styles from '@/styles/pages.module.css'
+import styles from '@/styles/app.module.css'
 
 import LoginBar from './members';
 import Footer from './content';
@@ -19,18 +19,18 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
+      <div className={`${styles.main} ${inter.className}`}>
         <div className={styles.content}>
-          <div className={styles.header}>
+          <header>
             <Link href="/">
               <Image src="/wix.svg" alt="Wix Logo" width={88} height={34} priority />
             </Link>
             <LoginBar />
-          </div>
+          </header>
           <Component {...pageProps} />
         </div>
         <Footer />
-      </main>
+      </div>
     </>
   );
 }

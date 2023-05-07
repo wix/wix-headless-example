@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
-import styles from '@/styles/pages.module.css'
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { plans } from '@wix/pricing-plans';
@@ -33,13 +32,13 @@ export default function Subscriptions() {
   useEffect(() => { fetchPlans(); }, []);
 
   return (
-    <div className={styles.grid}>
+    <main>
       <div>
         <h2>Choose Plan:</h2>
         {planList.map((plan) => {
-          return <div className={styles.card} key={plan._id} onClick={() => createRedirect(plan)}>{plan.name}</div>;
+          return <section key={plan._id} onClick={() => createRedirect(plan)}>{plan.name}</section>;
         })}
       </div>
-    </div>
+    </main>
   )
 }

@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
-import styles from '@/styles/pages.module.css'
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { products } from '@wix/stores';
@@ -62,25 +61,25 @@ export default function Store() {
   useEffect(() => { fetchCart() }, []);
 
   return (
-    <div className={styles.grid}>
+    <main>
       <div>
         <h2>Choose Products:</h2>
         {productList.map((product) => {
-          return <div className={styles.card} key={product._id} onClick={() => addToCart(product)}>{product.name}</div>;
+          return <section key={product._id} onClick={() => addToCart(product)}>{product.name}</section>;
         })}
       </div>
       <div>
         <h2>Cart:</h2>
         {cart.lineItems?.length > 0 && <>
-          <div className={styles.card} onClick={() => createRedirect()}>
+          <section onClick={() => createRedirect()}>
             <h3>{cart.lineItems.length} items ({cart.subtotal.formattedAmount})</h3>
             <span>Checkout</span>
-          </div>
-          <div className={styles.card} onClick={() => clearCart()}>
+          </section>
+          <section onClick={() => clearCart()}>
             <span>Clear cart</span>
-          </div>
+          </section>
         </>}
       </div>
-    </div>
+    </main>
   )
 }

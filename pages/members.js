@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
-import styles from '@/styles/pages.module.css'
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { members } from '@wix/members';
@@ -38,10 +37,10 @@ export default function LoginBar() {
 
   return (
     <div>
-      {member !== null && <div className={styles.card} onClick={() => myWixClient.auth.loggedIn() ? logout() : login()}>
+      {member !== null && <section onClick={() => myWixClient.auth.loggedIn() ? logout() : login()}>
         <h3>Hello {myWixClient.auth.loggedIn() ? member.profile?.nickname || member.profile?.slug || '' : 'visitor'},</h3>
         <span>{myWixClient.auth.loggedIn() ? 'Logout' : 'Login'}</span>
-      </div>}
+      </section>}
     </div>
   )
 }

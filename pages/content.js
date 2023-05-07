@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
-import styles from '@/styles/pages.module.css'
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { items } from '@wix/data';
@@ -25,13 +24,15 @@ export default function Footer() {
   useEffect(() => { fetchExamples(); }, []);
 
   return (
-    <div className={styles.grid}>
+    <footer>
       {examples.map((example) => (
-        <Link href={example.data.slug} className={styles.card} key={example._id}>
-          <h2>{example.data.title} <span>-&gt;</span></h2>
-          <p>{example.data.description}</p>
+        <Link href={example.data.slug} key={example._id}>
+          <section>
+            <h2>{example.data.title} <span>-&gt;</span></h2>
+            <p>{example.data.description}</p>
+          </section>
         </Link>
       ))}
-    </div>
+    </footer>
   )
 }

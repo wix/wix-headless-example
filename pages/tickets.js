@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
-import styles from '@/styles/pages.module.css'
 
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { wixEvents, checkout } from '@wix/events';
@@ -49,19 +48,19 @@ export default function Tickets() {
   useEffect(() => { fetchEvents(); }, []);
 
   return (
-    <div className={styles.grid}>
+    <main>
       <div>
         <h2>Choose Event:</h2>
         {eventsList.map((event) => {
-          return <div className={styles.card} key={event._id} onClick={() => fetchTicketsAvailability(event)}>{event.title}</div>;
+          return <section key={event._id} onClick={() => fetchTicketsAvailability(event)}>{event.title}</section>;
         })}
       </div>
       <div>
         <h2>Choose Tickets:</h2>
         {ticketsAvailability.map((ticket) => {
-          return <div className={styles.card} key={ticket._id} onClick={() => createRedirect(ticket)}>{ticket.name}</div>;
+          return <section key={ticket._id} onClick={() => createRedirect(ticket)}>{ticket.name}</section>;
         })}
       </div>
-    </div>
+    </main>
   )
 }
