@@ -4,11 +4,10 @@ import { useEffect, useState } from 'react';
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { products } from '@wix/stores';
 import { currentCart } from '@wix/ecom';
-import { members } from '@wix/members';
 import { redirects } from '@wix/redirects';
 
 const myWixClient = createClient({
-  modules: { products, currentCart, redirects, members },
+  modules: { products, currentCart, redirects },
   auth: OAuthStrategy({
     clientId: `10c1663b-2cdf-47c5-a3ef-30c2e8543849`,
     tokens: JSON.parse(Cookies.get('session') || null)
