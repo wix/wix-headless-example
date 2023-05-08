@@ -50,13 +50,13 @@ export default function Tickets() {
   return (
     <main>
       <div>
-        <h2>Choose Event:</h2>
+        <h2>Choose an Event:</h2>
         {eventsList.map((event) => {
           return <section key={event._id} onClick={() => fetchTicketsAvailability(event)}>{event.title}</section>;
         })}
       </div>
       <div>
-        <h2>Choose Tickets:</h2>
+        <h2>Choose a Ticket:</h2>
         {ticketsAvailability.map((ticket) => {
           return <section key={ticket._id} onClick={() => createRedirect(ticket)}>{ticket.name}</section>;
         })}
