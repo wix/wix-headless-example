@@ -7,7 +7,7 @@ import '@/styles/globals.css'
 import styles from '@/styles/app.module.css'
 
 import LoginBar from './members';
-import Footer from './content';
+import Examples from './content';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }) {
           </header>
           <Component {...pageProps} />
         </div>
-        <Footer />
+        <Examples />
       </div>
     </>
   );

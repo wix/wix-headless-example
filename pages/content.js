@@ -13,7 +13,7 @@ const myWixClient = createClient({
   })
 });
 
-export default function Footer() {
+export default function Examples() {
   const [examples, setExamples] = useState([]);
 
   async function fetchExamples() {
