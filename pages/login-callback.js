@@ -9,7 +9,7 @@ const myWixClient = createClient({
   })
 });
 
-export default function Home() {
+export default function LoginCallback() {
   const [nextPage, setNextPage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
