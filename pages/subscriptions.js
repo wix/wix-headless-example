@@ -34,7 +34,7 @@ export default function Subscriptions() {
   return (
     <main>
       <div>
-        <h2>Choose Plan:</h2>
+        <h2>Choose a Plan:</h2>
         {planList.map((plan) => {
           return <section key={plan._id} onClick={() => createRedirect(plan)}>{plan.name}</section>;
         })}

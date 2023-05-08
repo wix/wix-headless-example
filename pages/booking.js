@@ -46,13 +46,13 @@ export default function Booking() {
   return (
     <main>
       <div>
-        <h2>Choose Service:</h2>
+        <h2>Choose a Service:</h2>
         {serviceList.map((service) => {
           return <section key={service._id} onClick={() => fetchAvailability(service)}>{service.name}</section>;
         })}
       </div>
       <div>
-        <h2>Choose Slot:</h2>
+        <h2>Choose a Slot:</h2>
         {availabilityEntries.map((entry) => {
           return <section key={entry.slot.startDate} onClick={() => createRedirect(entry)}>{entry.slot.startDate}</section>;
         })}
