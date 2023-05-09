@@ -12,7 +12,7 @@
     "extends": "next/core-web-vitals"
   },
   "dependencies": {
-    "@wix/api-client": "^1.1.65",
+    "@wix/api-client": "^1.1.71",
     "@wix/bookings": "^1.0.127",
     "@wix/data": "^1.0.2",
     "@wix/ecom": "^1.0.164",
