@@ -1,16 +1,10 @@
 :root {
   --max-width: 1100px;
-  --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-
-  --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
 }
@@ -28,7 +22,7 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: rgb(0, 0, 0);
   background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
@@ -55,26 +49,24 @@ header {
     display: flex;
     justify-content: center;
     position: fixed;
-    padding: 2rem 1rem 1.4rem;
     background-clip: padding-box;
     backdrop-filter: blur(24px);
     z-index: 1;
   }
 
   header div {
-    align-items: center;
+    padding: 0.5rem;
     inset: 0 0 auto;
-    border-radius: 0;
-    border: none;
-    border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
-    background: linear-gradient(to bottom,
-        rgba(var(--background-start-rgb), 1),
-        rgba(var(--callout-rgb), 0.5));
+    border-bottom: 1px solid rgba(var(--card-border-rgb), 0.25);
+    background: linear-gradient(to top,
+        transparent 0%,
+        rgb(var(--background-start-rgb)) 40%);
   }
 
   header a {
-    align-items: flex-end;
+    padding: 1.5rem;
     inset: auto 0 0;
+    border-top: 1px solid rgba(var(--card-border-rgb), 0.25);
     background: linear-gradient(to bottom,
         transparent 0%,
         rgb(var(--background-end-rgb)) 40%);
@@ -89,18 +81,15 @@ footer {
   max-width: 100%;
 }
 
-/* Mobile */
 @media (max-width: 700px) {
 
   main,
   footer {
     grid-template-columns: 1fr;
-    margin-bottom: 120px;
     text-align: center;
   }
 }
 
-/* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
 
   main,
@@ -111,7 +100,7 @@ footer {
 
 section {
   padding: 1rem 1.2rem;
-  border-radius: var(--border-radius);
+  border-radius: 12px;
   background: rgba(var(--card-rgb), 0);
   border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
