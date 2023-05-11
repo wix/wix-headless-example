@@ -28,3 +28,9 @@ The following files demonstrate the usage of various Wix Headless APIs:
 * Headless Store: [pages/store.js](./pages/store.js)
 * Headless Tickets: [pages/tickets.js](./pages/tickets.js)
 * Headless Subscriptions: [pages/subscriptions.js](./pages/subscriptions.js)
+
+## Packages' dependency management
+
+This repo is preconfigured with [Dependabot](https://docs.github.com/en/code-security/dependabot) (Automated dependency updates built into GitHub).
+Since dependabot creates several PRs, the repo is also preconfigured with a GitHub Action (Combine PRs) which merge all Dependabot's PRs into a single PR so sanity can be performed once.
+<br>(If sanity fails each Dependabot PR can be checked separately)
