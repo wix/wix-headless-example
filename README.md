@@ -32,5 +32,5 @@ The following files demonstrate the usage of various Wix Headless APIs:
 ## Packages' dependency management
 
 This repo is preconfigured with [Dependabot](https://docs.github.com/en/code-security/dependabot) (Automated dependency updates built into GitHub).
-Since dependabot creates several PRs, the repo is also preconfigured with a GitHub Action (Combine PRs) which merge all Dependabot's PRs into a single PR so sanity can be performed once.
+Since dependabot creates several PRs, the repo is also preconfigured with a GitHub Action (`Combine PRs`) which can be executed manually in order to merge all Dependabot's pull requests into a single pull request so sanity can be performed only once.
 <br>(If sanity fails each Dependabot PR can be checked separately)
