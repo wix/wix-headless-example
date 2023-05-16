@@ -54,7 +54,7 @@ export default function Booking() {
       <div>
         <h2>Choose a Slot:</h2>
         {availabilityEntries.map((entry) => {
-          return <section key={entry.slot.startDate} onClick={() => createRedirect(entry)}>{entry.slot.startDate}</section>;
+          return <section key={entry.slot.startDate} onClick={() => createRedirect(entry)}>{new Date(entry.slot.startDate).toLocaleString()}</section>;
         })}
       </div>
     </main>
