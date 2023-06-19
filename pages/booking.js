@@ -29,13 +29,13 @@ export default function Booking() {
 
     const availability = await myWixClient.availabilityCalendar.queryAvailability({
       filter: { serviceId: [service._id], startDate: today.toISOString(), endDate: tomorrow.toISOString() }
-    }, { timezone: Intl.DateTimeFormat().resolvedOptions().timeZone });
+    }, { timezone: 'UTC' });
     setAvailabilityEntries(availability.availabilityEntries);
   }
 
   async function createRedirect(slotAvailability) {
     const redirect = await myWixClient.redirects.createRedirectSession({
-      bookingsCheckout: { slotAvailability, timezone: Intl.DateTimeFormat().resolvedOptions().timeZone },
+      bookingsCheckout: { slotAvailability, timezone: 'UTC' },
       callbacks: { postFlowUrl: window.location.href }
     });
     window.location = redirect.redirectSession.fullUrl;
