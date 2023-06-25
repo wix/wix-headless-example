@@ -11,8 +11,8 @@ You can view the latest version of this repo deployed at [https://wix-headless-e
 First, run the development server:
 
 ```bash
-npm install
-npm run dev
+yarn
+yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.

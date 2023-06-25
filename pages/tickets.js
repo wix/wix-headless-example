@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { wixEvents, checkout } from '@wix/events';
 import { redirects } from '@wix/redirects';
+import testIds from "@/src/utils/test-ids";
 
 const myWixClient = createClient({
   modules: { wixEvents, checkout, redirects },
@@ -48,17 +49,19 @@ export default function Tickets() {
   useEffect(() => { fetchEvents(); }, []);
 
   return (
-    <main>
+    <main data-testid={testIds.EVENTS_PAGE.CONTAINER}>
       <div>
         <h2>Choose an Event:</h2>
         {eventsList.map((event) => {
-          return <section key={event._id} onClick={() => fetchTicketsAvailability(event)}>{event.title}</section>;
+          return <section key={event._id} data-testid={testIds.EVENTS_PAGE.EVENT}
+                          onClick={() => fetchTicketsAvailability(event)}>{event.title}</section>;
         })}
       </div>
       <div>
         <h2>Choose a Ticket:</h2>
         {ticketsAvailability.map((ticket) => {
-          return <section key={ticket._id} onClick={() => createRedirect(ticket)}>{ticket.name}</section>;
+          return <section key={ticket._id} data-testid={testIds.EVENTS_PAGE.TICKET_OPTION}
+                          onClick={() => createRedirect(ticket)}>{ticket.name}</section>;
         })}
       </div>
     </main>

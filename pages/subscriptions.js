@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { plans } from '@wix/pricing-plans';
 import { redirects } from '@wix/redirects';
+import testIds from "@/src/utils/test-ids";
 
 const myWixClient = createClient({
   modules: { plans, redirects },
@@ -32,11 +33,12 @@ export default function Subscriptions() {
   useEffect(() => { fetchPlans(); }, []);
 
   return (
-    <main>
+    <main data-testid={testIds.SUBSCRIPTIONS_PAGE.CONTAINER}>
       <div>
         <h2>Choose a Plan:</h2>
         {planList.map((plan) => {
-          return <section key={plan._id} onClick={() => createRedirect(plan)}>{plan.name}</section>;
+          return <section key={plan._id} data-testid={testIds.SUBSCRIPTIONS_PAGE.PRICING_PLAN}
+                          onClick={() => createRedirect(plan)}>{plan.name}</section>;
         })}
       </div>
     </main>
