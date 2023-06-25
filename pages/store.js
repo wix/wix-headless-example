@@ -5,6 +5,7 @@ import { createClient, OAuthStrategy } from '@wix/api-client';
 import { products } from '@wix/stores';
 import { currentCart } from '@wix/ecom';
 import { redirects } from '@wix/redirects';
+import testIds from "@/src/utils/test-ids";
 
 const myWixClient = createClient({
   modules: { products, currentCart, redirects },
@@ -60,17 +61,18 @@ export default function Store() {
   useEffect(() => { fetchCart() }, []);
 
   return (
-    <main>
+    <main data-testid={testIds.COMMERCE_PAGE.CONTAINER}>
       <div>
         <h2>Choose Products:</h2>
         {productList.map((product) => {
-          return <section key={product._id} onClick={() => addToCart(product)}>{product.name}</section>;
+          return <section data-testid={testIds.COMMERCE_PAGE.PRODUCT} key={product._id}
+                          onClick={() => addToCart(product)}>{product.name}</section>;
         })}
       </div>
       <div>
         <h2>Cart:</h2>
         {cart.lineItems?.length > 0 && <>
-          <section onClick={() => createRedirect()}>
+          <section data-testid={testIds.COMMERCE_PAGE.CHECKOUT} onClick={() => createRedirect()}>
             <h3>{cart.lineItems.length} items ({cart.subtotal.formattedAmount})</h3>
             <span>Checkout</span>
           </section>

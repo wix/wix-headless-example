@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { createClient, OAuthStrategy } from '@wix/api-client';
 import { availabilityCalendar, services } from '@wix/bookings';
 import { redirects } from '@wix/redirects';
+import testIds from "@/src/utils/test-ids";
 
 const myWixClient = createClient({
   modules: { services, availabilityCalendar, redirects },
@@ -44,17 +45,19 @@ export default function Booking() {
   useEffect(() => { fetchServices(); }, []);
 
   return (
-    <main>
+    <main data-testid={testIds.BOOKINGS_PAGE.CONTAINER}>
       <div>
         <h2>Choose a Service:</h2>
         {serviceList.map((service) => {
-          return <section key={service._id} onClick={() => fetchAvailability(service)}>{service.name}</section>;
+          return <section key={service._id} data-testid={testIds.BOOKINGS_PAGE.SERVICE}
+                          onClick={() => fetchAvailability(service)}>{service.name}</section>;
         })}
       </div>
       <div>
         <h2>Choose a Slot:</h2>
         {availabilityEntries.map((entry) => {
-          return <section key={entry.slot.startDate} onClick={() => createRedirect(entry)}>{new Date(entry.slot.startDate).toLocaleString()}</section>;
+          return <section key={entry.slot.startDate} data-testid={testIds.BOOKINGS_PAGE.SLOT}
+                          onClick={() => createRedirect(entry)}>{new Date(entry.slot.startDate).toLocaleString()}</section>;
         })}
       </div>
     </main>
