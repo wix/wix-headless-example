@@ -14,5 +14,6 @@ export async function middleware(request) {
 export const config = {
   unstable_allowDynamic: [
     '**/node_modules/lodash/lodash.js',
+    '**/node_modules/lodash/_root.js',
   ],
 };
