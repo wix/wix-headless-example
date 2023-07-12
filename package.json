@@ -24,9 +24,9 @@
     "@wix/redirects": "^1.0.12",
     "@wix/stores": "^1.0.60",
     "eslint": "8.39.0",
-    "eslint-config-next": "13.3.2",
+    "eslint-config-next": "^13.4.9",
     "js-cookie": "^3.0.5",
-    "next": "13.3.2",
+    "next": "^13.4.9",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
