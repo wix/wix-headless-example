@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 
-import { createClient, OAuthStrategy } from '@wix/api-client';
+import { createClient, OAuthStrategy } from '@wix/sdk';
 import { wixEvents, checkout } from '@wix/events';
 import { redirects } from '@wix/redirects';
 import testIds from "@/src/utils/test-ids";

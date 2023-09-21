@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 
-import { createClient, OAuthStrategy } from '@wix/api-client';
+import { createClient, OAuthStrategy } from '@wix/sdk';
 import { items } from '@wix/data';
 
 const myWixClient = createClient({

@@ -14,7 +14,6 @@
     "extends": "next/core-web-vitals"
   },
   "dependencies": {
-    "@wix/api-client": "^1.1.71",
     "@wix/bookings": "^1.0.127",
     "@wix/data": "^1.0.2",
     "@wix/ecom": "^1.0.164",
@@ -22,6 +21,7 @@
     "@wix/members": "^1.0.12",
     "@wix/pricing-plans": "^1.0.17",
     "@wix/redirects": "^1.0.12",
+    "@wix/sdk": "^1.5.0",
     "@wix/stores": "^1.0.60",
     "eslint": "8.39.0",
     "eslint-config-next": "^13.4.9",
