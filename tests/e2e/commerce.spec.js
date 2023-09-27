@@ -12,6 +12,10 @@ test.describe('eCommerce Flow', () => {
       await page.getByTestId(testIds.COMMERCE_PAGE.CONTAINER)
     ).toBeVisible();
 
+    await expect(
+      await page.getByTestId(testIds.COMMERCE_PAGE.PRODUCT).first()
+    ).toBeVisible();
+
     await page.getByTestId(testIds.COMMERCE_PAGE.PRODUCT).first().click();
 
     const productName = await page.getByTestId(testIds.COMMERCE_PAGE.PRODUCT).first().textContent();
