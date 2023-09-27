@@ -104,10 +104,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/env@npm:13.4.19":
-  version: 13.4.19
-  resolution: "@next/env@npm:13.4.19"
-  checksum: ace4f82890954ade0164fbe2b7ff988268d2b99b2e80caa6707c51fa4cbfaaa31e48fbbcecd4fd142af3503c544e1b4c91e8185d4af253c8fb46550e9e70ad7e
+"@next/env@npm:13.5.2":
+  version: 13.5.2
+  resolution: "@next/env@npm:13.5.2"
+  checksum: f6ef14b7643049dafc2d53b5091e3f74eed0af14743cfd61f1db7782a99e69b5bef63f36ba700034b23656a264c7ec498aac8fa4f9377dad01e544ffa507388f
   languageName: node
   linkType: hard
 
@@ -120,65 +120,65 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-arm64@npm:13.4.19":
-  version: 13.4.19
-  resolution: "@next/swc-darwin-arm64@npm:13.4.19"
+"@next/swc-darwin-arm64@npm:13.5.2":
+  version: 13.5.2
+  resolution: "@next/swc-darwin-arm64@npm:13.5.2"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-x64@npm:13.4.19":
-  version: 13.4.19
-  resolution: "@next/swc-darwin-x64@npm:13.4.19"
+"@next/swc-darwin-x64@npm:13.5.2":
+  version: 13.5.2
+  resolution: "@next/swc-darwin-x64@npm:13.5.2"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-gnu@npm:13.4.19":
-  version: 13.4.19
-  resolution: "@next/swc-linux-arm64-gnu@npm:13.4.19"
+"@next/swc-linux-arm64-gnu@npm:13.5.2":
+  version: 13.5.2
+  resolution: "@next/swc-linux-arm64-gnu@npm:13.5.2"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-musl@npm:13.4.19":
-  version: 13.4.19
-  resolution: "@next/swc-linux-arm64-musl@npm:13.4.19"
+"@next/swc-linux-arm64-musl@npm:13.5.2":
+  version: 13.5.2
+  resolution: "@next/swc-linux-arm64-musl@npm:13.5.2"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-gnu@npm:13.4.19":
-  version: 13.4.19
-  resolution: "@next/swc-linux-x64-gnu@npm:13.4.19"
+"@next/swc-linux-x64-gnu@npm:13.5.2":
+  version: 13.5.2
+  resolution: "@next/swc-linux-x64-gnu@npm:13.5.2"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-musl@npm:13.4.19":
-  version: 13.4.19
-  resolution: "@next/swc-linux-x64-musl@npm:13.4.19"
+"@next/swc-linux-x64-musl@npm:13.5.2":
+  version: 13.5.2
+  resolution: "@next/swc-linux-x64-musl@npm:13.5.2"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-win32-arm64-msvc@npm:13.4.19":
-  version: 13.4.19
-  resolution: "@next/swc-win32-arm64-msvc@npm:13.4.19"
+"@next/swc-win32-arm64-msvc@npm:13.5.2":
+  version: 13.5.2
+  resolution: "@next/swc-win32-arm64-msvc@npm:13.5.2"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-win32-ia32-msvc@npm:13.4.19":
-  version: 13.4.19
-  resolution: "@next/swc-win32-ia32-msvc@npm:13.4.19"
+"@next/swc-win32-ia32-msvc@npm:13.5.2":
+  version: 13.5.2
+  resolution: "@next/swc-win32-ia32-msvc@npm:13.5.2"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@next/swc-win32-x64-msvc@npm:13.4.19":
-  version: 13.4.19
-  resolution: "@next/swc-win32-x64-msvc@npm:13.4.19"
+"@next/swc-win32-x64-msvc@npm:13.5.2":
+  version: 13.5.2
+  resolution: "@next/swc-win32-x64-msvc@npm:13.5.2"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -241,13 +241,13 @@ __metadata:
   linkType: hard
 
 "@playwright/test@npm:^1.34.3":
-  version: 1.38.0
-  resolution: "@playwright/test@npm:1.38.0"
+  version: 1.38.1
+  resolution: "@playwright/test@npm:1.38.1"
   dependencies:
-    playwright: 1.38.0
+    playwright: 1.38.1
   bin:
     playwright: cli.js
-  checksum: 0768b6b98f0993d9d8017e4bcca3a5c3fe1bf0270acaa89b141479c4319c16350d60e6d2511cbd655283942059fa409ce23fce30435f0936f5e2577834f356ba
+  checksum: c5ec0b23261fe1ef163b6234f69263bc10e7e5a3fb676c7773ffc70b87459a7ab225f57c03b9de649475771638a04c2e00d9b2739304a4dcf5d3edf20a7a4a82
   languageName: node
   linkType: hard
 
@@ -258,12 +258,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/helpers@npm:0.5.1":
-  version: 0.5.1
-  resolution: "@swc/helpers@npm:0.5.1"
+"@swc/helpers@npm:0.5.2":
+  version: 0.5.2
+  resolution: "@swc/helpers@npm:0.5.2"
   dependencies:
     tslib: ^2.4.0
-  checksum: 71e0e27234590435e4c62b97ef5e796f88e786841a38c7116a5e27a3eafa7b9ead7cdec5249b32165902076de78446945311c973e59bddf77c1e24f33a8f272a
+  checksum: 51d7e3d8bd56818c49d6bfbd715f0dbeedc13cf723af41166e45c03e37f109336bbcb57a1f2020f4015957721aeb21e1a7fff281233d797ff7d3dd1f447fa258
   languageName: node
   linkType: hard
 
@@ -345,13 +345,13 @@ __metadata:
   linkType: hard
 
 "@wix/bookings@npm:^1.0.127":
-  version: 1.0.256
-  resolution: "@wix/bookings@npm:1.0.256"
+  version: 1.0.261
+  resolution: "@wix/bookings@npm:1.0.261"
   dependencies:
     "@wix/metro-runtime": ^1.0.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.0
     "@wix/sdk-types": ^1.0.0
-  checksum: 3f5d828e020760edd52af078aa3b965f9b4ddf3f30396578dd7b420ee15ca7fa5f95ddc9e4c9066d8b37ac8602058369ce2fda627701b3e1f0327290619913c4
+  checksum: 67116c6b4d584ecfd9399c27dc0b02b70825677b898d1a52c088fa5db0e811b83fa46a3cdf02caf8d4b9345e5ab6b4c7c172c640450b4e1009ccd662526784e7
   languageName: node
   linkType: hard
 
@@ -367,24 +367,24 @@ __metadata:
   linkType: hard
 
 "@wix/ecom@npm:^1.0.164":
-  version: 1.0.356
-  resolution: "@wix/ecom@npm:1.0.356"
+  version: 1.0.358
+  resolution: "@wix/ecom@npm:1.0.358"
   dependencies:
     "@wix/metro-runtime": ^1.0.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.0
     "@wix/sdk-types": ^1.0.0
-  checksum: 3035b719ead3bcd979e239cd43678dc6ea5505298233527c55eb46c11491fe4b7d315340edc5ea3f376edf718f8848d9499a87c8e1d986e34d7d7d088c4cc758
+  checksum: 170bc623663d9c81d48b46e3ae6fc130d04389012af454ba1430e2bd3ee6a5fbe17668dc26c9398207233590b6c3e743f62f2a51ac87725071395f12249f9161
   languageName: node
   linkType: hard
 
 "@wix/events@npm:^1.0.80":
-  version: 1.0.117
-  resolution: "@wix/events@npm:1.0.117"
+  version: 1.0.122
+  resolution: "@wix/events@npm:1.0.122"
   dependencies:
     "@wix/metro-runtime": ^1.0.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.0
     "@wix/sdk-types": ^1.0.0
-  checksum: afedad83c7b3b7a16bcaa22ab025371620885b3194585a346918b15a950922833b24ed50be5c3cdf37f59b3fcce0e6a45d632c59f74d003c0e8f3fc6b8455dc5
+  checksum: 100ec7f7bb9d9c5cb03f8e23e879d922d0692fafde3f7848a920537101fda206ed65e15c9515aeb12ad1b3ad68c3bbb995d29b970d9b7502029c9da40a868f87
   languageName: node
   linkType: hard
 
@@ -421,13 +421,13 @@ __metadata:
   linkType: hard
 
 "@wix/members@npm:^1.0.12":
-  version: 1.0.30
-  resolution: "@wix/members@npm:1.0.30"
+  version: 1.0.36
+  resolution: "@wix/members@npm:1.0.36"
   dependencies:
     "@wix/metro-runtime": ^1.0.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.0
     "@wix/sdk-types": ^1.0.0
-  checksum: 84360d4c201f5a1956c238894ff741525b0ec061b912613d15840651624d4d14faf368509eb7c9f3db1b9cb6e1538c809ce08a2b03af10146516d8595d823f5c
+  checksum: 94f756179f052b5520056e3f386bee15c7fff5431961ff780c63c1a3077a2aa74e2eb9039493f4edbf047217d49d1311c9ff0e38a9e0f58cb1b0e120231e8ae7
   languageName: node
   linkType: hard
 
@@ -651,13 +651,13 @@ __metadata:
   linkType: hard
 
 "@wix/pricing-plans@npm:^1.0.17":
-  version: 1.0.35
-  resolution: "@wix/pricing-plans@npm:1.0.35"
+  version: 1.0.36
+  resolution: "@wix/pricing-plans@npm:1.0.36"
   dependencies:
     "@wix/metro-runtime": ^1.0.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.0
     "@wix/sdk-types": ^1.0.0
-  checksum: 1dce501a75e186321a67a8ed6aa50f491c9a027931409ea668f79556176d240b41c94908b42cae782f78eb6f74fc95c70622fe2eaf8972d5ef7f2896c26e2cd6
+  checksum: b93b49d480acfb3df2f4383b18eb1339567c7714ed0735a340a235aeb4e2d766fe10a299c35db938a4f08235dc532159c40abce7b11e2e79bed880106744ec93
   languageName: node
   linkType: hard
 
@@ -2951,20 +2951,20 @@ __metadata:
   linkType: hard
 
 "next@npm:^13.4.9":
-  version: 13.4.19
-  resolution: "next@npm:13.4.19"
+  version: 13.5.2
+  resolution: "next@npm:13.5.2"
   dependencies:
-    "@next/env": 13.4.19
-    "@next/swc-darwin-arm64": 13.4.19
-    "@next/swc-darwin-x64": 13.4.19
-    "@next/swc-linux-arm64-gnu": 13.4.19
-    "@next/swc-linux-arm64-musl": 13.4.19
-    "@next/swc-linux-x64-gnu": 13.4.19
-    "@next/swc-linux-x64-musl": 13.4.19
-    "@next/swc-win32-arm64-msvc": 13.4.19
-    "@next/swc-win32-ia32-msvc": 13.4.19
-    "@next/swc-win32-x64-msvc": 13.4.19
-    "@swc/helpers": 0.5.1
+    "@next/env": 13.5.2
+    "@next/swc-darwin-arm64": 13.5.2
+    "@next/swc-darwin-x64": 13.5.2
+    "@next/swc-linux-arm64-gnu": 13.5.2
+    "@next/swc-linux-arm64-musl": 13.5.2
+    "@next/swc-linux-x64-gnu": 13.5.2
+    "@next/swc-linux-x64-musl": 13.5.2
+    "@next/swc-win32-arm64-msvc": 13.5.2
+    "@next/swc-win32-ia32-msvc": 13.5.2
+    "@next/swc-win32-x64-msvc": 13.5.2
+    "@swc/helpers": 0.5.2
     busboy: 1.6.0
     caniuse-lite: ^1.0.30001406
     postcss: 8.4.14
@@ -3002,7 +3002,7 @@ __metadata:
       optional: true
   bin:
     next: dist/bin/next
-  checksum: f4873dab8888ed4dae14d36d7cf8dc54cd042695cf7ee41d05e8757f463d11952a594eb066143cc2f7253ea1d41c6efe681cdc3ab8c2fa6eb0815fa5a94de3dc
+  checksum: cc0635ad5aaab9fc1f4315b9506361b1abf1a12146542d6054b9434e2e892e967f19fbabd3f3763ba5e227306aa91627c1d73af089e9b853b84c74e20bb0be00
   languageName: node
   linkType: hard
 
@@ -3318,27 +3318,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.38.0":
-  version: 1.38.0
-  resolution: "playwright-core@npm:1.38.0"
+"playwright-core@npm:1.38.1":
+  version: 1.38.1
+  resolution: "playwright-core@npm:1.38.1"
   bin:
     playwright-core: cli.js
-  checksum: 9eb43fc6c3cb392d5f35b0fd0b7291b38a8cbdc3cbb944a8261f744f30d09196dfa3b5d84aa02ffc09af87d08d31b385b007b6af20d0b6cd50a29344f3b0db8d
+  checksum: 66e83fe040f309b13ad94ba39dea40ac207bfcbbc22de13141af88dbdedd64e1c4e3ce1d0cb070d4efd8050d7e579953ec3681dd8a0acf2c1cc738d9c50e545e
   languageName: node
   linkType: hard
 
-"playwright@npm:1.38.0":
-  version: 1.38.0
-  resolution: "playwright@npm:1.38.0"
+"playwright@npm:1.38.1":
+  version: 1.38.1
+  resolution: "playwright@npm:1.38.1"
   dependencies:
     fsevents: 2.3.2
-    playwright-core: 1.38.0
+    playwright-core: 1.38.1
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: c5356690a391d5dd41f814d4e2694b93ba9e79381ce63de752da1c6c59b1f9c69bc6be853d973d0542d73a44a6b15f7c0081a164a64cd27b6b31207710c0ab34
+  checksum: 4e01d4ee52d9ccf75a80d8492829106802590721d56bff7c5957ff1f21eb3c328ee5bc3c1784a59c4b515df1b98d08ef92e4a35a807f454cd00dc481d30fadc2
   languageName: node
   linkType: hard
 
