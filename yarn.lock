@@ -241,13 +241,13 @@ __metadata:
   linkType: hard
 
 "@playwright/test@npm:^1.34.3":
-  version: 1.38.1
-  resolution: "@playwright/test@npm:1.38.1"
+  version: 1.39.0
+  resolution: "@playwright/test@npm:1.39.0"
   dependencies:
-    playwright: 1.38.1
+    playwright: 1.39.0
   bin:
     playwright: cli.js
-  checksum: c5ec0b23261fe1ef163b6234f69263bc10e7e5a3fb676c7773ffc70b87459a7ab225f57c03b9de649475771638a04c2e00d9b2739304a4dcf5d3edf20a7a4a82
+  checksum: e93e58fc1af4239f239b890374f066c9a758e2492d25e2c1a532f3f00782ab8e7706956a07540fd14882c74e75f5de36273621adce9b79afb8e36e6c15f1d539
   languageName: node
   linkType: hard
 
@@ -352,46 +352,46 @@ __metadata:
   linkType: hard
 
 "@wix/bookings@npm:^1.0.127":
-  version: 1.0.267
-  resolution: "@wix/bookings@npm:1.0.267"
+  version: 1.0.268
+  resolution: "@wix/bookings@npm:1.0.268"
   dependencies:
     "@wix/metro-runtime": ^1.0.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.0
     "@wix/sdk-types": ^1.0.0
-  checksum: cad6fa80a538c790b91092efed4bbef63d563539d842d7fd72683aa77867fc9b5370761dd38c3d335c08ed18f563346c8767acd3e2a4a263c9a35b3521742b59
+  checksum: cf43b2b235a1aed2aaef3ebc5c3d6d16397de390ea76df96c94892e4d05b7646c0de5b8798f6621e74473c6b5bd3f24e1cddcc8767eaa92ff3aad22c8bb94895
   languageName: node
   linkType: hard
 
 "@wix/data@npm:^1.0.2":
-  version: 1.0.50
-  resolution: "@wix/data@npm:1.0.50"
+  version: 1.0.52
+  resolution: "@wix/data@npm:1.0.52"
   dependencies:
     "@wix/metro-runtime": ^1.0.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.0
     "@wix/sdk-types": ^1.0.0
-  checksum: ae438218debd62967f2004e3bd9eae8cbfae59c4befa75bb26f4f8394fe3c3d09617fe435615c902fb47bde9de26b6580bda2344dbac485d9a67927b312cd6ad
+  checksum: 832733cc3e777b74109279f7104bb89b745beb6dfd5ca105730a1f685d2cc9c95620edc9b96d4a284850782e3f767c8325b320900ffbdbf58fa37689c17518e4
   languageName: node
   linkType: hard
 
 "@wix/ecom@npm:^1.0.164":
-  version: 1.0.364
-  resolution: "@wix/ecom@npm:1.0.364"
+  version: 1.0.367
+  resolution: "@wix/ecom@npm:1.0.367"
   dependencies:
     "@wix/metro-runtime": ^1.0.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.0
     "@wix/sdk-types": ^1.0.0
-  checksum: 0b8f0de10cc575d297a8c8f16237246a83b541701bac4cd18f8c67d7220ea9b9f82ab90fbd84e6822471ba6e849238271686d6b4e925041b84c465cbd1761a2b
+  checksum: 159fe56ae15095bc27bc5ab1ca1dabc872d57b34affb7649e0e6f367f2b04cbed938b3c1a760a969cb44dffbcb8f512dfb886c07b4493165e6dfc110477d11ff
   languageName: node
   linkType: hard
 
 "@wix/events@npm:^1.0.80":
-  version: 1.0.122
-  resolution: "@wix/events@npm:1.0.122"
+  version: 1.0.123
+  resolution: "@wix/events@npm:1.0.123"
   dependencies:
     "@wix/metro-runtime": ^1.0.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.0
     "@wix/sdk-types": ^1.0.0
-  checksum: 100ec7f7bb9d9c5cb03f8e23e879d922d0692fafde3f7848a920537101fda206ed65e15c9515aeb12ad1b3ad68c3bbb995d29b970d9b7502029c9da40a868f87
+  checksum: b682f1cdb4e07f9a748fbe8a6f9882135d9ae551fc99de32bcd8be01a973de9fa13d4796b4de22db32133ac0658772ac99cb37c79e4a97f326327418e1c1506b
   languageName: node
   linkType: hard
 
@@ -428,13 +428,13 @@ __metadata:
   linkType: hard
 
 "@wix/members@npm:^1.0.12":
-  version: 1.0.36
-  resolution: "@wix/members@npm:1.0.36"
+  version: 1.0.38
+  resolution: "@wix/members@npm:1.0.38"
   dependencies:
     "@wix/metro-runtime": ^1.0.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.0
     "@wix/sdk-types": ^1.0.0
-  checksum: 94f756179f052b5520056e3f386bee15c7fff5431961ff780c63c1a3077a2aa74e2eb9039493f4edbf047217d49d1311c9ff0e38a9e0f58cb1b0e120231e8ae7
+  checksum: 3c043dec3c0c25be77287e65c3cf9c2403894919cb7b712768ed8430a74a76a7e5cb1ffdf8334707fdc7f7665140bf1944ee4ba3a74ca2a7a259ab962b3d1b7f
   languageName: node
   linkType: hard
 
@@ -3560,27 +3560,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.38.1":
-  version: 1.38.1
-  resolution: "playwright-core@npm:1.38.1"
+"playwright-core@npm:1.39.0":
+  version: 1.39.0
+  resolution: "playwright-core@npm:1.39.0"
   bin:
     playwright-core: cli.js
-  checksum: 66e83fe040f309b13ad94ba39dea40ac207bfcbbc22de13141af88dbdedd64e1c4e3ce1d0cb070d4efd8050d7e579953ec3681dd8a0acf2c1cc738d9c50e545e
+  checksum: 556e78dee4f9890facf2af8249972e0d6e01a5ae98737b0f6b0166c660a95ffee4cb79350335b1ef96430a0ef01d3669daae9099fa46c8d403d11c623988238b
   languageName: node
   linkType: hard
 
-"playwright@npm:1.38.1":
-  version: 1.38.1
-  resolution: "playwright@npm:1.38.1"
+"playwright@npm:1.39.0":
+  version: 1.39.0
+  resolution: "playwright@npm:1.39.0"
   dependencies:
     fsevents: 2.3.2
-    playwright-core: 1.38.1
+    playwright-core: 1.39.0
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 4e01d4ee52d9ccf75a80d8492829106802590721d56bff7c5957ff1f21eb3c328ee5bc3c1784a59c4b515df1b98d08ef92e4a35a807f454cd00dc481d30fadc2
+  checksum: 96d8ca5aa25465c1c5d554d0d6071981d55e22477800ff8f5d47a53ca75193d60ece2df538a01b7165b3277dd5493c67603a5acda713029df7fbd95ce2417bc9
   languageName: node
   linkType: hard
 
