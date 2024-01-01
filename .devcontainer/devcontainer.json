@@ -1,7 +1,7 @@
 {
   "name": "Wix Headless Example",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "postCreateCommand": "yarn dev",
+  "postCreateCommand": "yarn install && yarn dev",
   "portsAttributes": {
     "3000": {
       "label": "Application",
