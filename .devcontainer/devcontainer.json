@@ -10,12 +10,12 @@
       "onAutoForward": "openPreview"
     }
   },
-  "features": {},
-  "customizations": {
-    "codespaces": {
-      "openFiles": [
-        "README.md"
-      ]
-    }
-  }
+  "features": {}
+  // "customizations": {
+  //   "codespaces": {
+  //     "openFiles": [
+  //       "README.md"
+  //     ]
+  //   }
+  // }
 }
