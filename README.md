@@ -1,6 +1,6 @@
 # Wix Headless Examples
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/~/github.com/Paveltarno/wix-headless-example)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/~/github.com/Paveltarno/wix-headless-example)  
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/wix/wix-headless-example)
 
 This [Next.js](https://nextjs.org/) project provides a minimal example site to demonstrate basic usage of various Wix Headless APIs. The implementation focuses on simplicity and readability, rather than feature richness, performance, or completeness. This repository can be used as a quick reference for bootstrapping a Wix Headless application, but it should not be treated as a best practices guide.
