@@ -375,14 +375,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wix/events@npm:^1.0.80":
-  version: 1.0.127
-  resolution: "@wix/events@npm:1.0.127"
+"@wix/events@npm:^1.0.137":
+  version: 1.0.138
+  resolution: "@wix/events@npm:1.0.138"
   dependencies:
     "@wix/metro-runtime": ^1.0.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.0
     "@wix/sdk-types": ^1.0.0
-  checksum: 3b78ccb8b831b12e4e42cf2d8efa8597cd1297cc65f971df2cf38c556a318aff3ded947fb3e3ff85e835899bc8269876dd13caaceee85315ce14a6bd54731014
+  checksum: 872443719413957a6384570f8e826e6b84bdd3d9ba67c8569c9428d0fbbc024429940cb59942c9eafaeb302a45bb5f94b5cc5c2a13b01ec07f5e6948254705c8
   languageName: node
   linkType: hard
 
@@ -4533,7 +4533,7 @@ __metadata:
     "@wix/bookings": ^1.0.127
     "@wix/data": ^1.0.2
     "@wix/ecom": ^1.0.164
-    "@wix/events": ^1.0.80
+    "@wix/events": ^1.0.137
     "@wix/members": ^1.0.12
     "@wix/pricing-plans": ^1.0.17
     "@wix/redirects": ^1.0.12
