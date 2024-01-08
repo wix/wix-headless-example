@@ -19,8 +19,8 @@ export default function Tickets() {
   const [ticketsAvailability, setTicketsAvailability] = useState([]);
 
   async function fetchEvents() {
-    const eventsList = await myWixClient.wixEvents.queryEventsV2({ query: { paging: { limit: 10 } } });
-    setEventsList(eventsList.events);
+    const eventsList = await myWixClient.wixEvents.queryEventsV2({ query: { paging: { limit: 10 } } }).find();
+    setEventsList(eventsList.items);
   }
 
   async function fetchTicketsAvailability(event) {
