@@ -704,15 +704,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wix/sdk-types@npm:^1.5.6":
+  version: 1.5.7
+  resolution: "@wix/sdk-types@npm:1.5.7"
+  checksum: 10e8abda97c15560c41158cecddb171ec4871e53471bf07b3ba393efc61c6eabe5ae55ef591056b59fa21681bacbc30c6cbaacfcdd5ccc05a035ae9e6158a07e
+  languageName: node
+  linkType: hard
+
 "@wix/sdk@npm:^1.5.0":
-  version: 1.7.2
-  resolution: "@wix/sdk@npm:1.7.2"
+  version: 1.7.4
+  resolution: "@wix/sdk@npm:1.7.4"
   dependencies:
     "@babel/runtime": ^7.23.2
     "@wix/identity": ^1.0.72
     "@wix/image-kit": ^1.50.0
     "@wix/redirects": ^1.0.32
-    "@wix/sdk-types": ^1.5.5
+    "@wix/sdk-types": ^1.5.6
     crypto-js: ^4.2.0
     graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     jsonwebtoken: ^9.0.2
@@ -722,7 +729,7 @@ __metadata:
   dependenciesMeta:
     graphql:
       optional: true
-  checksum: 6c10e658a52231ff488e22086527b1d46c10e71d18a0834ad4c0dfe34e419b455a860660d745830b39b1fd0d9f307a1ebf14d4e9cffb31f92052736513983e19
+  checksum: 15df537f8775228567975c7779c2b6b44ff891512be1244872390769170cc50cdda229eb1cf62ee62eab7e4f30965029eed70e739c20405b3291d8ba90924a18
   languageName: node
   linkType: hard
 
