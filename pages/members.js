@@ -17,7 +17,7 @@ export default function LoginBar() {
 
   async function fetchMember() {
     const { member } = myWixClient.auth.loggedIn()
-      ? await myWixClient.members.getMyMember()
+      ? await myWixClient.members.getCurrentMember()
       : {};
     setMember(member || undefined);
   }
