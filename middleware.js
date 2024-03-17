@@ -4,14 +4,17 @@ import { NextResponse } from "next/server";
 export async function middleware(request) {
   // generate a session for the visitor if no session exists
   if (!request.cookies.get("session")) {
-    const response = NextResponse.next();
     const myWixClient = createClient({
       auth: OAuthStrategy({ clientId: `a491d07a-24a9-4b64-a566-0525c26a081b` }),
     });
-    response.cookies.set(
-      "session",
-      JSON.stringify(await myWixClient.auth.generateVisitorTokens())
-    );
+    const visitorTokens = await myWixClient.auth.generateVisitorTokens();
+
+    request.cookies.set("session", JSON.stringify(visitorTokens));
+    const response = NextResponse.next({
+      request,
+    });
+
+    response.cookies.set("session", JSON.stringify(visitorTokens));
     return response;
   }
 }
