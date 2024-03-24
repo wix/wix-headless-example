@@ -336,38 +336,38 @@ __metadata:
   linkType: hard
 
 "@wix/bookings@npm:^1.0.127":
-  version: 1.0.326
-  resolution: "@wix/bookings@npm:1.0.326"
+  version: 1.0.329
+  resolution: "@wix/bookings@npm:1.0.329"
   dependencies:
     "@wix/metro-runtime": ^1.1528.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
     "@wix/sdk-runtime": ^0.2.7
     "@wix/sdk-types": ^1.5.3
-  checksum: b23962f7d56e710b6ba1c4b7cd810df69a5531c699118ef15cdb7bb8a6b1f067184b3bc746f360c1b14ec15e654b4def210071b1f738fdd3dc026a49d5260ea4
+  checksum: 129559b5b872a88a39714da773478d55cba7b5f3f0e0c501f833156631747999c5efba09cb340d5b35b8e7b71bbfbed1468a2f390d0fe246bc21b69d5e6c272a
   languageName: node
   linkType: hard
 
 "@wix/data@npm:^1.0.2":
-  version: 1.0.82
-  resolution: "@wix/data@npm:1.0.82"
+  version: 1.0.83
+  resolution: "@wix/data@npm:1.0.83"
   dependencies:
     "@wix/metro-runtime": ^1.1528.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
     "@wix/sdk-runtime": ^0.2.7
     "@wix/sdk-types": ^1.5.3
-  checksum: 4e77cdb48fce2a0365d4e3809cb76649fcbfd08f56f3b2377eb76f13d8329d0aea916216a2d402938abdd633af92c53f6a9330453d8adb4bc0be86f3010349cc
+  checksum: 4db0c2dc8ed64fbeec5f4fe936882ade10ce58e295d037b9519bde6f9fa317962f6fa313a1a91bc2e091e7c3ec2a3087d0c84dbff0e51db9a912e37a7274bf92
   languageName: node
   linkType: hard
 
 "@wix/ecom@npm:^1.0.164":
-  version: 1.0.504
-  resolution: "@wix/ecom@npm:1.0.504"
+  version: 1.0.509
+  resolution: "@wix/ecom@npm:1.0.509"
   dependencies:
     "@wix/metro-runtime": ^1.1528.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
     "@wix/sdk-runtime": ^0.2.7
     "@wix/sdk-types": ^1.5.3
-  checksum: 58e87bd3b5d1f6731b80b0161e046de1c33d406d1f8ebb775a5d5aa5e097ef8fc3516cdffd2da92e4c1b4f670828e41bf8802596c1e4c67415cfa4ef02a5a352
+  checksum: 660cb17814ef221ad7ae49a6b7d4ad5bc2e16cd097d240e15e998a584159afc8d8eefabec90710c6469b9667d790b26ca4061e69dbc3bedbc72298b95ee04458
   languageName: node
   linkType: hard
 
@@ -417,14 +417,14 @@ __metadata:
   linkType: hard
 
 "@wix/members@npm:^1.0.12":
-  version: 1.0.59
-  resolution: "@wix/members@npm:1.0.59"
+  version: 1.0.61
+  resolution: "@wix/members@npm:1.0.61"
   dependencies:
     "@wix/metro-runtime": ^1.1528.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
     "@wix/sdk-runtime": ^0.2.7
     "@wix/sdk-types": ^1.5.3
-  checksum: eb26ce1d5df29cc173fa0443c7c03938946f23c346ef6f6f17b4b65b2069efae37f0083c8c896cdc9f7005c08969ea7a10569a9f2b33fa0ac8ff3ff3844bb5bf
+  checksum: 34a96df0a9d2a21e6ddbc8f66f671ed5bf8b07f52381af2d412cb2b98b19aa73e64041ae73ad62e6c2d6ee56880a1dee7811003d6ab8e735a3d379b297717b7e
   languageName: node
   linkType: hard
 
@@ -532,26 +532,26 @@ __metadata:
   linkType: hard
 
 "@wix/pricing-plans@npm:^1.0.17":
-  version: 1.0.52
-  resolution: "@wix/pricing-plans@npm:1.0.52"
+  version: 1.0.54
+  resolution: "@wix/pricing-plans@npm:1.0.54"
   dependencies:
     "@wix/metro-runtime": ^1.1528.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
     "@wix/sdk-runtime": ^0.2.7
-    "@wix/sdk-types": ^1.5.3
-  checksum: f9040768177af8f80bfc41d99ee50300579d0123346d71de64457b33a0a499e4f12766248f4caee865706f356f1d32ac4c79748a98270d82d8b9362eb1c5dbdc
+    "@wix/sdk-types": ^1.5.9
+  checksum: 67f97078e7a26b5d86cd8e8c71fb2f43ef190f1bf8096ca6308dc7d4089ea4cc0be165813c344f210cfa696881db42ae21d61fef77df357751c16817232f3c25
   languageName: node
   linkType: hard
 
 "@wix/redirects@npm:^1.0.12, @wix/redirects@npm:^1.0.34":
-  version: 1.0.34
-  resolution: "@wix/redirects@npm:1.0.34"
+  version: 1.0.35
+  resolution: "@wix/redirects@npm:1.0.35"
   dependencies:
     "@wix/metro-runtime": ^1.1528.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
     "@wix/sdk-runtime": ^0.2.7
     "@wix/sdk-types": ^1.5.3
-  checksum: 82f4b80a254e17ae310756f1427dc8d11e4ab70ff97f2ccf3617a667874188480b28cca26644df69d69f99d7e8d2df29dcf0fff177107c07d6a48d6d1d8f83f7
+  checksum: b938a9fc870b6d743b55e2bda4366337062a39cd03a47de078f9ab7024421234200c7c0893e53a00f11e7cee84c7f726ad953e651576c788365cac2d65b93431
   languageName: node
   linkType: hard
 
