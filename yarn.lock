@@ -553,14 +553,32 @@ __metadata:
   linkType: hard
 
 "@wix/redirects@npm:^1.0.12, @wix/redirects@npm:^1.0.36":
-  version: 1.0.36
-  resolution: "@wix/redirects@npm:1.0.36"
+  version: 1.0.42
+  resolution: "@wix/redirects@npm:1.0.42"
+  dependencies:
+    "@wix/redirects_redirects": 1.0.12
+  checksum: 18440dbc35d80bbea946e5984949f2a123498f9e8da15edc6cea18425ccd62986d85c110579d4936912d238b7a55497f6efa0490b509f9358b4858f5c25b544a
+  languageName: node
+  linkType: hard
+
+"@wix/redirects_redirects@npm:1.0.12":
+  version: 1.0.12
+  resolution: "@wix/redirects_redirects@npm:1.0.12"
   dependencies:
     "@wix/metro-runtime": ^1.1528.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
-    "@wix/sdk-runtime": ^0.2.7
-    "@wix/sdk-types": ^1.5.9
-  checksum: bbe155600578241ffd7ebbc7c95ebcb36b11ac32b99f64b0cc8af3fffd5dd55adc82f8fbe856652462fc1a2efe07aae5a923fc4fc42a26a44fb1afc14b3c2706
+    "@wix/sdk-runtime": ^0.2.10
+    "@wix/sdk-types": ^1.5.11
+  checksum: 95c057dcfc12ac0bbe1b81ded55a81faf70d13082a4116974e3be1a22230a90572f524a8885734b2d12c5ec67b69a8e95b21579141e6cd50c60ca4912840005b
+  languageName: node
+  linkType: hard
+
+"@wix/sdk-runtime@npm:^0.2.10":
+  version: 0.2.11
+  resolution: "@wix/sdk-runtime@npm:0.2.11"
+  dependencies:
+    "@wix/sdk-types": ^1.5.11
+  checksum: b5ca9cab11986f40e1f5dcc4d7e897ef27923398f0b266aae995bf86b9520c328298e144846cf53bac5bd09de26ac06145927501c4f85ea2fc84d4311226264f
   languageName: node
   linkType: hard
 
