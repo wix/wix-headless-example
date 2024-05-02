@@ -5,7 +5,7 @@ export async function middleware(request) {
   // generate a session for the visitor if no session exists
   if (!request.cookies.get("session")) {
     const myWixClient = createClient({
-      auth: OAuthStrategy({ clientId: `152b68cc-cbcd-4eac-a1e2-df21a7b099cf` }),
+      auth: OAuthStrategy({ clientId: `9e37d7b0-3621-418f-a6b6-b82bdeaf051d` }),
     });
     const visitorTokens = await myWixClient.auth.generateVisitorTokens();
 
