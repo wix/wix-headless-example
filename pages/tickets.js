@@ -1,95 +1,141 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
-import { createClient, OAuthStrategy } from "@wix/sdk";
-import { wixEventsV2 as wixEvents, orders as checkout } from "@wix/events";
-import { redirects } from "@wix/redirects";
+import {createClient, OAuthStrategy} from "@wix/sdk";
+import {wixEventsV2 as wixEvents, orders as checkout} from "@wix/events";
+import {redirects} from "@wix/redirects";
 import testIds from "@/src/utils/test-ids";
 
+// We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
-  modules: { wixEvents, checkout, redirects },
-  auth: OAuthStrategy({
-    clientId: `9e37d7b0-3621-418f-a6b6-b82bdeaf051d`,
-    tokens: JSON.parse(Cookies.get("session") || null),
-  }),
+    // We specify the modules we want to use with the client.
+    // In this case, we're using the wixEvents, checkout, and redirects modules.
+    modules: {wixEvents, checkout, redirects},
+
+    // We're using the OAuthStrategy for authentication.
+    // This strategy requires a client ID and a set of tokens.
+    auth: OAuthStrategy({
+        // The client ID is a unique identifier for the application.
+        // It's used to authenticate the application with the Wix platform.
+        clientId: `9e37d7b0-3621-418f-a6b6-b82bdeaf051d`,
+
+        // The tokens are used to authenticate the user.
+        // In this case, we're getting the tokens from a cookie named "session".
+        // If the cookie doesn't exist, we default to null.
+        tokens: JSON.parse(Cookies.get("session") || null),
+    }),
 });
 
 export default function Tickets() {
-  const [eventsList, setEventsList] = useState([]);
-  const [ticketsAvailability, setTicketsAvailability] = useState([]);
+    // State variables for events list and tickets availability
+    const [eventsList, setEventsList] = useState([]);
+    const [ticketsAvailability, setTicketsAvailability] = useState([]);
 
-  async function fetchEvents() {
-    const eventsList = await myWixClient.wixEvents
-      .queryEvents()
-      .limit(10)
-      .find();
-    setEventsList(eventsList.items);
-  }
+    // This is function fetches a list of events.
+    async function fetchEvents() {
+        // We call the queryEvents method from the wixEvents module of the Wix client.
+        // This method retrieves a list of events.
+        // In this case, we're limiting the number of events to 10.
+        const eventsList = await myWixClient.wixEvents
+            .queryEvents()
+            .limit(10)
+            .find();
 
-  async function fetchTicketsAvailability(event) {
-    const tickets = await myWixClient.checkout.queryAvailableTickets({
-      filter: { eventId: event._id },
-      limit: 10,
-    });
-    setTicketsAvailability(tickets.definitions);
-  }
+        // Then, we update the state of the events list in the React component.
+        setEventsList(eventsList.items);
+    }
 
-  async function createRedirect(ticket) {
-    const eventSlug = eventsList.find(
-      (event) => event._id === ticket.eventId
-    ).slug;
-    const reservation = await myWixClient.checkout.createReservation(
-      ticket.eventId,
-      {
-        ticketQuantities: [
-          {
-            ticketDefinitionId: ticket._id,
-            quantity: 1,
-          },
-        ],
-      }
+    // This function fetches the availability of tickets for a specific event.
+    async function fetchTicketsAvailability(event) {
+        // We call the queryAvailableTickets method from the checkout module of the Wix client.
+        // This method retrieves the available tickets for a specific event.
+        // We filter the tickets by the event ID and limit the number of tickets to 10.
+        const tickets = await myWixClient.checkout.queryAvailableTickets({
+            filter: {eventId: event._id},
+            limit: 10,
+        });
+
+        // Then, we update the state of the tickets availability in the React component.
+        setTicketsAvailability(tickets.definitions);
+    }
+
+    // This function creates a redirect to the checkout page for a specific ticket.
+    async function createRedirect(ticket) {
+        // We find the event associated with the ticket from the events list.
+        // We're interested in the slug of the event, which is a URL-friendly version of the event name.
+        const eventSlug = eventsList.find(
+            (event) => event._id === ticket.eventId
+        ).slug;
+
+        // We call the createReservation method from the checkout module of the Wix client.
+        // This method creates a reservation for the ticket.
+        // We pass the event ID and an object that specifies the quantity of the ticket.
+        const reservation = await myWixClient.checkout.createReservation(
+            ticket.eventId,
+            {
+                ticketQuantities: [
+                    {
+                        ticketDefinitionId: ticket._id,
+                        quantity: 1,
+                    },
+                ],
+            }
+        );
+
+        // We call the createRedirectSession method from the redirects module of the Wix client.
+        // This method creates a redirect session to the checkout page.
+        // We pass an object that specifies the event slug and the reservation ID for the eventsCheckout.
+        // We also specify the postFlowUrl to be the current page URL. This is where the user will be redirected after the checkout flow.
+        const redirect = await myWixClient.redirects.createRedirectSession({
+            eventsCheckout: {eventSlug, reservationId: reservation._id},
+            callbacks: {postFlowUrl: window.location.href},
+        });
+
+        // Finally, we redirect the user to the URL generated by the redirect session.
+        window.location = redirect.redirectSession.fullUrl;
+    }
+
+    // Fetch events on component mount
+    useEffect(() => {
+        fetchEvents();
+    }, []);
+
+    return (
+        <main data-testid={testIds.EVENTS_PAGE.CONTAINER}>
+            <div>
+                <h2>Choose an Event:</h2>
+                {/* We map over the events list and create a section for each event. */}
+                {eventsList.map((event) => {
+                    return (
+                        <section
+                            key={event._id}
+                            data-testid={testIds.EVENTS_PAGE.EVENT}
+                            // When the section is clicked, we fetch the availability of tickets for the event.
+                            onClick={() => fetchTicketsAvailability(event)}
+                        >
+                            {/* We display the title of the event. */}
+                            {event.title}
+                        </section>
+                    );
+                })}
+            </div>
+            <div>
+                <h2>Choose a Ticket:</h2>
+                {/* We map over the tickets availability list and create a section for each ticket. */}
+                {ticketsAvailability.map((ticket) => {
+                    return (
+                        <section
+                            key={ticket._id}
+                            data-testid={testIds.EVENTS_PAGE.TICKET_OPTION}
+                            // When the section is clicked, we create a redirect to the checkout page for the ticket.
+                            onClick={() => createRedirect(ticket)}
+                        >
+                            {/* We display the name of the ticket. */}
+                            {ticket.name}
+                        </section>
+                    );
+                })}
+            </div>
+        </main>
     );
-    const redirect = await myWixClient.redirects.createRedirectSession({
-      eventsCheckout: { eventSlug, reservationId: reservation._id },
-      callbacks: { postFlowUrl: window.location.href },
-    });
-    window.location = redirect.redirectSession.fullUrl;
-  }
-
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
-  return (
-    <main data-testid={testIds.EVENTS_PAGE.CONTAINER}>
-      <div>
-        <h2>Choose an Event:</h2>
-        {eventsList.map((event) => {
-          return (
-            <section
-              key={event._id}
-              data-testid={testIds.EVENTS_PAGE.EVENT}
-              onClick={() => fetchTicketsAvailability(event)}
-            >
-              {event.title}
-            </section>
-          );
-        })}
-      </div>
-      <div>
-        <h2>Choose a Ticket:</h2>
-        {ticketsAvailability.map((ticket) => {
-          return (
-            <section
-              key={ticket._id}
-              data-testid={testIds.EVENTS_PAGE.TICKET_OPTION}
-              onClick={() => createRedirect(ticket)}
-            >
-              {ticket.name}
-            </section>
-          );
-        })}
-      </div>
-    </main>
-  );
 }

@@ -1,89 +1,125 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
-import { createClient, OAuthStrategy } from "@wix/sdk";
-import { availabilityCalendar, services } from "@wix/bookings";
-import { redirects } from "@wix/redirects";
+import {createClient, OAuthStrategy} from "@wix/sdk";
+import {availabilityCalendar, services} from "@wix/bookings";
+import {redirects} from "@wix/redirects";
 import testIds from "@/src/utils/test-ids";
 
+// We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
-  modules: { services, availabilityCalendar, redirects },
-  auth: OAuthStrategy({
-    clientId: `9e37d7b0-3621-418f-a6b6-b82bdeaf051d`,
-    tokens: JSON.parse(Cookies.get("session") || null),
-  }),
+    // We specify the modules we want to use with the client.
+    // In this case, we're using the services, availabilityCalendar, and redirects modules.
+    modules: {services, availabilityCalendar, redirects},
+
+    // We're using the OAuthStrategy for authentication.
+    // This strategy requires a client ID and a set of tokens.
+    auth: OAuthStrategy({
+        // The client ID is a unique identifier for the application.
+        // It's used to authenticate the application with the Wix platform.
+        clientId: `9e37d7b0-3621-418f-a6b6-b82bdeaf051d`,
+
+        // The tokens are used to authenticate the user.
+        // In this case, we're getting the tokens from a cookie named "session".
+        // If the cookie doesn't exist, we default to null.
+        tokens: JSON.parse(Cookies.get("session") || null),
+    }),
 });
 
 export default function Booking() {
-  const [serviceList, setServiceList] = useState([]);
-  const [availabilityEntries, setAvailabilityEntries] = useState([]);
+    // State variables for service list and availability entries
+    const [serviceList, setServiceList] = useState([]);
+    const [availabilityEntries, setAvailabilityEntries] = useState([]);
 
-  async function fetchServices() {
-    const serviceList = await myWixClient.services.queryServices().find();
-    setServiceList(serviceList.items);
-  }
+    // This is function fetches the list of services.
+    async function fetchServices() {
+        // We call the queryServices method from the services module of the Wix client.
+        // This method retrieves the list of services.
+        const serviceList = await myWixClient.services.queryServices().find();
 
-  async function fetchAvailability(service) {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
+        // Then, we update the state of the service list in the React component.
+        setServiceList(serviceList.items);
+    }
 
-    const availability =
-      await myWixClient.availabilityCalendar.queryAvailability(
-        {
-          filter: {
-            serviceId: [service._id],
-            startDate: today.toISOString(),
-            endDate: tomorrow.toISOString(),
-          },
-        },
-        { timezone: "UTC" }
-      );
-    setAvailabilityEntries(availability.availabilityEntries);
-  }
+    // This is function fetches the availability of a service.
+    async function fetchAvailability(service) {
+        // We create two Date objects for today and tomorrow.
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
 
-  async function createRedirect(slotAvailability) {
-    const redirect = await myWixClient.redirects.createRedirectSession({
-      bookingsCheckout: { slotAvailability, timezone: "UTC" },
-      callbacks: { postFlowUrl: window.location.href },
-    });
-    window.location = redirect.redirectSession.fullUrl;
-  }
+        // We call the queryAvailability method from the availabilityCalendar module of the Wix client.
+        // This method retrieves the availability of a service.
+        const availability =
+            await myWixClient.availabilityCalendar.queryAvailability(
+                {
+                    filter: {
+                        serviceId: [service._id], // We filter by the service ID.
+                        startDate: today.toISOString(), // We set the start date to be today.
+                        endDate: tomorrow.toISOString(), // We set the end date to be tomorrow.
+                    },
+                },
+                {timezone: "UTC"} // We set the timezone to be UTC.
+            ); // the response contains the availability entries for the service within the specified time range.
 
-  useEffect(() => {
-    fetchServices();
-  }, []);
+        // Then, we update the state of the availability entries in the React component.
+        setAvailabilityEntries(availability.availabilityEntries);
+    }
 
-  return (
-    <main data-testid={testIds.BOOKINGS_PAGE.CONTAINER}>
-      <div>
-        <h2>Choose a Service:</h2>
-        {serviceList.map((service) => {
-          return (
-            <section
-              key={service._id}
-              data-testid={testIds.BOOKINGS_PAGE.SERVICE}
-              onClick={() => fetchAvailability(service)}
-            >
-              {service.name}
-            </section>
-          );
-        })}
-      </div>
-      <div>
-        <h2>Choose a Slot:</h2>
-        {availabilityEntries.map((entry) => {
-          return (
-            <section
-              key={entry.slot.startDate}
-              data-testid={testIds.BOOKINGS_PAGE.SLOT}
-              onClick={() => createRedirect(entry)}
-            >
-              {new Date(entry.slot.startDate).toLocaleString()}
-            </section>
-          );
-        })}
-      </div>
-    </main>
-  );
+    // This is function creates a redirect to the checkout page.
+    async function createRedirect(slotAvailability) {
+        // We call the createRedirectSession method from the redirects module of the Wix client.
+        // This method creates a redirect session to the checkout page.
+        const redirect = await myWixClient.redirects.createRedirectSession({
+            // We pass an object that specifies the slotAvailability for the bookingsCheckout.
+            bookingsCheckout: {slotAvailability, timezone: "UTC"},
+            // We also specify the postFlowUrl to be the current page URL. This is where the user will be redirected after the checkout flow.
+            callbacks: {postFlowUrl: window.location.href},
+        });
+
+        // Finally, we redirect the user to the URL generated by the redirect session.
+        window.location = redirect.redirectSession.fullUrl;
+    }
+
+    // Fetch services on component mount
+    useEffect(() => {
+        fetchServices();
+    }, []);
+
+    return (
+        <main data-testid={testIds.BOOKINGS_PAGE.CONTAINER}>
+            <div>
+                <h2>Choose a Service:</h2>
+                {/* Mapping through service list and displaying each service */}
+                {serviceList.map((service) => {
+                    return (
+                        // Each service is displayed in a section. When clicked, the availability of the service is fetched.
+                        <section
+                            key={service._id}
+                            data-testid={testIds.BOOKINGS_PAGE.SERVICE}
+                            onClick={() => fetchAvailability(service)}
+                        >
+                            {service.name}
+                        </section>
+                    );
+                })}
+            </div>
+            <div>
+                <h2>Choose a Slot:</h2>
+                {/* Mapping through availability entries and displaying each slot */}
+                {availabilityEntries.map((entry) => {
+                    return (
+                        // Each slot is displayed in a section. When clicked, a redirect to the checkout page is created.
+                        <section
+                            key={entry.slot.startDate}
+                            data-testid={testIds.BOOKINGS_PAGE.SLOT}
+                            onClick={() => createRedirect(entry)}
+                        >
+                            {new Date(entry.slot.startDate).toLocaleString()}
+                        </section>
+                    );
+                })}
+            </div>
+        </main>
+    );
 }
