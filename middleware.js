@@ -19,7 +19,7 @@ export async function middleware(request) {
     // This method generates a set of tokens for the visitor.
     const visitorTokens = await myWixClient.auth.generateVisitorTokens();
 
-    // We store the tokens in a cookie named "session".
+    // We store the tokens in a cookie named "session" in the request object so the cookie would propagate to our pages / routes
     request.cookies.set("session", JSON.stringify(visitorTokens));
 
     // We create a new response using the NextResponse.next method.
