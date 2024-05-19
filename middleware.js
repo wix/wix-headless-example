@@ -2,8 +2,8 @@ import { createClient, OAuthStrategy } from "@wix/sdk";
 import { NextResponse } from "next/server";
 
 // This function acts as a middleware for the Next.js application.
-// https://nextjs.org/docs/app/building-your-application/routing/middleware
 // We use this middleware to generate a session for the visitor.
+// read more about next.js middleware here https://nextjs.org/docs/app/building-your-application/routing/middleware
 export async function middleware(request) {
   // We check if a session cookie exists.
   // If it doesn't exist, we generate a session for the visitor.
