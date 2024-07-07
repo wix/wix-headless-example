@@ -15,7 +15,7 @@ import {createClient, OAuthStrategy} from "@wix/sdk";
 import {availabilityCalendar, services} from "@wix/bookings";
 /*
     This line is importing the redirects' module.
-    The redirects module provides methods for managing URL redirects.
+    The redirects module provides methods for managing URL redirects to Wix pages.
  */
 import {redirects} from "@wix/redirects";
 
@@ -90,7 +90,7 @@ export default function Booking() {
         setAvailabilityEntries(availability.availabilityEntries);
     }
 
-    // We recommend you to use the Wix-managed checkout page. This is the function. This is function creates a redirect to the checkout page.
+    // We recommend you use the Wix-managed checkout page. This function creates a redirect to the checkout page.
     async function createRedirect(slotAvailability) {
         // We call the createRedirectSession method from the redirects module of the Wix client.
         // This method creates a redirect session to the checkout page.
