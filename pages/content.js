@@ -1,45 +1,45 @@
 import Link from "next/link";
-import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
-
-import { createClient, OAuthStrategy } from "@wix/sdk";
-import { items } from "@wix/data";
-
-const myWixClient = createClient({
-  modules: { items },
-  auth: OAuthStrategy({
-    clientId: `9e37d7b0-3621-418f-a6b6-b82bdeaf051d`,
-    tokens: JSON.parse(Cookies.get("session") || null),
-  }),
-});
+import {useEffect, useState} from "react";
+import {installedApps} from "@/src/utils/installed-apps";
 
 export default function Examples() {
-  const [examples, setExamples] = useState([]);
+    const [examples, setExamples] = useState([]);
 
-  async function fetchExamples() {
-    const examples = await myWixClient.items
-      .queryDataItems({ dataCollectionId: "examples" })
-      .ascending("orderId")
-      .find();
-    setExamples(examples.items);
-  }
+    async function fetchExamples() {
+        try {
+            // Fetch the JSON file
+            const response = await fetch('/examples.json');
+            await installedApps();
+            if (response.ok) {
+                const examples = await response.json();
+                setExamples(examples);
+                console.log('Examples loaded from file');
+            } else {
+                throw new Error('Failed to fetch examples');
+            }
+        } catch (error) {
+            console.error('Error reading from file:', error);
+            // You might want to add a fallback here, such as setting an empty array
+            setExamples([]);
+        }
+    }
 
-  useEffect(() => {
-    fetchExamples();
-  }, []);
+    useEffect(() => {
+        fetchExamples();
+    }, []);
 
-  return (
-    <footer>
-      {examples.map((example) => (
-        <Link href={example.data.slug} key={example._id}>
-          <section>
-            <h2>
-              {example.data.title} <span>-&gt;</span>
-            </h2>
-            <p>{example.data.description}</p>
-          </section>
-        </Link>
-      ))}
-    </footer>
-  );
+    return (
+        <footer>
+            {examples.map((example) => (
+                <Link href={example.data.slug} key={example._id}>
+                    <section>
+                        <h2>
+                            {example.data.title} <span>-&gt;</span>
+                        </h2>
+                        <p>{example.data.description}</p>
+                    </section>
+                </Link>
+            ))}
+        </footer>
+    );
 }
