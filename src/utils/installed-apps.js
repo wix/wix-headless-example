@@ -7,6 +7,7 @@ import {products} from "@wix/stores";
 import {currentCart} from "@wix/ecom";
 import {plans} from "@wix/pricing-plans";
 import {orders as checkout, wixEventsV2 as wixEvents} from "@wix/events";
+import {jwtDecode} from "jwt-decode";
 
 export const WixApplications = Object.freeze({
     BOOKINGS: 0,
@@ -75,15 +76,12 @@ export const installedApps = async () => {
 
 export const getMetaSiteId = async () => {
     const myWixClient = createWixClient();
-    const accessToken = await myWixClient.auth.getTokens().accessToken.value;
-    const response = await fetch("/api/get-metasite-id", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({accessToken}),
-    });
+    const accessToken = myWixClient.auth.getTokens().accessToken.value;
+    const {data} = jwtDecode(parseJwt(accessToken));
+    const parsedData = JSON.parse(data)
+    return parsedData.instance.metaSiteId;
+}
 
-    const data = await response.json();
-    return data.siteId;
+const parseJwt = (token) => {
+    return token.replace(/^OauthNG\.JWS\./, '');
 }
