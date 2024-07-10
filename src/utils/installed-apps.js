@@ -77,9 +77,13 @@ export const installedApps = async () => {
 export const getMetaSiteId = async () => {
     const myWixClient = createWixClient();
     const accessToken = myWixClient.auth.getTokens().accessToken.value;
-    const {data} = jwtDecode(parseJwt(accessToken));
-    const parsedData = JSON.parse(data)
-    return parsedData.instance.metaSiteId;
+    try {
+        const {data} = jwtDecode(parseJwt(accessToken));
+        const parsedData = JSON.parse(data)
+        return parsedData.instance.metaSiteId;
+    } catch (error) {
+        return null;
+    }
 }
 
 const parseJwt = (token) => {
