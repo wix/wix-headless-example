@@ -9,10 +9,15 @@ import styles from "@/styles/app.module.css";
 import LoginBar from "./members";
 import Examples from "./content";
 import Toast from "@/src/components/ui/toast";
+import {useEffect} from "react";
+import {checkClientIdAndRemoveSessionIfChanged} from "@/src/utils/check-client-id-change";
 
 const inter = Inter({subsets: ["latin"]});
 
 export default function App({Component, pageProps}) {
+    useEffect(() => {
+        checkClientIdAndRemoveSessionIfChanged();
+    }, []);
     return (
         <>
             <Head>
