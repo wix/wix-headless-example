@@ -32,7 +32,7 @@ export default function Home() {
                     Repo
                 </a>
             </span>
-            {!loading && apps.length && (<div
+            {!loading && !apps.length && (<div
                 style={{
                     marginTop: "20px",
                     display: "flex",
