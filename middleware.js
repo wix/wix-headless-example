@@ -1,6 +1,7 @@
 import {createClient, OAuthStrategy} from "@wix/sdk";
 import {NextResponse} from "next/server";
 import {CLIENT_ID} from "@/constants/constants";
+import {installedApps, WixApplications} from "@/src/utils/installed-apps";
 
 // This function acts as a middleware for the Next.js application.
 // We use this middleware to generate a session for the visitor.
@@ -34,6 +35,30 @@ export async function middleware(request) {
         // Finally, we return the response.
         return response;
     }
+    // Check if the requested page corresponds to an installed app
+    const path = request.nextUrl.pathname;
+    const appPaths = {
+        "/booking": {type: WixApplications.BOOKINGS, name: "Bookings"},
+        "/store": {type: WixApplications.STORE, name: "Store"},
+        "/events": {type: WixApplications.EVENTS, name: "Events"},
+        "/subscriptions": {
+            type: WixApplications.SUBSCRIPTIONS,
+            name: "Subscriptions",
+        },
+    };
+
+    if (path in appPaths) {
+        const installedAppsList = await installedApps();
+        if (!installedAppsList.includes(appPaths[path].type)) {
+            // If the app is not installed, redirect to 404 page
+            return NextResponse.redirect(
+                new URL(`/404?app=${appPaths[path].name}`, request.url),
+            );
+        }
+    }
+
+    // If everything is okay, proceed with the request
+    return NextResponse.next();
 }
 
 export const config = {

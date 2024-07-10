@@ -6,6 +6,8 @@ import {orders as checkout, wixEventsV2 as wixEvents} from "@wix/events";
 import {redirects} from "@wix/redirects";
 import testIds from "@/src/utils/test-ids";
 import {CLIENT_ID} from "@/constants/constants";
+import Link from "next/link";
+import {getMetaSiteId} from "@/src/utils/installed-apps";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -31,19 +33,29 @@ export default function Tickets() {
     // State variables for events list and tickets availability
     const [eventsList, setEventsList] = useState([]);
     const [ticketsAvailability, setTicketsAvailability] = useState([]);
+    const [msid, setMsid] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     // This is function fetches a list of events.
     async function fetchEvents() {
-        // We call the queryEvents method from the wixEvents module of the Wix client.
-        // This method retrieves a list of events.
-        // In this case, we're limiting the number of events to 10.
-        const eventsList = await myWixClient.wixEvents
-            .queryEvents()
-            .limit(10)
-            .find();
+        setIsLoading(true);
+        try {
+            // We call the queryEvents method from the wixEvents module of the Wix client.
+            // This method retrieves a list of events.
+            // In this case, we're limiting the number of events to 10.
+            const eventsList = await myWixClient.wixEvents
+                .queryEvents()
+                .limit(10)
+                .find();
 
-        // Then, we update the state of the events list in the React component.
-        setEventsList(eventsList.items);
+            // Then, we update the state of the events list in the React component.
+            setEventsList(eventsList.items);
+            setMsid(await getMetaSiteId());
+        } catch (error) {
+            console.error("Error fetching events", error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     // This function fetches the availability of tickets for a specific event.
@@ -105,8 +117,9 @@ export default function Tickets() {
         <main data-testid={testIds.EVENTS_PAGE.CONTAINER}>
             <div>
                 <h2>Choose an Event:</h2>
-                {/* We map over the events list and create a section for each event. */}
-                {eventsList.map((event) => {
+                {isLoading ? (
+                    <p>Loading events...</p>
+                ) : eventsList.length > 0 ? (eventsList.map((event) => {
                     return (
                         <section
                             key={event._id}
@@ -118,7 +131,17 @@ export default function Tickets() {
                             {event.title}
                         </section>
                     );
-                })}
+                })) : (
+                    <div>
+                        <p>No events available</p>
+                        <Link href={`https://manage.wix.com/dashboard/${msid}/events`} rel="noopener noreferrer"
+                              target="_blank"
+                              style={{textDecoration: 'underline', color: '#0070f3'}}
+                        >
+                            Create an event
+                        </Link>
+                    </div>
+                )}
             </div>
             <div>
                 <h2>Choose a Ticket:</h2>

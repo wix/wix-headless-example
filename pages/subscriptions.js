@@ -6,6 +6,8 @@ import {plans} from "@wix/pricing-plans";
 import {redirects} from "@wix/redirects";
 import testIds from "@/src/utils/test-ids";
 import {CLIENT_ID} from "@/constants/constants";
+import {getMetaSiteId} from "@/src/utils/installed-apps";
+import Link from "next/link";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -30,16 +32,27 @@ const myWixClient = createClient({
 export default function Subscriptions() {
     // State variable to store the list of plans.
     const [planList, setPlanList] = useState([]);
+    const [msid, setMsid] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     // This function fetches a list of public plans.
     async function fetchPlans() {
-        // We call the queryPublicPlans method from the plans module of the Wix client.
-        // This method retrieves a list of public plans.
-        // Public plans are visible plans that site visitors can see on the site and purchase.
-        const planList = await myWixClient.plans.queryPublicPlans().find();
+        setIsLoading(true);
+        try {
+            // We call the queryPublicPlans method from the plans module of the Wix client.
+            // This method retrieves a list of public plans.
+            // Public plans are visible plans that site visitors can see on the site and purchase.
+            const planList = await myWixClient.plans.queryPublicPlans().find();
 
-        // Then, we update the state of the plan list in the React component.
-        setPlanList(planList.items);
+            // Then, we update the state of the plan list in the React component.
+            setPlanList(planList.items);
+
+            setMsid(await getMetaSiteId());
+        } catch (error) {
+            console.error("Error fetching plans", error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     // This function creates a redirect to the checkout page for a specific plan.
@@ -66,8 +79,9 @@ export default function Subscriptions() {
         <main data-testid={testIds.SUBSCRIPTIONS_PAGE.CONTAINER}>
             <div>
                 <h2>Choose a Plan:</h2>
-                {/* We map over the plan list and create a section for each plan. */}
-                {planList.map((plan) => {
+                {isLoading ? (
+                    <p>Loading events...</p>
+                ) : planList.length > 0 ? (planList.map((plan) => {
                     return (
                         <section
                             key={plan._id}
@@ -79,7 +93,17 @@ export default function Subscriptions() {
                             {plan.name}
                         </section>
                     );
-                })}
+                })) : (
+                    <div>
+                        <p>No plans available.</p>
+                        <Link href={`https://manage.wix.com/dashboard/${msid}/pricing-plans`} rel="noopener noreferrer"
+                              target="_blank"
+                              style={{textDecoration: 'underline', color: '#0070f3'}}
+                        >
+                            Create a plan
+                        </Link>
+                    </div>
+                )}
             </div>
         </main>
     );

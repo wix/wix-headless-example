@@ -7,6 +7,8 @@ import {currentCart} from "@wix/ecom";
 import {redirects} from "@wix/redirects";
 import testIds from "@/src/utils/test-ids";
 import {CLIENT_ID} from "@/constants/constants";
+import Link from "next/link";
+import {getMetaSiteId} from "@/src/utils/installed-apps";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -32,12 +34,22 @@ export default function Store() {
     // State variables for product list and cart
     const [productList, setProductList] = useState([]);
     const [cart, setCart] = useState({});
+    const [msid, setMsid] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     // This function fetches the list of products
     async function fetchProducts() {
-        // Querying products and setting the product list state variable
-        const productList = await myWixClient.products.queryProducts().find();
-        setProductList(productList.items);
+        setIsLoading(true);
+        try {
+            // Querying products and setting the product list state variable
+            const productList = await myWixClient.products.queryProducts().find();
+            setProductList(productList.items);
+            setMsid(await getMetaSiteId());
+        } catch (error) {
+            console.error("Error fetching products", error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     // This function fetches the current cart
@@ -133,8 +145,9 @@ export default function Store() {
         <main data-testid={testIds.COMMERCE_PAGE.CONTAINER}>
             <div>
                 <h2>Choose Products:</h2>
-                {/* Mapping through the product list and displaying each product */}
-                {productList.map((product) => {
+                {isLoading ? (
+                    <p>Loading events...</p>
+                ) : productList.length > 0 ? (productList.map((product) => {
                     return (
                         // Each product is displayed in a section. When clicked, the product is added to the cart.
                         <section
@@ -145,7 +158,19 @@ export default function Store() {
                             {product.name}
                         </section>
                     );
-                })}
+                })) : (
+                    <div>
+                        <p>
+                            No products available
+                        </p>
+                        <Link href={`https://manage.wix.com/dashboard/${msid}/products`} rel="noopener noreferrer"
+                              target="_blank"
+                              style={{textDecoration: 'underline', color: '#0070f3'}}
+                        >
+                            Add a product
+                        </Link>
+                    </div>
+                )}
             </div>
             <div>
                 <h2>Cart:</h2>

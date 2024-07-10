@@ -6,6 +6,8 @@ import {availabilityCalendar, services} from "@wix/bookings";
 import {redirects} from "@wix/redirects";
 import testIds from "@/src/utils/test-ids";
 import {CLIENT_ID} from "@/constants/constants";
+import {getMetaSiteId} from "@/src/utils/installed-apps";
+import Link from "next/link";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -31,15 +33,26 @@ export default function Booking() {
     // State variables for service list and availability entries
     const [serviceList, setServiceList] = useState([]);
     const [availabilityEntries, setAvailabilityEntries] = useState([]);
+    const [msid, setMsid] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     // This is function fetches the list of services.
     async function fetchServices() {
-        // We call the queryServices method from the services module of the Wix client.
-        // This method retrieves the list of services.
-        const serviceList = await myWixClient.services.queryServices().find();
+        setIsLoading(true);
+        try {
+            // We call the queryServices method from the services module of the Wix client.
+            // This method retrieves the list of services.
+            const serviceList = await myWixClient.services.queryServices().find();
 
-        // Then, we update the state of the service list in the React component.
-        setServiceList(serviceList.items);
+            // Then, we update the state of the service list in the React component.
+            setServiceList(serviceList.items);
+
+            setMsid(await getMetaSiteId());
+        } catch (error) {
+            console.error("Error fetching services", error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     // This is function fetches the availability of a service.
@@ -91,8 +104,9 @@ export default function Booking() {
         <main data-testid={testIds.BOOKINGS_PAGE.CONTAINER}>
             <div>
                 <h2>Choose a Service:</h2>
-                {/* Mapping through service list and displaying each service */}
-                {serviceList.map((service) => {
+                {isLoading ? (
+                    <p>Loading events...</p>
+                ) : serviceList.length > 0 ? (serviceList.map((service) => {
                     return (
                         // Each service is displayed in a section. When clicked, the availability of the service is fetched.
                         <section
@@ -103,7 +117,17 @@ export default function Booking() {
                             {service.name}
                         </section>
                     );
-                })}
+                })) : (
+                    <div>
+                        <p>No services available</p>
+                        <Link href={`https://manage.wix.com/dashboard/${msid}/bookings`} rel="noopener noreferrer"
+                              target="_blank"
+                              style={{textDecoration: 'underline', color: '#0070f3'}}
+                        >
+                            Create a service
+                        </Link>
+                    </div>
+                )}
             </div>
             <div>
                 <h2>Choose a Slot:</h2>

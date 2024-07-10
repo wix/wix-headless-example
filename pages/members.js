@@ -4,11 +4,13 @@ import {useEffect, useState} from "react";
 import {createClient, OAuthStrategy} from "@wix/sdk";
 import {members} from "@wix/members";
 import {CLIENT_ID} from "@/constants/constants";
+import {isValidOauthUrl} from "@/src/utils/validate-oauth-url";
+import {getMetaSiteId} from "@/src/utils/installed-apps";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
     // We specify the modules we want to use with the client.
-    // In this case, we're using the members module.
+    // In this case, we're using the members' module.
     modules: {members},
 
     // We're using the OAuthStrategy for authentication.
@@ -28,9 +30,17 @@ const myWixClient = createClient({
 export default function LoginBar() {
     // State variable to store the current member.
     const [member, setMember] = useState(null);
+    const [validUrl, setValidUrl] = useState(false);
+    const [msid, setMsid] = useState(null);
 
     // This function fetches the current member.
     async function fetchMember() {
+        // check if the authUrl is reachable
+        const isValid = await isValidOauthUrl(myWixClient);
+        setValidUrl(isValid);
+
+        setMsid(await getMetaSiteId());
+
         // We check if the user is logged in using the loggedIn method from the auth module of the Wix client.
         // If the user is logged in, we call the getCurrentMember method from the members module of the Wix client.
         // This method retrieves the current member.
@@ -46,24 +56,38 @@ export default function LoginBar() {
 
     // This function initiates the login process.
     async function login() {
-        // We call the generateOAuthData method from the auth module of the Wix client.
-        // This method generates the necessary data for the OAuth authentication process.
-        // We specify the redirect URI for the authentication callback page.
-        const data = myWixClient.auth.generateOAuthData(
-            `${window.location.origin}/login-callback`,
-            window.location.href,
-        );
+        try {
+            // We call the generateOAuthData method from the auth module of the Wix client.
+            // This method generates the necessary data for the OAuth authentication process.
+            // We specify the redirect URI for the authentication callback page.
+            const data = myWixClient.auth.generateOAuthData(
+                `${window.location.origin}/login-callback`,
+                window.location.href,
+            );
 
-        // We store the generated OAuth data in the local storage.
-        // This data will be used later in the authentication process.
-        localStorage.setItem("oauthRedirectData", JSON.stringify(data));
+            // We store the generated OAuth data in the local storage.
+            // This data will be used later in the authentication process.
+            localStorage.setItem("oauthRedirectData", JSON.stringify(data));
 
-        // We call the getAuthUrl method from the auth module of the Wix client.
-        // This method generates the URL for the authentication page.
-        const {authUrl} = await myWixClient.auth.getAuthUrl(data);
+            // We call the getAuthUrl method from the auth module of the Wix client.
+            // This method generates the URL for the authentication page.
+            const {authUrl} = await myWixClient.auth.getAuthUrl(data);
+            // check that the authUrl is reachable
+            const response = await fetch(authUrl, {
+                mode: 'no-cors'  // This mode sends the request without requiring CORS
+            });
 
-        // Finally, we redirect the user to the authentication page.
-        window.location = authUrl; // Wix auth will send the user back to the callback page (login-callback.js)
+            // Check if the response is ok (status in the range 200-299)
+            if (!response.ok) {
+                throw new Error(`Failed to reach authUrl: ${authUrl}`);
+            }
+
+            // Finally, we redirect the user to the authentication page.
+            window.location = authUrl; // Wix auth will send the user back to the callback page (login-callback.js)
+        } catch (error) {
+            // If an error occurs during the login process, we log the error to the console.
+            console.error("Login error:", error);
+        }
     }
 
     // This function initiates the logout process.
@@ -94,7 +118,10 @@ export default function LoginBar() {
                     // When the section is clicked, we check if the user is logged in.
                     // If the user is logged in, we call the logout function.
                     // If the user is not logged in, we call the login function.
-                    onClick={() => (myWixClient.auth.loggedIn() ? logout() : login())}
+                    onClick={() =>
+                        validUrl ?
+                            ((myWixClient.auth.loggedIn() ? logout() : login())) : window.open(`https://manage.wix.com/dashboard/${msid}/oauth-apps-settings/manage/${CLIENT_ID}`, '_blank')
+                    }
                 >
                     <h3>
                         {/* We display a greeting message. */}
@@ -110,8 +137,18 @@ export default function LoginBar() {
                     {/* We display a link that allows the user to login or logout.
                     The text of the link depends on whether the user is logged in or not. */}
                     <span>{myWixClient.auth.loggedIn() ? "Logout" : "Login"}</span>
+                    {validUrl ? null : (
+                        <div style={{color: 'red', cursor: 'pointer', marginTop: '10px'}}>
+                            <p>
+                                Invalid redirect URI.<br/>
+                                Click here to update the redirect URI.
+                            </p>
+                        </div>
+                    )}
                 </section>
             )}
+
+
         </div>
     );
 }
