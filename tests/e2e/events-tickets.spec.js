@@ -1,15 +1,15 @@
-import { test, expect } from '@playwright/test';
-import testIds from '../../src/utils/test-ids';
+import { test, expect } from "@playwright/test";
+import testIds from "../../src/utils/test-ids";
 import { waitForWixSite } from "./utils/wix-checkout";
 
-test.describe('Events Tickets Flow', () => {
-  const PATH = '/tickets';
+test.describe("Events Tickets Flow", () => {
+  const PATH = "/tickets";
 
-  test('Tickets e2e', async ({ page}) => {
+  test("Tickets e2e", async ({ page }) => {
     await page.goto(PATH);
 
     await expect(
-      await page.getByTestId(testIds.EVENTS_PAGE.CONTAINER)
+      await page.getByTestId(testIds.EVENTS_PAGE.CONTAINER),
     ).toBeVisible();
 
     await page.getByTestId(testIds.EVENTS_PAGE.EVENT).first().click();
@@ -18,6 +18,6 @@ test.describe('Events Tickets Flow', () => {
 
     await waitForWixSite(page);
 
-    await expect(await page.getByText('Add your details')).toBeVisible();
+    await expect(await page.getByText("Add your details")).toBeVisible();
   });
 });

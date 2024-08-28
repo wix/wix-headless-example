@@ -15,7 +15,8 @@
       "slug": "/booking",
       "title": "Bookings"
     },
-    "_id": "a50ba154-d23c-4927-81fc-97b3dc8601f0"
+    "_id": "a50ba154-d23c-4927-81fc-97b3dc8601f0",
+    "installLink": "https://www.wix.com/app-market/bookings/overview"
   },
   {
     "dataCollectionId": "examples",
@@ -33,7 +34,8 @@
       "slug": "/store",
       "title": "Ecommerce"
     },
-    "_id": "8c5c65ce-bd06-4f91-95bc-ce8cdb238d9d"
+    "_id": "8c5c65ce-bd06-4f91-95bc-ce8cdb238d9d",
+    "installLink": "https://www.wix.com/app-market/wix-stores/overview"
   },
   {
     "dataCollectionId": "examples",
@@ -51,7 +53,8 @@
       "slug": "/tickets",
       "title": "Events & Tickets"
     },
-    "_id": "d910d14e-f656-47bb-9941-0dffeeeab2ce"
+    "_id": "d910d14e-f656-47bb-9941-0dffeeeab2ce",
+    "installLink": "https://www.wix.com/app-market/events/overview"
   },
   {
     "dataCollectionId": "examples",
@@ -69,6 +72,7 @@
       "slug": "/subscriptions",
       "title": "Subscriptions"
     },
-    "_id": "3bca722f-de01-4029-bce9-eb51203b3e20"
+    "_id": "3bca722f-de01-4029-bce9-eb51203b3e20",
+    "installLink": "https://www.wix.com/app-market/paid-plans/overview"
   }
 ]

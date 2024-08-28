@@ -1,5 +1,5 @@
-import { defineConfig, devices } from '@playwright/test';
-import * as process from 'process';
+import { defineConfig, devices } from "@playwright/test";
+import * as process from "process";
 
 /**
  * Read environment variables from file.
@@ -11,7 +11,7 @@ import * as process from 'process';
  * See https://playwright.dev/docs/test-configuration.
  */
 const config = defineConfig({
-  testDir: './tests/e2e',
+  testDir: "./tests/e2e",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -21,25 +21,25 @@ const config = defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: "html",
   snapshotPathTemplate: `{testDir}/__screenshots__/${
-    process.env.REMOTE_PROVIDER ?? 'local'
+    process.env.REMOTE_PROVIDER ?? "local"
   }{/projectName}/{testFilePath}/{arg}{ext}`,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://127.0.0.1:3000',
+    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || "http://127.0.0.1:3000",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: process.env.CI ? 'on-first-retry' : 'on',
-    screenshot: 'only-on-failure',
+    trace: process.env.CI ? "on-first-retry" : "on",
+    screenshot: "only-on-failure",
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
     //
     // {
@@ -77,8 +77,8 @@ const config = defineConfig({
   webServer: process.env.REMOTE_PROVIDER
     ? undefined
     : {
-        command: 'yarn start',
-        url: 'http://127.0.0.1:3000',
+        command: "yarn start",
+        url: "http://127.0.0.1:3000",
       },
 });
 

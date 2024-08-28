@@ -1,32 +1,33 @@
-import {useRouter} from "next/router";
-import {CLIENT_ID} from "@/constants/constants";
+import { useRouter } from "next/router";
+import { CLIENT_ID } from "@/constants/constants";
 import Link from "next/link";
 
 export default function Custom404() {
-    const router = useRouter();
-    const {app} = router.query;
+  const router = useRouter();
+  const { app } = router.query;
 
-    return (
-        <div>
-            <h1>404 - App Not Installed</h1>
-            <p>
-                {app || "The requested app"} is not installed for client ID: {CLIENT_ID}
-            </p>
-            <p>Please install the app in your Wix dashboard and try again.</p>
-            <Link href={"/"}>
-                <section
-                    style={{
-                        cursor: "pointer",
-                        color: "#0070f3",
-                        textDecoration: "underline",
-                        width: "fit-content",
-                        margin: "20px auto"
-                    }}>
-                    <h4>
-                        Go back to homepage <span>-&gt;</span>
-                    </h4>
-                </section>
-            </Link>
-        </div>
-    );
+  return (
+    <div>
+      <h1>404 - App Not Installed</h1>
+      <p>
+        {app || "The requested app"} is not installed for client ID: {CLIENT_ID}
+      </p>
+      <p>Please install the app in your Wix dashboard and try again.</p>
+      <Link href={"/"}>
+        <section
+          style={{
+            cursor: "pointer",
+            color: "#0070f3",
+            textDecoration: "underline",
+            width: "fit-content",
+            margin: "20px auto",
+          }}
+        >
+          <h4>
+            Go back to homepage <span>-&gt;</span>
+          </h4>
+        </section>
+      </Link>
+    </div>
+  );
 }

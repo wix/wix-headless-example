@@ -1,52 +1,65 @@
-"use client"
-import {useEffect, useState} from "react";
+"use client";
+import { useEffect, useState } from "react";
 import styles from "@/styles/app.module.css";
-import {CLIENT_ID} from "@/constants/constants";
+import { CLIENT_ID } from "@/constants/constants";
 
-export default function Toast({children}) {
-    const [showToast, setShowToast] = useState(false);
-    const exampleClientId = '9e37d7b0-3621-418f-a6b6-b82bdeaf051d';
+export default function Toast({ children }) {
+  const [showToast, setShowToast] = useState(false);
+  const exampleClientId = "9e37d7b0-3621-418f-a6b6-b82bdeaf051d";
 
-    useEffect(() => {
-        const toastClosed = localStorage.getItem('toastClosed');
+  useEffect(() => {
+    const toastClosed = localStorage.getItem("toastClosed");
 
-        if (toastClosed === null && CLIENT_ID === exampleClientId) {
-            setShowToast(true);
-        } else {
-            setShowToast(false);
+    if (toastClosed === null && CLIENT_ID === exampleClientId) {
+      setShowToast(true);
+    } else {
+      setShowToast(false);
 
-            localStorage.removeItem('toastClosed');
-        }
+      localStorage.removeItem("toastClosed");
+    }
 
-        return () => {
-            localStorage.removeItem('toastClosed');
-        };
-    }, []);
-
-    const closeToast = () => {
-        setShowToast(false);
-        localStorage.setItem('toastClosed', 'true');
+    return () => {
+      localStorage.removeItem("toastClosed");
     };
+  }, []);
 
-    if (!showToast) return null;
+  const closeToast = () => {
+    setShowToast(false);
+    localStorage.setItem("toastClosed", "true");
+  };
 
-    return (
-        <div className={`${styles.toast}`}>
-            <div className={`${styles['toast-icon-wrapper']}`}>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 192 512"
-                    className={`${styles['toast-icon']}`}
-                >
-                    <path
-                        d="M48 80a48 48 0 1 1 96 0A48 48 0 1 1 48 80zM0 224c0-17.7 14.3-32 32-32H96c17.7 0 32 14.3 32 32V448h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H64V256H32c-17.7 0-32-14.3-32-32z"
-                    />
-                </svg>
-            </div>
-            <span className={`${styles['toast-content']}`}>{children}</span>
-            <button onClick={closeToast} className={`${styles['toast-close']}`} aria-label="Close">
-                &times;
-            </button>
-        </div>
-    );
+  if (!showToast) return null;
+
+  return (
+    <div className={`${styles.toast}`}>
+      <div className={`${styles["toast-icon-wrapper"]}`}>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className={`${styles["toast-icon"]}`}
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M9 16C5.13401 16 2 12.866 2 9C2 5.13401 5.13401 2 9 2C12.866 2 16 5.13401 16 9C16 12.866 12.866 16 9 16ZM9 15C12.3137 15 15 12.3137 15 9C15 5.68629 12.3137 3 9 3C5.68629 3 3 5.68629 3 9C3 12.3137 5.68629 15 9 15ZM8 8H10V12L11 13H7L8 12V8.85714H7L8 8ZM9 5C9.55228 5 10 5.44772 10 6C10 6.55228 9.55228 7 9 7C8.44772 7 8 6.55228 8 6C8 5.44772 8.44772 5 9 5Z"
+            fill="#000624"
+          />
+        </svg>
+      </div>
+      <div className={styles.column}>
+        <h4>Replace your Client ID</h4>
+        <span className={`${styles["toast-content"]}`}>{children}</span>
+      </div>
+      <button
+        onClick={closeToast}
+        className={`${styles["toast-close"]}`}
+        aria-label="Close"
+      >
+        &times;
+      </button>
+    </div>
+  );
 }
