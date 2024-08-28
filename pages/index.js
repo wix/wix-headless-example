@@ -1,4 +1,5 @@
 import styles from "@/styles/app.module.css";
+import Examples from "@/pages/content";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
           </span>
         </div>
       </article>
+      <Examples />
     </>
   );
 }

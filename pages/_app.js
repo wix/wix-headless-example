@@ -7,10 +7,10 @@ import "@/styles/globals.css";
 import styles from "@/styles/app.module.css";
 
 import LoginBar from "./members";
-import Examples from "./content";
 import Toast from "@/src/components/ui/toast";
 import { useEffect } from "react";
 import { checkClientIdAndRemoveSessionIfChanged } from "@/src/utils/check-client-id-change";
+import { PageTitle } from "@/src/components/ui/page_title";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +18,7 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     checkClientIdAndRemoveSessionIfChanged();
   }, []);
+
   return (
     <>
       <Head>
@@ -64,9 +65,12 @@ export default function App({ Component, pageProps }) {
             </Link>
             <LoginBar />
           </header>
+          {pageProps.title && (
+            <PageTitle title={pageProps.title} withBackButton={true} />
+          )}
           <Component {...pageProps} />
         </div>
-        <Examples />
+        {/*<Examples />*/}
       </div>
     </>
   );
