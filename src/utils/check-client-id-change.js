@@ -18,7 +18,5 @@ export const checkClientIdAndRemoveSessionIfChanged = () => {
 
     // Update the stored CLIENT_ID
     localStorage.setItem("storedClientId", CLIENT_ID);
-
-    console.log("CLIENT_ID changed. Session cookie removed.");
   }
 };

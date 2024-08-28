@@ -14,9 +14,6 @@ export const isValidOauthUrl = async (myWixClient) => {
       },
     });
 
-    // Log the response for debugging
-    console.log(response);
-
     // Check if the response was successful
     return response.ok;
   } catch (error) {
