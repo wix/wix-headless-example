@@ -6,6 +6,7 @@ import { members } from "@wix/members";
 import { CLIENT_ID } from "@/constants/constants";
 import { isValidOauthUrl } from "@/src/utils/validate-oauth-url";
 import { getMetaSiteId } from "@/src/utils/installed-apps";
+import { useAsyncHandler } from "@/src/hooks/async-handler";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -32,56 +33,61 @@ export default function LoginBar() {
   const [member, setMember] = useState(null);
   const [validUrl, setValidUrl] = useState(false);
   const [msid, setMsid] = useState(null);
+  const handleAsync = useAsyncHandler();
 
   // This function fetches the current member.
   async function fetchMember() {
-    // check if the authUrl is reachable
-    try {
-      const isValid = await isValidOauthUrl(myWixClient);
-      setValidUrl(isValid);
-    } catch (error) {
-      console.error("Error checking authUrl:", error);
-      setValidUrl(false);
-    }
-    setMsid(await getMetaSiteId());
+    await handleAsync(async () => {
+      // check if the authUrl is reachable
+      try {
+        const isValid = await isValidOauthUrl(myWixClient);
+        setValidUrl(isValid);
+      } catch (error) {
+        console.error("Error checking authUrl:", error);
+        setValidUrl(false);
+      }
+      setMsid(await getMetaSiteId());
 
-    // We check if the user is logged in using the loggedIn method from the auth module of the Wix client.
-    // If the user is logged in, we call the getCurrentMember method from the members module of the Wix client.
-    // This method retrieves the current member.
-    // If the user is not logged in, we default to an empty object.
-    const { member } = myWixClient.auth.loggedIn()
-      ? await myWixClient.members.getCurrentMember()
-      : {};
+      // We check if the user is logged in using the loggedIn method from the auth module of the Wix client.
+      // If the user is logged in, we call the getCurrentMember method from the members module of the Wix client.
+      // This method retrieves the current member.
+      // If the user is not logged in, we default to an empty object.
+      const { member } = myWixClient.auth.loggedIn()
+        ? await myWixClient.members.getCurrentMember()
+        : {};
 
-    // Then, we update the state of the member in the React component.
-    // If the member is undefined, we default to undefined.
-    setMember(member || undefined);
+      // Then, we update the state of the member in the React component.
+      // If the member is undefined, we default to undefined.
+      setMember(member || undefined);
+    });
   }
 
   // This function initiates the login process.
   async function login() {
     try {
-      // We call the generateOAuthData method from the auth module of the Wix client.
-      // This method generates the necessary data for the OAuth authentication process.
-      // We specify the redirect URI for the authentication callback page.
-      const data = myWixClient.auth.generateOAuthData(
-        `${window.location.origin}/login-callback`,
-        window.location.href,
-      );
+      await handleAsync(async () => {
+        // We call the generateOAuthData method from the auth module of the Wix client.
+        // This method generates the necessary data for the OAuth authentication process.
+        // We specify the redirect URI for the authentication callback page.
+        const data = myWixClient.auth.generateOAuthData(
+          `${window.location.origin}/login-callback`,
+          window.location.href,
+        );
 
-      // We store the generated OAuth data in the local storage.
-      // This data will be used later in the authentication process.
-      localStorage.setItem("oauthRedirectData", JSON.stringify(data));
+        // We store the generated OAuth data in the local storage.
+        // This data will be used later in the authentication process.
+        localStorage.setItem("oauthRedirectData", JSON.stringify(data));
 
-      // We call the getAuthUrl method from the auth module of the Wix client.
-      // This method generates the URL for the authentication page.
-      const { authUrl } = await myWixClient.auth.getAuthUrl(data);
-      if (!validUrl) {
-        throw new Error(`Failed to reach authUrl: ${authUrl}`);
-      }
+        // We call the getAuthUrl method from the auth module of the Wix client.
+        // This method generates the URL for the authentication page.
+        const { authUrl } = await myWixClient.auth.getAuthUrl(data);
+        if (!validUrl) {
+          throw new Error(`Failed to reach authUrl: ${authUrl}`);
+        }
 
-      // Finally, we redirect the user to the authentication page.
-      window.location = authUrl; // Wix auth will send the user back to the callback page (login-callback.js)
+        // Finally, we redirect the user to the authentication page.
+        window.location = authUrl; // Wix auth will send the user back to the callback page (login-callback.js)
+      });
     } catch (error) {
       // If an error occurs during the login process, we log the error to the console.
       console.error("Login error:", error);
@@ -90,17 +96,19 @@ export default function LoginBar() {
 
   // This function initiates the logout process.
   async function logout() {
-    // We call the logout method from the auth module of the Wix client.
-    // This method generates the URL for the logout page.
-    // We pass the current page URL as the parameter.
-    const { logoutUrl } = await myWixClient.auth.logout(window.location.href);
+    await handleAsync(async () => {
+      // We call the logout method from the auth module of the Wix client.
+      // This method generates the URL for the logout page.
+      // We pass the current page URL as the parameter.
+      const { logoutUrl } = await myWixClient.auth.logout(window.location.href);
 
-    // We remove the session cookie.
-    // This effectively logs the user out on the client side.
-    Cookies.remove("session");
+      // We remove the session cookie.
+      // This effectively logs the user out on the client side.
+      Cookies.remove("session");
 
-    // Finally, we redirect the user to the logout page.
-    window.location = logoutUrl;
+      // Finally, we redirect the user to the logout page.
+      window.location = logoutUrl;
+    });
   }
 
   // Fetch the current member when the component mounts.

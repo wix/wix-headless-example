@@ -12,6 +12,7 @@ import { getMetaSiteId } from "@/src/utils/installed-apps";
 import Head from "next/head";
 import styles from "@/styles/app.module.css";
 import Modal from "@/src/components/ui/modal";
+import { useAsyncHandler } from "@/src/hooks/async-handler";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -40,15 +41,18 @@ export default function Store() {
   const [msid, setMsid] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
+  const handleAsync = useAsyncHandler();
 
   // This function fetches the list of products
   async function fetchProducts() {
     setIsLoading(true);
     try {
-      // Querying products and setting the product list state variable
-      const productList = await myWixClient.products.queryProducts().find();
-      setProductList(productList.items);
-      setMsid(await getMetaSiteId());
+      await handleAsync(async () => {
+        // Querying products and setting the product list state variable
+        const productList = await myWixClient.products.queryProducts().find();
+        setProductList(productList.items);
+        setMsid(await getMetaSiteId());
+      });
     } catch (error) {
       console.error("Error fetching products", error);
     } finally {
@@ -62,7 +66,9 @@ export default function Store() {
     try {
       // We call the getCurrentCart method from the currentCart module of the Wix client.
       // This method retrieves the current user's shopping cart.
-      setCart(await myWixClient.currentCart.getCurrentCart());
+      await handleAsync(async () =>
+        setCart(await myWixClient.currentCart.getCurrentCart()),
+      );
     } catch {
       // If the cart is not available, do something (e.g., show an error message)
     }
@@ -70,86 +76,92 @@ export default function Store() {
 
   // This function adds a product to the cart using the currentCart module of the Wix client created
   async function addToCart(product) {
-    // First, we create an options object from the product's options.
-    // We use the reduce function to transform the productOptions array into an object.
-    const options = product.productOptions.reduce(
-      (selected, option) => ({
-        // For each option, we add a new property to the object with the option name as the key and the description of the first choice as the value.
-        ...selected,
-        [option.name]: option.choices[0].description,
-      }),
-      {}, // This is the initial value of the reduce function. It's an empty object that we'll add properties to.
-    );
-
-    // Check if the product is already in the cart
-    if (cart) {
-      const existingProduct = cart?.lineItems?.find(
-        (item) => item.catalogReference.catalogItemId === product._id,
+    await handleAsync(async () => {
+      // First, we create an options object from the product's options.
+      // We use the reduce function to transform the productOptions array into an object.
+      const options = product.productOptions.reduce(
+        (selected, option) => ({
+          // For each option, we add a new property to the object with the option name as the key and the description of the first choice as the value.
+          ...selected,
+          [option.name]: option.choices[0].description,
+        }),
+        {}, // This is the initial value of the reduce function. It's an empty object that we'll add properties to.
       );
 
-      // If the product is already in the cart, increase the quantity
-      if (existingProduct) {
-        return addExistingProduct(
-          existingProduct._id,
-          existingProduct.quantity + 1,
+      // Check if the product is already in the cart
+      if (cart) {
+        const existingProduct = cart?.lineItems?.find(
+          (item) => item.catalogReference.catalogItemId === product._id,
         );
+
+        // If the product is already in the cart, increase the quantity
+        if (existingProduct) {
+          return addExistingProduct(
+            existingProduct._id,
+            existingProduct.quantity + 1,
+          );
+        }
       }
-    }
 
-    // Then, we call the addToCurrentCart method from the currentCart module of the Wix client.
-    // This method adds items to the current user's shopping cart.
-    const { cart: returnedCard } =
-      await myWixClient.currentCart.addToCurrentCart({
-        // We pass an object that describes the product to be added.
-        lineItems: [
-          {
-            // Each product is identified by a catalogReference object.
-            catalogReference: {
-              appId: "1380b703-ce81-ff05-f115-39571d94dfcd", // This is the application ID of stores app.
-              catalogItemId: product._id, // This is the product's ID.
-              options: { options }, // These are the product options we created earlier.
+      // Then, we call the addToCurrentCart method from the currentCart module of the Wix client.
+      // This method adds items to the current user's shopping cart.
+      const { cart: returnedCard } =
+        await myWixClient.currentCart.addToCurrentCart({
+          // We pass an object that describes the product to be added.
+          lineItems: [
+            {
+              // Each product is identified by a catalogReference object.
+              catalogReference: {
+                appId: "1380b703-ce81-ff05-f115-39571d94dfcd", // This is the application ID of stores app.
+                catalogItemId: product._id, // This is the product's ID.
+                options: { options }, // These are the product options we created earlier.
+              },
+              quantity: 1, // We're adding one unit of the product.
             },
-            quantity: 1, // We're adding one unit of the product.
-          },
-        ],
-      });
+          ],
+        });
 
-    // Finally, we update the state of the cart in the React component.
-    setCart(returnedCard);
+      // Finally, we update the state of the cart in the React component.
+      setCart(returnedCard);
+    });
   }
 
   // This is a function that clears the cart.
   async function clearCart() {
-    // We call the deleteCurrentCart method from the currentCart module of the Wix client.
-    // This method deletes the current site visitor's shopping cart.
-    await myWixClient.currentCart.deleteCurrentCart();
+    await handleAsync(async () => {
+      // We call the deleteCurrentCart method from the currentCart module of the Wix client.
+      // This method deletes the current site visitor's shopping cart.
+      await myWixClient.currentCart.deleteCurrentCart();
 
-    // Then, we update the state of the cart in the React component to be an empty object.
-    setCart({});
+      // Then, we update the state of the cart in the React component to be an empty object.
+      setCart({});
+    });
   }
 
   // This is a function that creates a redirect to the checkout page.
   async function createRedirect() {
     try {
-      // We call the createCheckoutFromCurrentCart method from the currentCart module of the Wix client.
-      // This method creates a checkout from the current user's shopping cart.
-      const { checkoutId } =
-        await myWixClient.currentCart.createCheckoutFromCurrentCart({
-          // We specify the channel type to be WEB.
-          channelType: currentCart.ChannelType.WEB,
+      await handleAsync(async () => {
+        // We call the createCheckoutFromCurrentCart method from the currentCart module of the Wix client.
+        // This method creates a checkout from the current user's shopping cart.
+        const { checkoutId } =
+          await myWixClient.currentCart.createCheckoutFromCurrentCart({
+            // We specify the channel type to be WEB.
+            channelType: currentCart.ChannelType.WEB,
+          });
+
+        // Then, we call the createRedirectSession method from the redirects module of the Wix client.
+        // This method creates a redirect session to the checkout page.
+        const redirect = await myWixClient.redirects.createRedirectSession({
+          // We pass an object that specifies the checkoutId for the ecomCheckout.
+          ecomCheckout: { checkoutId },
+          // We also specify the postFlowUrl to be the current page URL. This is where the user will be redirected after the checkout flow.
+          callbacks: { postFlowUrl: window.location.href },
         });
 
-      // Then, we call the createRedirectSession method from the redirects module of the Wix client.
-      // This method creates a redirect session to the checkout page.
-      const redirect = await myWixClient.redirects.createRedirectSession({
-        // We pass an object that specifies the checkoutId for the ecomCheckout.
-        ecomCheckout: { checkoutId },
-        // We also specify the postFlowUrl to be the current page URL. This is where the user will be redirected after the checkout flow.
-        callbacks: { postFlowUrl: window.location.href },
+        // Finally, we redirect the user to the URL generated by the redirect session.
+        window.location = redirect.redirectSession.fullUrl;
       });
-
-      // Finally, we redirect the user to the URL generated by the redirect session.
-      window.location = redirect.redirectSession.fullUrl;
     } catch (error) {
       setShowPremiumModal(true);
     }

@@ -10,6 +10,7 @@ import Link from "next/link";
 import { getMetaSiteId } from "@/src/utils/installed-apps";
 import styles from "@/styles/app.module.css";
 import Head from "next/head";
+import { useAsyncHandler } from "@/src/hooks/async-handler";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -39,22 +40,25 @@ export default function Tickets() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [selectedTicket, setSelectedTicket] = useState(null);
+  const handleAsync = useAsyncHandler();
 
   // This is function fetches a list of events.
   async function fetchEvents() {
     setIsLoading(true);
     try {
-      // We call the queryEvents method from the wixEvents module of the Wix client.
-      // This method retrieves a list of events.
-      // In this case, we're limiting the number of events to 10.
-      const eventsList = await myWixClient.wixEvents
-        .queryEvents()
-        .limit(10)
-        .find();
+      await handleAsync(async () => {
+        // We call the queryEvents method from the wixEvents module of the Wix client.
+        // This method retrieves a list of events.
+        // In this case, we're limiting the number of events to 10.
+        const eventsList = await myWixClient.wixEvents
+          .queryEvents()
+          .limit(10)
+          .find();
 
-      // Then, we update the state of the events list in the React component.
-      setEventsList(eventsList.items);
-      setMsid(await getMetaSiteId());
+        // Then, we update the state of the events list in the React component.
+        setEventsList(eventsList.items);
+        setMsid(await getMetaSiteId());
+      });
     } catch (error) {
       console.error("Error fetching events", error);
     } finally {
@@ -64,58 +68,62 @@ export default function Tickets() {
 
   // This function fetches the availability of tickets for a specific event.
   async function fetchTicketsAvailability(event) {
-    // We call the queryAvailableTickets method from the checkout module of the Wix client.
-    // This method retrieves the available tickets for a specific event.
-    // We filter the tickets by the event ID and limit the number of tickets to 10.
-    const tickets = await myWixClient.checkout.queryAvailableTickets({
-      filter: { eventId: event._id },
-      limit: 10,
+    await handleAsync(async () => {
+      // We call the queryAvailableTickets method from the checkout module of the Wix client.
+      // This method retrieves the available tickets for a specific event.
+      // We filter the tickets by the event ID and limit the number of tickets to 10.
+      const tickets = await myWixClient.checkout.queryAvailableTickets({
+        filter: { eventId: event._id },
+        limit: 10,
+      });
+
+      // Then, we update the state of the tickets availability in the React component.
+      setTicketsAvailability(tickets.definitions);
+
+      // We also update the selected event in the state.
+      setSelectedEvent(event);
     });
-
-    // Then, we update the state of the tickets availability in the React component.
-    setTicketsAvailability(tickets.definitions);
-
-    // We also update the selected event in the state.
-    setSelectedEvent(event);
   }
 
   // This function creates a redirect to the checkout page for a specific ticket.
   async function createRedirect(ticket) {
-    // We find the event associated with the ticket from the events list.
-    // We're interested in the slug of the event, which is a URL-friendly version of the event name.
-    const eventSlug = eventsList.find(
-      (event) => event._id === ticket.eventId,
-    ).slug;
+    await handleAsync(async () => {
+      // We find the event associated with the ticket from the events list.
+      // We're interested in the slug of the event, which is a URL-friendly version of the event name.
+      const eventSlug = eventsList.find(
+        (event) => event._id === ticket.eventId,
+      ).slug;
 
-    // We call the createReservation method from the checkout module of the Wix client.
-    // This method creates a reservation for the ticket.
-    // We pass the event ID and an object that specifies the quantity of the ticket.
-    const reservation = await myWixClient.checkout.createReservation(
-      ticket.eventId,
-      {
-        ticketQuantities: [
-          {
-            ticketDefinitionId: ticket._id,
-            quantity: 1,
-          },
-        ],
-      },
-    );
+      // We call the createReservation method from the checkout module of the Wix client.
+      // This method creates a reservation for the ticket.
+      // We pass the event ID and an object that specifies the quantity of the ticket.
+      const reservation = await myWixClient.checkout.createReservation(
+        ticket.eventId,
+        {
+          ticketQuantities: [
+            {
+              ticketDefinitionId: ticket._id,
+              quantity: 1,
+            },
+          ],
+        },
+      );
 
-    // We call the createRedirectSession method from the redirects module of the Wix client.
-    // This method creates a redirect session to the checkout page.
-    // We pass an object that specifies the event slug and the reservation ID for the eventsCheckout.
-    // We also specify the postFlowUrl to be the current page URL. This is where the user will be redirected after the checkout flow.
-    const redirect = await myWixClient.redirects.createRedirectSession({
-      eventsCheckout: { eventSlug, reservationId: reservation._id },
-      callbacks: { postFlowUrl: window.location.href },
+      // We call the createRedirectSession method from the redirects module of the Wix client.
+      // This method creates a redirect session to the checkout page.
+      // We pass an object that specifies the event slug and the reservation ID for the eventsCheckout.
+      // We also specify the postFlowUrl to be the current page URL. This is where the user will be redirected after the checkout flow.
+      const redirect = await myWixClient.redirects.createRedirectSession({
+        eventsCheckout: { eventSlug, reservationId: reservation._id },
+        callbacks: { postFlowUrl: window.location.href },
+      });
+
+      // We update the selected ticket in the state.
+      setSelectedTicket(ticket);
+
+      // Finally, we redirect the user to the URL generated by the redirect session.
+      window.location = redirect.redirectSession.fullUrl;
     });
-
-    // We update the selected ticket in the state.
-    setSelectedTicket(ticket);
-
-    // Finally, we redirect the user to the URL generated by the redirect session.
-    window.location = redirect.redirectSession.fullUrl;
   }
 
   // Fetch events on component mount

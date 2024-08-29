@@ -10,6 +10,7 @@ import { getMetaSiteId } from "@/src/utils/installed-apps";
 import Link from "next/link";
 import Head from "next/head";
 import styles from "@/styles/app.module.css";
+import { useAsyncHandler } from "@/src/hooks/async-handler";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -39,19 +40,22 @@ export default function Booking() {
   const [isLoading, setIsLoading] = useState(true);
   const [chosenService, setChosenService] = useState(null);
   const [chosenSlot, setChosenSlot] = useState(null);
+  const handleAsync = useAsyncHandler();
 
   // This is function fetches the list of services.
   async function fetchServices() {
     setIsLoading(true);
     try {
-      // We call the queryServices method from the services module of the Wix client.
-      // This method retrieves the list of services.
-      const serviceList = await myWixClient.services.queryServices().find();
+      await handleAsync(async () => {
+        // We call the queryServices method from the services module of the Wix client.
+        // This method retrieves the list of services.
+        const serviceList = await myWixClient.services.queryServices().find();
 
-      // Then, we update the state of the service list in the React component.
-      setServiceList(serviceList.items);
+        // Then, we update the state of the service list in the React component.
+        setServiceList(serviceList.items);
 
-      setMsid(await getMetaSiteId());
+        setMsid(await getMetaSiteId());
+      });
     } catch (error) {
       console.error("Error fetching services", error);
     } finally {
@@ -61,46 +65,50 @@ export default function Booking() {
 
   // This is function fetches the availability of a service.
   async function fetchAvailability(service) {
-    // We create two Date objects for today and tomorrow.
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    await handleAsync(async () => {
+      // We create two Date objects for today and tomorrow.
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
 
-    // We call the queryAvailability method from the availabilityCalendar module of the Wix client.
-    // This method retrieves the availability of a service.
-    const availability =
-      await myWixClient.availabilityCalendar.queryAvailability(
-        {
-          filter: {
-            serviceId: [service._id], // We filter by the service ID.
-            startDate: today.toISOString(), // We set the start date to be today.
-            endDate: tomorrow.toISOString(), // We set the end date to be tomorrow.
+      // We call the queryAvailability method from the availabilityCalendar module of the Wix client.
+      // This method retrieves the availability of a service.
+      const availability =
+        await myWixClient.availabilityCalendar.queryAvailability(
+          {
+            filter: {
+              serviceId: [service._id], // We filter by the service ID.
+              startDate: today.toISOString(), // We set the start date to be today.
+              endDate: tomorrow.toISOString(), // We set the end date to be tomorrow.
+            },
           },
-        },
-        { timezone: "UTC" }, // We set the timezone to be UTC.
-      ); // the response contains the availability entries for the service within the specified time range.
+          { timezone: "UTC" }, // We set the timezone to be UTC.
+        ); // the response contains the availability entries for the service within the specified time range.
 
-    // Then, we update the state of the availability entries in the React component.
-    setAvailabilityEntries(availability.availabilityEntries);
-    setChosenService(service._id);
+      // Then, we update the state of the availability entries in the React component.
+      setAvailabilityEntries(availability.availabilityEntries);
+      setChosenService(service._id);
+    });
   }
 
   // This is function creates a redirect to the checkout page.
   async function createRedirect(slotAvailability) {
-    // We call the createRedirectSession method from the redirects module of the Wix client.
-    // This method creates a redirect session to the checkout page.
-    const redirect = await myWixClient.redirects.createRedirectSession({
-      // We pass an object that specifies the slotAvailability for the bookingsCheckout.
-      bookingsCheckout: { slotAvailability, timezone: "UTC" },
-      // We also specify the postFlowUrl to be the current page URL. This is where the user will be redirected after the checkout flow.
-      callbacks: { postFlowUrl: window.location.href },
+    await handleAsync(async () => {
+      // We call the createRedirectSession method from the redirects module of the Wix client.
+      // This method creates a redirect session to the checkout page.
+      const redirect = await myWixClient.redirects.createRedirectSession({
+        // We pass an object that specifies the slotAvailability for the bookingsCheckout.
+        bookingsCheckout: { slotAvailability, timezone: "UTC" },
+        // We also specify the postFlowUrl to be the current page URL. This is where the user will be redirected after the checkout flow.
+        callbacks: { postFlowUrl: window.location.href },
+      });
+
+      // Finally, we redirect the user to the URL generated by the redirect session.
+      window.location = redirect.redirectSession.fullUrl;
+
+      // We also update the state of the chosen slot in the React component.
+      setChosenSlot(slotAvailability);
     });
-
-    // Finally, we redirect the user to the URL generated by the redirect session.
-    window.location = redirect.redirectSession.fullUrl;
-
-    // We also update the state of the chosen slot in the React component.
-    setChosenSlot(slotAvailability);
   }
 
   // Fetch services on component mount
@@ -118,7 +126,7 @@ export default function Booking() {
         <div>
           <h2>Choose a Service:</h2>
           {isLoading ? (
-            <p>Loading events...</p>
+            <p>Loading services...</p>
           ) : serviceList.length > 0 ? (
             serviceList.map((service) => {
               return (
