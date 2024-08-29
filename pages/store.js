@@ -232,8 +232,8 @@ export default function Store() {
                 style={{ gap: "24px" }}
               >
                 <li>
-                  {cart.lineItems.map((item) => (
-                    <ul key={item.id}>
+                  {cart.lineItems.map((item, index) => (
+                    <ul key={index}>
                       <div style={{ display: "flex", gap: "16px" }}>
                         <div style={{ fontWeight: "bold" }}>
                           {item.quantity}
