@@ -239,7 +239,6 @@ export default function Store() {
             <div className={styles.column}>
               {/* When clicked, the user is redirected to the checkout page */}
               <section
-                data-testid={testIds.COMMERCE_PAGE.CHECKOUT}
                 className={`${styles.column} ${styles.start} ${styles.active}`}
                 style={{
                   gap: "24px",
@@ -266,6 +265,7 @@ export default function Store() {
                 className={styles.primary}
                 onClick={() => createRedirect()}
                 style={{ fontWeight: "bold" }}
+                data-testid={testIds.COMMERCE_PAGE.CHECKOUT}
               >
                 <div>Checkout</div>
               </button>

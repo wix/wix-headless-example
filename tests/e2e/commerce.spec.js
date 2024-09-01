@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import testIds from "../../src/utils/test-ids";
 import { waitForWixSite } from "./utils/wix-checkout";
 
@@ -8,28 +8,39 @@ test.describe("eCommerce Flow", () => {
   test("eCommerce e2e", async ({ page }) => {
     await page.goto(PATH);
 
+    // Verify that the store container is visible
     await expect(
-      await page.getByTestId(testIds.COMMERCE_PAGE.CONTAINER),
+      page.getByTestId(testIds.COMMERCE_PAGE.CONTAINER),
     ).toBeVisible();
 
-    await page.getByTestId(testIds.COMMERCE_PAGE.PRODUCT).first().click();
-
-    const productName = await page
+    // Check if the product list is visible and clickable
+    const firstProduct = page
       .getByTestId(testIds.COMMERCE_PAGE.PRODUCT)
-      .first()
-      .textContent();
+      .first();
+    await expect(firstProduct).toBeVisible();
+    const productName = await firstProduct.textContent();
 
-    await page.getByTestId(testIds.COMMERCE_PAGE.CHECKOUT).first().click();
+    // Click on the first product to add it to the cart
+    await firstProduct.click();
 
+    // Click on the checkout button
+    const checkoutButton = page
+      .getByTestId(testIds.COMMERCE_PAGE.CHECKOUT)
+      .first();
+    await expect(checkoutButton).toBeVisible();
+    await checkoutButton.click();
+
+    // Wait for the Wix checkout iframe to load
     await waitForWixSite(page);
 
-    let checkoutIframeSelector = 'iframe[title="Checkout"]';
+    // Verify the iframe is present and switch context if necessary
+    const checkoutIframeSelector = 'iframe[title="Checkout"]';
     const isCheckoutIframe =
       (await page.locator(checkoutIframeSelector).count()) > 0;
 
     const frame = isCheckoutIframe
       ? page.frameLocator(checkoutIframeSelector)
       : page;
-    await expect(await frame.getByText(productName)).toBeVisible();
+    await expect(frame.getByText(productName)).toBeVisible();
   });
 });
