@@ -3,6 +3,14 @@ import { CLIENT_ID } from "@/constants/constants";
 import Link from "next/link";
 import styles from "@/styles/app.module.css";
 
+/*
+ * Custom 404 page component for handling app not installed errors.
+ *
+ * This component displays a message indicating that the requested app is not installed
+ * for the given client ID and provides a link to go back to the homepage.
+ *
+ */
+
 export default function Custom404() {
   const router = useRouter();
   const { app } = router.query;

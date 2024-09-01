@@ -14,18 +14,27 @@ const myWixClient = createClient({
   }),
 });
 
+/*
+ * Examples component for displaying installed and uninstalled apps.
+ *
+ * This component fetches the list of examples and installed apps,
+ * and displays them in separate sections based on their installation status.
+ */
 export default function Examples() {
   const [examples, setExamples] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [installedAppsList, setInstalledAppsList] = useState([]);
 
+  // Fetch data when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch examples and installed apps concurrently
         const [fetchedExamples, fetchedInstalledApps] = await Promise.all([
           fetch("/examples.json").then((res) => res.json()),
           installedApps(),
         ]);
+        // Update state with fetched data
         setExamples(fetchedExamples);
         setInstalledAppsList(fetchedInstalledApps);
       } catch (error) {
@@ -34,10 +43,12 @@ export default function Examples() {
       }
     };
 
+    // Call fetchData and update login status
     fetchData();
     setIsLoggedIn(myWixClient.auth.loggedIn());
   }, []);
 
+  // Memoized list of installed examples
   const installedExamples = useMemo(
     () =>
       examples.filter((example) =>
@@ -46,6 +57,7 @@ export default function Examples() {
     [examples, installedAppsList],
   );
 
+  // Memoized list of uninstalled examples
   const uninstalledExamples = useMemo(
     () =>
       examples.filter(
@@ -58,6 +70,7 @@ export default function Examples() {
     <div>
       <div className={styles.grid}>
         {installedExamples.map((example) => {
+          // Check if the example is a subscription and if the user is logged in
           const isSubscription = example.data.slug === "/subscriptions";
           const isDisabled = isSubscription && !isLoggedIn;
 

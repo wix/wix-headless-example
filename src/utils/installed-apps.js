@@ -9,6 +9,7 @@ import { plans } from "@wix/pricing-plans";
 import { orders as checkout, wixEventsV2 as wixEvents } from "@wix/events";
 import { jwtDecode } from "jwt-decode";
 
+// Enum for Wix applications
 export const WixApplications = Object.freeze({
   BOOKINGS: 0,
   STORE: 1,
@@ -16,6 +17,7 @@ export const WixApplications = Object.freeze({
   SUBSCRIPTIONS: 3,
 });
 
+// Function to create a Wix client with specified modules and OAuth authentication
 const createWixClient = () => {
   return createClient({
     modules: {
@@ -35,6 +37,7 @@ const createWixClient = () => {
   });
 };
 
+// Function to check if an app is installed
 const checkAppInstallation = async (client, queryFunction, appType) => {
   try {
     const result = await queryFunction();
@@ -44,6 +47,7 @@ const checkAppInstallation = async (client, queryFunction, appType) => {
   }
 };
 
+// Function to get the list of installed apps
 export const installedApps = async () => {
   const myWixClient = createWixClient();
 
@@ -74,6 +78,7 @@ export const installedApps = async () => {
   return results.flat();
 };
 
+// Function to get the meta site ID
 export const getMetaSiteId = async () => {
   const myWixClient = createWixClient();
   const accessToken = myWixClient.auth.getTokens().accessToken.value;
@@ -86,6 +91,7 @@ export const getMetaSiteId = async () => {
   }
 };
 
+// Function to parse JWT token
 const parseJwt = (token) => {
   return token.replace(/^OauthNG\.JWS\./, "");
 };

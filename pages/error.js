@@ -1,6 +1,11 @@
 "use client";
 import { useRouter } from "next/router";
 
+/*
+ * Error page component.
+ * This component displays an error message when an error occurs.
+ * The error message is passed as a query parameter.
+ */
 export default function ErrorPage() {
   const router = useRouter();
   const { message } = router.query;

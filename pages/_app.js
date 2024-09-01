@@ -16,6 +16,12 @@ import { GlobalLoader } from "@/src/components/global-loader";
 
 const inter = Inter({ subsets: ["latin"] });
 
+/*
+ * Main App component for the Wix Headless Examples application.
+ *
+ * This component sets up the global context providers, handles client ID checks,
+ * and renders the main layout including the header, and the current page component.
+ */
 export default function App({ Component, pageProps }) {
   useEffect(() => {
     checkClientIdAndRemoveSessionIfChanged();
