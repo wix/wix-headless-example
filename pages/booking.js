@@ -135,15 +135,7 @@ export default function Booking() {
                   key={service._id}
                   data-testid={testIds.BOOKINGS_PAGE.SERVICE}
                   onClick={() => fetchAvailability(service)}
-                  className={styles.selectable}
-                  style={{
-                    background:
-                      service._id === chosenService &&
-                      "rgba(var(--card-rgb), 0.1)",
-                    border:
-                      service._id === chosenService &&
-                      "1px solid rgba(var(--card-border-rgb), 0.15)",
-                  }}
+                  className={`${styles.selectable} ${chosenService === service._id ? styles.active : ""}`}
                 >
                   {service.name}
                 </section>
@@ -173,14 +165,7 @@ export default function Booking() {
                 key={entry.slot.startDate}
                 data-testid={testIds.BOOKINGS_PAGE.SLOT}
                 onClick={() => createRedirect(entry)}
-                style={{
-                  cursor: "pointer",
-                  background:
-                    entry === chosenSlot && "rgba(var(--card-rgb), 0.1)",
-                  border:
-                    entry === chosenSlot &&
-                    "1px solid rgba(var(--card-border-rgb), 0.15)",
-                }}
+                className={`${styles.selectable} ${chosenSlot === entry ? styles.active : ""}`}
               >
                 {new Date(entry.slot.startDate).toLocaleString()}
               </section>

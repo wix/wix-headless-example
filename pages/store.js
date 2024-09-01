@@ -241,7 +241,10 @@ export default function Store() {
               <section
                 data-testid={testIds.COMMERCE_PAGE.CHECKOUT}
                 className={`${styles.column} ${styles.start} ${styles.active}`}
-                style={{ gap: "24px" }}
+                style={{
+                  gap: "24px",
+                  borderColor: "rgba(var(--card-border-rgb), 0.15)",
+                }}
               >
                 <li>
                   {cart.lineItems.map((item, index) => (

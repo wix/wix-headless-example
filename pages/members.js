@@ -46,7 +46,8 @@ export default function LoginBar() {
         console.error("Error checking authUrl:", error);
         setValidUrl(false);
       }
-      setMsid(await getMetaSiteId());
+      const msid = await getMetaSiteId();
+      setMsid(msid);
 
       // We check if the user is logged in using the loggedIn method from the auth module of the Wix client.
       // If the user is logged in, we call the getCurrentMember method from the members module of the Wix client.
