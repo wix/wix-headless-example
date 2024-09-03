@@ -189,8 +189,8 @@ li {
 ul {
   list-style-type: none;
   display: flex;
-  align-items: start;
-  justify-content: start;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 10px;
   width: 100%;
 }

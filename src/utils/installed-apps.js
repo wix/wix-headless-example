@@ -81,12 +81,19 @@ export const installedApps = async () => {
 // Function to get the meta site ID
 export const getMetaSiteId = async () => {
   const myWixClient = createWixClient();
-  const accessToken = myWixClient.auth.getTokens().accessToken.value;
+  const session = Cookies.get("session");
+  let tokens;
+  if (!session) {
+    tokens = await myWixClient.auth.generateVisitorTokens();
+  } else {
+    tokens = JSON.parse(session);
+  }
   try {
-    const { data } = jwtDecode(parseJwt(accessToken));
+    const { data } = jwtDecode(parseJwt(tokens?.accessToken?.value));
     const parsedData = JSON.parse(data);
     return parsedData.instance.metaSiteId;
   } catch (error) {
+    console.error("Error getting meta site ID", error);
     return null;
   }
 };

@@ -1,7 +1,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
@@ -23,7 +23,7 @@
   border-radius: 5px;
   z-index: 1000;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   width: 90%;

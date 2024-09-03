@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { CLIENT_ID } from "@/constants/constants";
 import styles from "@/styles/app.module.css";
 import { installedApps } from "@/src/utils/installed-apps";
+import { useAsyncHandler } from "@/src/hooks/async-handler";
 
 // Create the Wix client
 const myWixClient = createClient({
@@ -24,23 +25,26 @@ export default function Examples() {
   const [examples, setExamples] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [installedAppsList, setInstalledAppsList] = useState([]);
+  const handleAsync = useAsyncHandler();
 
   // Fetch data when the component mounts
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        // Fetch examples and installed apps concurrently
-        const [fetchedExamples, fetchedInstalledApps] = await Promise.all([
-          fetch("/examples.json").then((res) => res.json()),
-          installedApps(),
-        ]);
-        // Update state with fetched data
-        setExamples(fetchedExamples);
-        setInstalledAppsList(fetchedInstalledApps);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setExamples([]);
-      }
+      await handleAsync(async () => {
+        try {
+          // Fetch examples and installed apps concurrently
+          const [fetchedExamples, fetchedInstalledApps] = await Promise.all([
+            fetch("/examples.json").then((res) => res.json()),
+            installedApps(),
+          ]);
+          // Update state with fetched data
+          setExamples(fetchedExamples);
+          setInstalledAppsList(fetchedInstalledApps);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          setExamples([]);
+        }
+      });
     };
 
     // Call fetchData and update login status
