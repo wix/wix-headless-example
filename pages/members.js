@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { InfoModal } from "@/src/components/ui/modals/info-modal";
 import Link from "next/link";
 import { getMetaSiteId } from "@/src/utils/installed-apps";
+import { handleCopyUrl } from "@/src/utils/utils";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -39,6 +40,8 @@ export default function LoginBar() {
   const [msid, setMsid] = useState(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSandboxInfoModal, setShowSandboxInfoModal] = useState(false);
+  const [url, setUrl] = useState("");
+
   const handleAsync = useAsyncHandler();
   const router = useRouter();
 
@@ -59,6 +62,9 @@ export default function LoginBar() {
 
       // We get the metaSiteId.
       setMsid(await getMetaSiteId());
+
+      // We set the URL.
+      setUrl(window.location.href);
     });
   }
 
@@ -166,6 +172,7 @@ export default function LoginBar() {
         }} // login with custom login
         onClose={() => setShowLoginModal(false)}
       />
+      {/* display sandbox info modal when running in CodeSandbox */}
       <InfoModal
         openModal={showSandboxInfoModal}
         title={"CodeSandbox Environment Detected"}
@@ -176,8 +183,35 @@ export default function LoginBar() {
               CodeSandbox environment.
               <br />
               In order to experience the full functionality of the Wix Login
-              Method, If you running your own client-id please add the generated
-              URL that CodeSandbox provides to the Wix App settings.
+              Method,
+              <br />
+              If you running your own client-id please add the generated URL
+              that CodeSandbox provides (
+              <span
+                onClick={handleCopyUrl}
+                style={{
+                  color: "#116DFF",
+                  cursor: "pointer",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.5em",
+                }}
+              >
+                {url}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"
+                  style={{
+                    width: "1em",
+                    height: "1em",
+                    verticalAlign: "middle",
+                    fill: "#116DFF",
+                  }}
+                >
+                  <path d="M384 336l-192 0c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l140.1 0L400 115.9 400 320c0 8.8-7.2 16-16 16zM192 384l192 0c35.3 0 64-28.7 64-64l0-204.1c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1L192 0c-35.3 0-64 28.7-64 64l0 256c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l192 0c35.3 0 64-28.7 64-64l0-32-48 0 0 32c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l32 0 0-48-32 0z" />
+                </svg>
+              </span>
+              ) to the Wix App settings.
               <Link
                 href={`https://manage.wix.com/dashboard/${msid}/oauth-apps-settings/manage/${CLIENT_ID}`}
                 target={"_blank"}
