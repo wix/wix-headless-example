@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient, OAuthStrategy } from "@wix/sdk";
 import Cookies from "js-cookie";
 import { CLIENT_ID } from "@/constants/constants";
 import styles from "@/styles/app.module.css";
-import { installedApps } from "@/src/utils/installed-apps";
-import { useAsyncHandler } from "@/src/hooks/async-handler";
+import { useClient } from "@/internal/providers/client-provider";
 
 // Create the Wix client
 const myWixClient = createClient({
@@ -22,53 +21,13 @@ const myWixClient = createClient({
  * and displays them in separate sections based on their installation status.
  */
 export default function Examples() {
-  const [examples, setExamples] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [installedAppsList, setInstalledAppsList] = useState([]);
-  const handleAsync = useAsyncHandler();
+  const { installedAppsList, installedExamples, uninstalledExamples } =
+    useClient();
 
-  // Fetch data when the component mounts
   useEffect(() => {
-    const fetchData = async () => {
-      await handleAsync(async () => {
-        try {
-          // Fetch examples and installed apps concurrently
-          const [fetchedExamples, fetchedInstalledApps] = await Promise.all([
-            fetch("/examples.json").then((res) => res.json()),
-            installedApps(),
-          ]);
-          // Update state with fetched data
-          setExamples(fetchedExamples);
-          setInstalledAppsList(fetchedInstalledApps);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-          setExamples([]);
-        }
-      });
-    };
-
-    // Call fetchData and update login status
-    fetchData();
     setIsLoggedIn(myWixClient.auth.loggedIn());
   }, []);
-
-  // Memoized list of installed examples
-  const installedExamples = useMemo(
-    () =>
-      examples.filter((example) =>
-        installedAppsList.includes(example.data.orderId - 1),
-      ),
-    [examples, installedAppsList],
-  );
-
-  // Memoized list of uninstalled examples
-  const uninstalledExamples = useMemo(
-    () =>
-      examples.filter(
-        (example) => !installedAppsList.includes(example.data.orderId - 1),
-      ),
-    [examples, installedAppsList],
-  );
 
   return (
     <div>

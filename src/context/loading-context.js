@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useState } from "react";
 
-// Create a context for loading state management
+// Create a providers for loading state management
 const LoadingContext = createContext();
 
 // Provider component to manage loading state

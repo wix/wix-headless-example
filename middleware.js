@@ -1,7 +1,10 @@
 import { createClient, OAuthStrategy } from "@wix/sdk";
 import { NextResponse } from "next/server";
 import { CLIENT_ID } from "@/constants/constants";
-import { installedApps, WixApplications } from "@/src/utils/installed-apps";
+import {
+  installedApps,
+  WixApplications,
+} from "@/internal/utils/installed-apps";
 
 // This function acts as a middleware for the Next.js application.
 // We use this middleware to generate a session for the visitor.
@@ -41,7 +44,7 @@ export async function middleware(request) {
     } catch (error) {
       const message = "Make sure you are using a valid CLIENT_ID";
       return NextResponse.redirect(
-        new URL(`/error?message=${message}`, request.url),
+        new URL(`/internal/error?message=${message}`, request.url),
       );
     }
   }

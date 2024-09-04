@@ -7,10 +7,10 @@ import { redirects } from "@wix/redirects";
 import testIds from "@/src/utils/test-ids";
 import { CLIENT_ID } from "@/constants/constants";
 import Link from "next/link";
-import { getMetaSiteId } from "@/src/utils/installed-apps";
 import styles from "@/styles/app.module.css";
 import Head from "next/head";
 import { useAsyncHandler } from "@/src/hooks/async-handler";
+import { useClient } from "@/internal/providers/client-provider";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -36,11 +36,11 @@ export default function Tickets() {
   // State variables for events list and tickets availability
   const [eventsList, setEventsList] = useState([]);
   const [ticketsAvailability, setTicketsAvailability] = useState([]);
-  const [msid, setMsid] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const handleAsync = useAsyncHandler();
+  const { msid } = useClient();
 
   // This is function fetches a list of events.
   async function fetchEvents() {
@@ -57,7 +57,6 @@ export default function Tickets() {
 
         // Then, we update the state of the events list in the React component.
         setEventsList(eventsList.items);
-        setMsid(await getMetaSiteId());
       });
     } catch (error) {
       console.error("Error fetching events", error);

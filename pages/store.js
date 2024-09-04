@@ -8,11 +8,11 @@ import { redirects } from "@wix/redirects";
 import testIds from "@/src/utils/test-ids";
 import { CLIENT_ID } from "@/constants/constants";
 import Link from "next/link";
-import { getMetaSiteId } from "@/src/utils/installed-apps";
 import Head from "next/head";
 import styles from "@/styles/app.module.css";
-import Modal from "@/src/components/ui/modal";
 import { useAsyncHandler } from "@/src/hooks/async-handler";
+import PremiumModal from "@/internal/components/ui/modals/premium-modal";
+import { useClient } from "@/internal/providers/client-provider";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -38,10 +38,10 @@ export default function Store() {
   // State variables for product list and cart
   const [productList, setProductList] = useState([]);
   const [cart, setCart] = useState({});
-  const [msid, setMsid] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const handleAsync = useAsyncHandler();
+  const { msid } = useClient();
 
   // This function fetches the list of products
   async function fetchProducts() {
@@ -51,7 +51,6 @@ export default function Store() {
         // Querying products and setting the product list state variable
         const productList = await myWixClient.products.queryProducts().find();
         setProductList(productList.items);
-        setMsid(await getMetaSiteId());
       });
     } catch (error) {
       console.error("Error fetching products", error);
@@ -278,7 +277,7 @@ export default function Store() {
         </div>
       </main>
       {/* Show premium modal when the user tries to checkout and is not a premium user */}
-      <Modal
+      <PremiumModal
         openModal={showPremiumModal}
         title="Upgrade to Premium"
         content="The checkout feature is only available to premium users. Please upgrade to access this feature."

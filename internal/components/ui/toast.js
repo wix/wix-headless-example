@@ -1,16 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "@/styles/app.module.css";
-import { CLIENT_ID } from "@/constants/constants";
+import { checkDefaultClientId } from "@/internal/utils/enviroment-check";
 
 export default function Toast({ children }) {
   const [showToast, setShowToast] = useState(false);
-  const exampleClientId = "9e37d7b0-3621-418f-a6b6-b82bdeaf051d";
 
   useEffect(() => {
     const toastClosed = localStorage.getItem("toastClosed");
 
-    if (toastClosed === null && CLIENT_ID === exampleClientId) {
+    if (toastClosed === null && checkDefaultClientId()) {
       setShowToast(true);
     } else {
       setShowToast(false);

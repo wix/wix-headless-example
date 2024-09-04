@@ -6,11 +6,11 @@ import { availabilityCalendar, services } from "@wix/bookings";
 import { redirects } from "@wix/redirects";
 import testIds from "@/src/utils/test-ids";
 import { CLIENT_ID } from "@/constants/constants";
-import { getMetaSiteId } from "@/src/utils/installed-apps";
 import Link from "next/link";
 import Head from "next/head";
 import styles from "@/styles/app.module.css";
 import { useAsyncHandler } from "@/src/hooks/async-handler";
+import { useClient } from "@/internal/providers/client-provider";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -36,11 +36,11 @@ export default function Booking() {
   // State variables for service list and availability entries
   const [serviceList, setServiceList] = useState([]);
   const [availabilityEntries, setAvailabilityEntries] = useState([]);
-  const [msid, setMsid] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [chosenService, setChosenService] = useState(null);
   const [chosenSlot, setChosenSlot] = useState(null);
   const handleAsync = useAsyncHandler();
+  const { msid } = useClient();
 
   // This is function fetches the list of services.
   async function fetchServices() {
@@ -53,8 +53,6 @@ export default function Booking() {
 
         // Then, we update the state of the service list in the React component.
         setServiceList(serviceList.items);
-
-        setMsid(await getMetaSiteId());
       });
     } catch (error) {
       console.error("Error fetching services", error);

@@ -6,10 +6,10 @@ import { plans } from "@wix/pricing-plans";
 import { redirects } from "@wix/redirects";
 import testIds from "@/src/utils/test-ids";
 import { CLIENT_ID } from "@/constants/constants";
-import { getMetaSiteId } from "@/src/utils/installed-apps";
 import Link from "next/link";
 import styles from "@/styles/app.module.css";
 import { useAsyncHandler } from "@/src/hooks/async-handler";
+import { useClient } from "@/internal/providers/client-provider";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -34,10 +34,10 @@ const myWixClient = createClient({
 export default function Subscriptions() {
   // State variable to store the list of plans.
   const [planList, setPlanList] = useState([]);
-  const [msid, setMsid] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [chosenPlan, setChosenPlan] = useState(null);
   const handleAsync = useAsyncHandler();
+  const { msid } = useClient();
 
   // This function fetches a list of public plans.
   async function fetchPlans() {
@@ -51,8 +51,6 @@ export default function Subscriptions() {
 
         // Then, we update the state of the plan list in the React component.
         setPlanList(planList.items);
-
-        setMsid(await getMetaSiteId());
       });
     } catch (error) {
       console.error("Error fetching plans", error);

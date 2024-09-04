@@ -1,11 +1,15 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { createClient, OAuthStrategy } from "@wix/sdk";
 import { members } from "@wix/members";
 import { CLIENT_ID } from "@/constants/constants";
-import { getMetaSiteId } from "@/src/utils/installed-apps";
 import { useAsyncHandler } from "@/src/hooks/async-handler";
+import {
+  checkDefaultClientId,
+  checkSandboxEnvironment,
+} from "@/internal/utils/enviroment-check";
+import { useModal } from "@/internal/providers/modal-provider";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -30,15 +34,12 @@ const myWixClient = createClient({
 export default function LoginBar() {
   // State variable to store the current member.
   const [member, setMember] = useState(null);
-  const [msid, setMsid] = useState(null);
+  const { openModal } = useModal();
   const handleAsync = useAsyncHandler();
 
   // This function fetches the current member.
   async function fetchMember() {
     await handleAsync(async () => {
-      const msid = await getMetaSiteId();
-      setMsid(msid);
-
       // We check if the user is logged in using the loggedIn method from the auth module of the Wix client.
       // If the user is logged in, we call the getCurrentMember method from the members module of the Wix client.
       // This method retrieves the current member.
@@ -55,6 +56,13 @@ export default function LoginBar() {
 
   // This function initiates the login process.
   async function login() {
+    // INTERNAL: If the user is running the app in the CodeSandbox environment, we display a message.
+    if (checkSandboxEnvironment() && checkDefaultClientId()) {
+      openModal("login");
+      return; // Stop the login process if in sandbox environment
+    }
+
+    // We wrap the login process in a try-catch block to handle any errors that may occur.
     try {
       await handleAsync(async () => {
         // We call the generateOAuthData method from the auth module of the Wix client.
@@ -99,6 +107,11 @@ export default function LoginBar() {
     });
   }
 
+  // open login modal when clicking the login button
+  const handleLoginModal = () => {
+    myWixClient.auth.loggedIn() ? logout() : login();
+  };
+
   // Fetch the current member when the component mounts.
   useEffect(() => {
     fetchMember();
@@ -112,7 +125,8 @@ export default function LoginBar() {
           // When the section is clicked, we check if the user is logged in.
           // If the user is logged in, we call the logout function.
           // If the user is not logged in, we call the login function.
-          onClick={() => (myWixClient.auth.loggedIn() ? logout() : login())}
+          // onClick={() => (myWixClient.auth.loggedIn() ? logout() : login())}
+          onClick={handleLoginModal}
           style={{
             cursor: "pointer",
           }}
