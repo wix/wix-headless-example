@@ -7,6 +7,9 @@ import { CLIENT_ID } from "@/constants/constants";
 import { useAsyncHandler } from "@/src/hooks/async-handler";
 import LoginModal from "@/src/components/ui/modals/login-modal";
 import { useRouter } from "next/navigation";
+import { InfoModal } from "@/src/components/ui/modals/info-modal";
+import Link from "next/link";
+import { getMetaSiteId } from "@/src/utils/installed-apps";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -33,7 +36,9 @@ const WixLogin = () => {};
 export default function LoginBar() {
   // State variable to store the current member.
   const [member, setMember] = useState(null);
+  const [msid, setMsid] = useState(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSandboxInfoModal, setShowSandboxInfoModal] = useState(false);
   const handleAsync = useAsyncHandler();
   const router = useRouter();
 
@@ -51,12 +56,24 @@ export default function LoginBar() {
       // Then, we update the state of the member in the React component.
       // If the member is undefined, we default to undefined.
       setMember(member || undefined);
+
+      // We get the metaSiteId.
+      setMsid(await getMetaSiteId());
     });
   }
 
   // This function initiates the login process.
   async function login() {
     setShowLoginModal(false);
+    // If the user is running the app in the CodeSandbox environment, we display a message.
+    const url = window.location.hostname;
+    const csbUrlType = /^[a-zA-Z0-9]+-\d+\.csb\.app$/;
+    console.log(url);
+    if (csbUrlType.test(url) && !localStorage.getItem("sandboxInfoModal")) {
+      console.log("test");
+      setShowSandboxInfoModal(true);
+      return;
+    }
     try {
       await handleAsync(async () => {
         // We call the generateOAuthData method from the auth module of the Wix client.
@@ -101,6 +118,7 @@ export default function LoginBar() {
     });
   }
 
+  // open login modal when clicking the login button
   const handleLoginModal = () => {
     myWixClient.auth.loggedIn() ? logout() : setShowLoginModal(true);
   };
@@ -140,14 +158,54 @@ export default function LoginBar() {
           <span>{myWixClient.auth.loggedIn() ? "Logout" : "Login"}</span>
         </section>
       )}
+      {/* display login modal when clicking the login button */}
       <LoginModal
         openModal={showLoginModal}
-        WixLoginAction={login}
+        WixLoginAction={login} // login with Wix
         CustomLoginAction={() => {
           setShowLoginModal(false);
           router.push("/custom-login");
-        }}
+        }} // login with custom login
         onClose={() => setShowLoginModal(false)}
+      />
+      <InfoModal
+        openModal={showSandboxInfoModal}
+        title={"CodeSandbox Environment Detected"}
+        content={
+          <>
+            <p>
+              We&rsquo;ve detected that you&rsquo;re running the app in the
+              CodeSandbox environment.
+              <br />
+              In order to experience the full functionality of the Wix Login
+              Method, If you running your own client-id please add the generated
+              URL that CodeSandbox provides to the Wix App settings.
+              <Link
+                href={`https://manage.wix.com/dashboard/${msid}/oauth-apps-settings/manage/${CLIENT_ID}`}
+                target={"_blank"}
+                style={{ color: "#116DFF" }}
+              >
+                (OAuth Redirect URL)
+              </Link>
+            </p>
+            <br />
+            <p>
+              Alternatively, if you didn&rsquo;t provide your own client-id, you
+              can test this feature from the{" "}
+              <Link
+                href={`https://wix-headless-example.vercel.app/`}
+                target={"_blank"}
+                style={{ color: "#116DFF" }}
+              >
+                deployed version of the app
+              </Link>
+            </p>
+          </>
+        }
+        onClose={() => setShowSandboxInfoModal(false)}
+        primaryAction={() => {
+          localStorage.setItem("sandboxInfoModal", true);
+        }}
       />
     </div>
   );

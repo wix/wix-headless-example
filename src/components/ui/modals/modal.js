@@ -10,7 +10,7 @@ const Modal = ({ children, isOpen, onClose }) => {
 
   const handleClose = useCallback(() => {
     setIsModalOpen(false);
-    onClose();
+    onClose && onClose();
   }, [onClose]);
 
   if (!isModalOpen) return null;
