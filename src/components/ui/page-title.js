@@ -1,4 +1,4 @@
-export const PageTitle = ({ title, withBackButton }) => {
+export const PageTitle = ({ title, withBackButton, hideTitle }) => {
   return (
     <div
       style={{
@@ -31,7 +31,7 @@ export const PageTitle = ({ title, withBackButton }) => {
           </button>
         )}
       </span>
-      <h1>{title}</h1>
+      {!hideTitle && <h1>{title}</h1>}
     </div>
   );
 };

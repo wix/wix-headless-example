@@ -75,7 +75,11 @@ export default function App({ Component, pageProps }) {
               <LoginBar />
             </header>
             {pageProps.title && (
-              <PageTitle title={pageProps.title} withBackButton={true} />
+              <PageTitle
+                title={pageProps.title}
+                withBackButton={true}
+                hideTitle={pageProps.hideTitle}
+              />
             )}
             <GlobalLoader />
             <Component {...pageProps} />

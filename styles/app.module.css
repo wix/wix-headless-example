@@ -101,6 +101,13 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(50%, auto));
+  width: var(--max-width);
+  max-width: 100%;
+}
+
 .row {
   display: flex;
   justify-content: space-between;
@@ -250,6 +257,12 @@
   animation:
     l20-1 0.8s infinite linear alternate,
     l20-2 1.6s infinite linear;
+}
+
+.divider {
+  border-left: 1px solid rgba(var(--card-border-rgb), 0.5);
+  height: 100px;
+  max-width: 1px;
 }
 
 @keyframes l20-1 {

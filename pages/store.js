@@ -11,8 +11,8 @@ import Link from "next/link";
 import { getMetaSiteId } from "@/src/utils/installed-apps";
 import Head from "next/head";
 import styles from "@/styles/app.module.css";
-import Modal from "@/src/components/ui/modal";
 import { useAsyncHandler } from "@/src/hooks/async-handler";
+import PremiumModal from "@/src/components/ui/modals/premium-modal";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -278,7 +278,7 @@ export default function Store() {
         </div>
       </main>
       {/* Show premium modal when the user tries to checkout and is not a premium user */}
-      <Modal
+      <PremiumModal
         openModal={showPremiumModal}
         title="Upgrade to Premium"
         content="The checkout feature is only available to premium users. Please upgrade to access this feature."

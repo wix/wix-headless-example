@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { createClient, OAuthStrategy } from "@wix/sdk";
 import { members } from "@wix/members";
 import { CLIENT_ID } from "@/constants/constants";
-import { getMetaSiteId } from "@/src/utils/installed-apps";
 import { useAsyncHandler } from "@/src/hooks/async-handler";
+import LoginModal from "@/src/components/ui/modals/login-modal";
+import { useRouter } from "next/navigation";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -27,18 +28,18 @@ const myWixClient = createClient({
   }),
 });
 
+const WixLogin = () => {};
+
 export default function LoginBar() {
   // State variable to store the current member.
   const [member, setMember] = useState(null);
-  const [msid, setMsid] = useState(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const handleAsync = useAsyncHandler();
+  const router = useRouter();
 
   // This function fetches the current member.
   async function fetchMember() {
     await handleAsync(async () => {
-      const msid = await getMetaSiteId();
-      setMsid(msid);
-
       // We check if the user is logged in using the loggedIn method from the auth module of the Wix client.
       // If the user is logged in, we call the getCurrentMember method from the members module of the Wix client.
       // This method retrieves the current member.
@@ -55,6 +56,7 @@ export default function LoginBar() {
 
   // This function initiates the login process.
   async function login() {
+    setShowLoginModal(false);
     try {
       await handleAsync(async () => {
         // We call the generateOAuthData method from the auth module of the Wix client.
@@ -99,6 +101,10 @@ export default function LoginBar() {
     });
   }
 
+  const handleLoginModal = () => {
+    myWixClient.auth.loggedIn() ? logout() : setShowLoginModal(true);
+  };
+
   // Fetch the current member when the component mounts.
   useEffect(() => {
     fetchMember();
@@ -112,7 +118,8 @@ export default function LoginBar() {
           // When the section is clicked, we check if the user is logged in.
           // If the user is logged in, we call the logout function.
           // If the user is not logged in, we call the login function.
-          onClick={() => (myWixClient.auth.loggedIn() ? logout() : login())}
+          // onClick={() => (myWixClient.auth.loggedIn() ? logout() : login())}
+          onClick={handleLoginModal}
           style={{
             cursor: "pointer",
           }}
@@ -133,6 +140,15 @@ export default function LoginBar() {
           <span>{myWixClient.auth.loggedIn() ? "Logout" : "Login"}</span>
         </section>
       )}
+      <LoginModal
+        openModal={showLoginModal}
+        WixLoginAction={login}
+        CustomLoginAction={() => {
+          setShowLoginModal(false);
+          router.push("/custom-login");
+        }}
+        onClose={() => setShowLoginModal(false)}
+      />
     </div>
   );
 }
