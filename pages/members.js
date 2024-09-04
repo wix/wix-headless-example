@@ -68,9 +68,7 @@ export default function LoginBar() {
     // If the user is running the app in the CodeSandbox environment, we display a message.
     const url = window.location.hostname;
     const csbUrlType = /^[a-zA-Z0-9]+-\d+\.csb\.app$/;
-    console.log(url);
     if (csbUrlType.test(url) && !localStorage.getItem("sandboxInfoModal")) {
-      console.log("test");
       setShowSandboxInfoModal(true);
       return;
     }
