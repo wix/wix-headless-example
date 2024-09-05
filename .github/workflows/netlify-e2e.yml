@@ -1,7 +1,7 @@
 name: Netlify E2E
 on:
   pull_request:
-    branches: [main]
+    branches: [ main ]
   workflow_dispatch:
     inputs:
       deploymentUrl:

@@ -1,7 +1,7 @@
 import React from "react";
-import { ClientProvider } from "@/internal/providers/client-provider";
-import { ModalProvider } from "@/internal/providers/modal-provider";
-import { ToastProvider } from "@/internal/providers/toast-provider";
+import {ClientProvider} from "@/internal/providers/client-provider";
+import {ModalProvider} from "@/internal/providers/modal-provider";
+import {ToastProvider} from "@/internal/providers/toast-provider";
 
 /**
  * Internal providers for the Wix Headless Examples application.
@@ -13,14 +13,14 @@ import { ToastProvider } from "@/internal/providers/toast-provider";
  * application with the necessary providers for your application.
  */
 
-const InternalProviders = ({ children }) => {
-  return (
-    <ClientProvider>
-      <ToastProvider>
-        <ModalProvider>{children}</ModalProvider>
-      </ToastProvider>
-    </ClientProvider>
-  );
+const InternalProviders = ({children}) => {
+    return (
+        <ClientProvider>
+            <ToastProvider>
+                <ModalProvider>{children}</ModalProvider>
+            </ToastProvider>
+        </ClientProvider>
+    );
 };
 
 export default InternalProviders;
