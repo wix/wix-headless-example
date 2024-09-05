@@ -2,8 +2,7 @@
 
 This [Next.js](https://nextjs.org/) project provides a minimal example site to demonstrate basic usage of various Wix
 Headless APIs. The implementation focuses on simplicity and readability, rather than feature richness, performance, or
-completeness. This repository can be used as a quick reference for bootstrapping a Wix Headless application, but it
-should not be treated as a best practices guide.
+completeness. This repository can be used as a quick reference for bootstrapping a Wix Headless application.
 
 For a more comprehensive example of Wix Headless integration, we recommend checking out
 our [starter templates](https://www.wix.com/developers/headless/templates).
