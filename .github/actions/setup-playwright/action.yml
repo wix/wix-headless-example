@@ -1,5 +1,5 @@
-name: 'Setup Playwright With Cache'
-description: 'Setup Playwright With Cache'
+name: "Setup Playwright With Cache"
+description: "Setup Playwright With Cache"
 runs:
   using: "composite"
   steps:

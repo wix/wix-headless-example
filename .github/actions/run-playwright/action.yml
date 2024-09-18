@@ -1,21 +1,21 @@
-name: 'Store Playwright Results'
-description: 'Store Playwright Results'
+name: "Store Playwright Results"
+description: "Store Playwright Results"
 inputs:
   provider-deployment-url:
-    description: 'The deployment URL to test with'
+    description: "The deployment URL to test with"
     required: true
   provider:
-    description: 'Which next deployment provider is used'
+    description: "Which next deployment provider is used"
     required: true
   githubToken:
-    description: 'GitHub Token'
+    description: "GitHub Token"
     required: true
   prNumber:
-    description: 'Pull request ID (optional)'
+    description: "Pull request ID (optional)"
     required: false
 outputs:
   conclusion:
-    description: 'E2E result'
+    description: "E2E result"
 runs:
   using: "composite"
   steps:
@@ -48,7 +48,7 @@ runs:
           const prNumber = '${{ inputs.prNumber }}';
           const provider = '${{ inputs.provider }}';
           const deploymentUrl = '${{ inputs.provider-deployment-url }}';
-          
+
           if (prNumber && conclusion) {
             core.setOutput('conclusion', conclusion);
             const owner = context.repo.owner;
@@ -66,7 +66,7 @@ runs:
               repo: repo,
               ref: pullRequest.data.head.ref,
             });
-          
+
             let checkRunId = null;
             for (const checkRun of checksForPr.data.check_runs) {
               if (checkRun.name === jobName) {
@@ -75,7 +75,7 @@ runs:
                 break;
               }
             }
-          
+
             if (checkRunId) {
               const checkInput = {
                 owner,

@@ -1,30 +1,30 @@
-name: 'Combine PRs'
+name: "Combine PRs"
 
 # Controls when the action will run - in this case triggered manually
 on:
   workflow_dispatch:
     inputs:
       branchPrefix:
-        description: 'Branch prefix to find combinable PRs based on'
+        description: "Branch prefix to find combinable PRs based on"
         required: true
-        default: 'dependabot'
+        default: "dependabot"
       mustBeGreen:
-        description: 'Only combine PRs that are green (status is success). Set to false if repo does not run checks'
+        description: "Only combine PRs that are green (status is success). Set to false if repo does not run checks"
         type: boolean
         required: true
         default: true
       combineBranchName:
-        description: 'Name of the branch to combine PRs into'
+        description: "Name of the branch to combine PRs into"
         required: true
-        default: 'combine-prs-branch'
+        default: "combine-prs-branch"
       pullRequestLabel:
-        description: 'Label to add to the created PR'
+        description: "Label to add to the created PR"
         required: true
-        default: 'combine-deps'
+        default: "combine-deps"
       ignoreLabel:
-        description: 'Exclude PRs with this label'
+        description: "Exclude PRs with this label"
         required: true
-        default: 'nocombine'
+        default: "nocombine"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -120,7 +120,7 @@ jobs:
               core.setFailed('Failed to create combined branch - maybe a branch by that name already exists?');
               return;
             }
-            
+
             let combinedPRs = [];
             let mergeFailedPRs = [];
             for(const { branch, prString } of branchesAndPRStrings) {
@@ -138,7 +138,7 @@ jobs:
                 mergeFailedPRs.push(prString);
               }
             }
-            
+
             console.log('Creating combined PR');
             const combinedPRsString = combinedPRs.join('\n');
             let body = '✅ This PR was created by the Combine PRs action by combining the following PRs:\n' + combinedPRsString;
