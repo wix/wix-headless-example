@@ -1747,8 +1747,8 @@ __metadata:
   linkType: hard
 
 "@wix/stores@npm:^1.0.60":
-  version: 1.0.222
-  resolution: "@wix/stores@npm:1.0.222"
+  version: 1.0.223
+  resolution: "@wix/stores@npm:1.0.223"
   dependencies:
     "@wix/stores_brands-v-3": 1.0.9
     "@wix/stores_catalog-versioning": 1.0.0
@@ -1758,12 +1758,12 @@ __metadata:
     "@wix/stores_inventory": 1.0.38
     "@wix/stores_inventory-items-v-3": 1.0.13
     "@wix/stores_products": 1.0.50
-    "@wix/stores_products-v-3": 1.0.35
+    "@wix/stores_products-v-3": 1.0.36
     "@wix/stores_ribbons-v-3": 1.0.10
     "@wix/stores_stores-locations-v-3": 1.0.11
     "@wix/stores_subscription-options": 1.0.35
     "@wix/stores_wishlist": 1.0.29
-  checksum: a8ec02c9384ebdbb95f24844963cc108556fec5e15a2c5697add347175e2795396174d45e5e05889579b45a41e5a6a20e0aab171b317d4251b40c9db1cb16582
+  checksum: 780215d6a082f068400bbed9260dbc3a740009552af186e3546e324ad3a462c3c2f6f8c7c08629281f35a9ba3979c81dc2f6b552d23178f04844c6f2baa70805
   languageName: node
   linkType: hard
 
@@ -1851,15 +1851,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wix/stores_products-v-3@npm:1.0.35":
-  version: 1.0.35
-  resolution: "@wix/stores_products-v-3@npm:1.0.35"
+"@wix/stores_products-v-3@npm:1.0.36":
+  version: 1.0.36
+  resolution: "@wix/stores_products-v-3@npm:1.0.36"
   dependencies:
     "@wix/metro-runtime": ^1.1792.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
     "@wix/sdk-runtime": ^0.3.14
     "@wix/sdk-types": ^1.9.2
-  checksum: abbb2dc835a777870d0e06c8f6a388bb2153e5e0e675c9a7f3ae5db7c5aaf89b8240e646758a9157308dc454bf71ea00cceeb151ff115a35816d0f96d615b319
+  checksum: f3387cbd4f3017c3d518424d1a733929d303a18844b3d3fa798c478f4bfd32de9fc1ec57313f4df40c1ab6b8cf793b0e9b3e263376023313a2c8aa57cad0cd45
   languageName: node
   linkType: hard
 
