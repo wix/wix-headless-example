@@ -8,19 +8,35 @@ For a more comprehensive example of Wix Headless integration, we recommend check
 our [starter templates](https://www.wix.com/developers/headless/templates).
 
 You can view the latest version of this repo deployed
-at [https://wix-headless-example.vercel.app/](https://wix-headless-example.vercel.app/), but we recommend cloning it and
-experimenting with it locally.
+at [https://wix-headless-example.vercel.app/](https://wix-headless-example.vercel.app/).
 
 ## Getting Started
 
-First, run the development server:
+There are two ways to experiment with the example site functionality:
 
-```bash
-yarn
-yarn dev
-```
+### Code Sandbox
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+1. Fork the CodeSandbox project by click **Fork** in the top right corner.
+1. In [constants.js](./constants/constants.js), replace the existing client ID with your own. You can find your client ID under [headless settings](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Foauth-apps-settings) in your project dashboard.
+
+### Copy the project to your local workspace
+
+1. Clone the [github repo](https://github.com/wix/wix-headless-example/tree/main).
+1. Run the following commands:
+
+    ```bash
+    cd wix-headless-example
+    npm install
+    ```
+
+1. In [constants.js](./constants/constants.js), replace the existing client ID with your own. You can find your client ID under [headless settings](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Foauth-apps-settings) in your project dashboard.
+1. Run the development server:
+
+    ```bash
+    npm run dev
+    ```
+
+  Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
 ## Wix Headless APIs Usage
 
@@ -49,25 +65,10 @@ The authentication process is handled in the following files:
 > the
 > requester's identity and their assigned roles.
 
-### Headless CMS
-
-The Headless CMS API is demonstrated in the [`pages/content.js`](./pages/content.js) file. This file fetches and
-displays content from the Wix CMS.
-It demonstrates how to use the [Wix Data API](https://dev.wix.com/docs/sdk/backend-modules/data/introduction) to
-retrieve, create, update, and delete content in your site database collections.
-
-> **[Wix Data API](https://dev.wix.com/docs/sdk/backend-modules/data/introduction)**: This API provides a complete
-> solution for accessing, organizing, configuring, and managing data stored in a Wix project or your site's database.
-> It allows you to create, modify, delete data collections, manage data items, create indexes for data collections, and
-> connect external databases to a Wix project or site.
-
 ### Headless Bookings
 
-The Headless Bookings API is demonstrated in the [`pages/booking.js`](./pages/booking.js) file. This file handles the
-booking process.
-It demonstrates how to use
-the [Wix Bookings API](https://dev.wix.com/docs/sdk/backend-modules/bookings/bookings/introduction) to manage and create
-bookings for services provided by your site.
+The [`pages/booking.js`](./pages/booking.js) file demonstrates how to use
+the [Wix Bookings API](https://dev.wix.com/docs/sdk/backend-modules/bookings/bookings/introduction) to fetch a list of services and their availability from your site.
 
 > **[Wix Bookings API](https://dev.wix.com/docs/sdk/backend-modules/bookings/bookings/introduction)**: This API allows
 > you to manage bookings for a site's services. It holds information about the customer and the session or schedule they
@@ -75,13 +76,8 @@ bookings for services provided by your site.
 
 ### Headless Store
 
-The Headless Store API is demonstrated in the [`pages/store.js`](./pages/store.js) file. This file handles the store
-operations.
-It demonstrates how to use the [Wix Stores API](https://dev.wix.com/docs/sdk/backend-modules/stores) allows you to
-manage your store inventory, orders, and collections,
-and it also demonstrates how to use
-the [Wix eCommerce API](https://dev.wix.com/docs/sdk/backend-modules/ecom/introduction) to manage carts, checkouts,
-discount rules, item promotion, and orders.
+The [`pages/store.js`](./pages/store.js) file demonstrates how to fetch a list of products from your site using the [Wix Stores API](https://dev.wix.com/docs/sdk/backend-modules/stores). It also demonstrates how to use
+the [Wix eCommerce API](https://dev.wix.com/docs/sdk/backend-modules/ecom/introduction) to manage carts and checkouts.
 
 > **[Wix Stores API](https://dev.wix.com/docs/sdk/backend-modules/stores)**: This API allows you to manage your store
 > inventory, orders, and collections.
@@ -94,10 +90,7 @@ discount rules, item promotion, and orders.
 
 ### Headless Tickets
 
-The Headless Tickets API is demonstrated in the [`pages/tickets.js`](./pages/tickets.js) file. This file handles the
-ticket operations.
-It demonstrates how to use the [Wix Events API](https://dev.wix.com/docs/sdk/backend-modules/events/introduction) to
-manage and sell tickets for events on your site.
+The [`pages/tickets.js`](./pages/tickets.js) file demonstrates how to use the [Wix Events API](https://dev.wix.com/docs/sdk/backend-modules/events/introduction) to fetch a list of events and their available tickets from your site.
 
 > **[Wix Events API](https://dev.wix.com/docs/sdk/backend-modules/events/introduction)**: This API provides
 > functionality for creating, updating, and managing events.
@@ -106,11 +99,8 @@ manage and sell tickets for events on your site.
 
 ### Headless Subscriptions
 
-The Headless Subscriptions API is demonstrated in the [`pages/subscriptions.js`](./pages/subscriptions.js) file. This
-file handles the subscription operations.
-It demonstrates how to use
-the [Wix Pricing Plans API](https://dev.wix.com/docs/sdk/backend-modules/pricing-plans/introduction) to manage and sell
-subscriptions to services provided by your site.
+The [`pages/subscriptions.js`](./pages/subscriptions.js) file demonstrates how to use
+the [Wix Pricing Plans API](https://dev.wix.com/docs/sdk/backend-modules/pricing-plans/introduction) to fetch a list of plans provided by your site.
 
 > **[Wix Pricing Plans API](https://dev.wix.com/docs/sdk/backend-modules/pricing-plans/introduction)**: This API allows
 > you to create and manage your plans and orders.
