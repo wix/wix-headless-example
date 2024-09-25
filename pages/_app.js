@@ -5,8 +5,6 @@ import {Inter} from "next/font/google";
 
 import "@/styles/globals.css";
 import styles from "@/styles/app.module.css";
-
-import LoginBar from "./members";
 import React, {useEffect} from "react";
 import {PageTitle} from "@/internal/components/ui/page-title";
 import {GlobalLoader} from "@/src/components/global-loader";
@@ -51,7 +49,8 @@ export default function App({Component, pageProps}) {
                                         priority
                                     />
                                 </Link>
-                                <LoginBar/>
+                                {/*Hide login in phase1*/}
+                                {/*<LoginBar/>*/}
                             </header>
                             {pageProps.title && (
                                 <PageTitle title={pageProps.title} withBackButton={true}/>
