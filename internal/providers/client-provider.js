@@ -27,6 +27,12 @@ export function ClientProvider({children}) {
                         res.json(),
                     );
 
+                    // skip subscription example in phase1
+                    const subscriptionExampleIndex = fetchedExamples.findIndex(
+                        (example) => example.data.slug === "/subscriptions",
+                    );
+                    delete fetchedExamples[subscriptionExampleIndex];
+
                     setInstalledExamples(
                         fetchedExamples.filter((example) =>
                             fetchedInstalledApps.includes(example.data.orderId - 1),
