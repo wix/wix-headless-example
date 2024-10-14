@@ -336,13 +336,15 @@ __metadata:
   linkType: hard
 
 "@wix/bookings@npm:^1.0.127":
-  version: 1.0.446
-  resolution: "@wix/bookings@npm:1.0.446"
+  version: 1.0.447
+  resolution: "@wix/bookings@npm:1.0.447"
   dependencies:
     "@wix/bookings_attendance": 1.0.48
     "@wix/bookings_availability-calendar": 1.0.35
     "@wix/bookings_availability-time-slots": 1.0.31
+    "@wix/bookings_booking-fees": 1.0.0
     "@wix/bookings_booking-policies": 1.0.2
+    "@wix/bookings_booking-policy-snapshots": 1.0.0
     "@wix/bookings_bookings": 1.0.54
     "@wix/bookings_categories": 1.0.36
     "@wix/bookings_extended-bookings": 1.0.46
@@ -354,7 +356,7 @@ __metadata:
     "@wix/bookings_service-options-and-variants": 1.0.45
     "@wix/bookings_services": 1.0.69
     "@wix/bookings_staff-members": 1.0.5
-  checksum: 9b8161fbdbf5285372789c2dba98de84cbebf20f4355547da796a4bad68082d0ba21a9149562cb169c8226dc7e7cdfeb2853a8448e2d3a9ceab3d07e8b19f101
+  checksum: 9aec2bb65c6ac4706b86e6e1f2dea97247ac038366cd0c26cfd11bb78f390a59e7f0aa0f311967d66f1728ea83929aa9a9c387db668124b22f89c2454d2d2427
   languageName: node
   linkType: hard
 
@@ -394,6 +396,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wix/bookings_booking-fees@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@wix/bookings_booking-fees@npm:1.0.0"
+  dependencies:
+    "@wix/metro-runtime": ^1.1792.0
+    "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
+    "@wix/sdk-runtime": ^0.3.14
+    "@wix/sdk-types": ^1.12.3
+  checksum: 390dc832997255ba0040e24e0e963196672db9e6a4e62f6fc5520cf78767cc9e3f15bc5fa9b3eeb4451b4811a8486d3b4d4600e9c3c64a840664fc9bbe952e43
+  languageName: node
+  linkType: hard
+
 "@wix/bookings_booking-policies@npm:1.0.2":
   version: 1.0.2
   resolution: "@wix/bookings_booking-policies@npm:1.0.2"
@@ -403,6 +417,18 @@ __metadata:
     "@wix/sdk-runtime": ^0.3.14
     "@wix/sdk-types": ^1.12.3
   checksum: d35b624df046829d005e8bcc196baa65042a176b5edf3b99b5c7fe8afa3c8fa6338da421bd8bfc7bc9f90e80143d150580332619adf4c25bc065bd84fa625344
+  languageName: node
+  linkType: hard
+
+"@wix/bookings_booking-policy-snapshots@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@wix/bookings_booking-policy-snapshots@npm:1.0.0"
+  dependencies:
+    "@wix/metro-runtime": ^1.1792.0
+    "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
+    "@wix/sdk-runtime": ^0.3.14
+    "@wix/sdk-types": ^1.12.3
+  checksum: ca6824bb8c3be32c8768ceab8f4a5983995714a683cb5b7a38544d0eb7c104aafaa303e90909e5ed8247fc7402c15525ffdc9bfc3e6c3978f3c7ac5b50795889
   languageName: node
   linkType: hard
 
