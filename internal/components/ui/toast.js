@@ -49,7 +49,7 @@ export default function Toast({children}) {
                 </svg>
             </div>
             <div className={styles.column}>
-                <h4>Replace your Client ID</h4>
+                <h4>Add your Client ID to get started</h4>
                 <span className={`${styles["toast-content"]}`}>{children}</span>
             </div>
             <button
