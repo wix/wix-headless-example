@@ -11,8 +11,8 @@ import Link from "next/link";
 import Head from "next/head";
 import styles from "@/styles/app.module.css";
 import {useAsyncHandler} from "@/src/hooks/async-handler";
-import PremiumModal from "@/internal/components/ui/modals/premium-modal";
 import {useClient} from "@/internal/providers/client-provider";
+import {useModal} from "@/internal/providers/modal-provider";
 
 // We're creating a Wix client using the createClient function from the Wix SDK.
 const myWixClient = createClient({
@@ -39,9 +39,9 @@ export default function Store() {
     const [productList, setProductList] = useState([]);
     const [cart, setCart] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const [showPremiumModal, setShowPremiumModal] = useState(false);
     const handleAsync = useAsyncHandler();
     const {msid} = useClient();
+    const {openModal} = useModal();
 
     // This function fetches the list of products
     async function fetchProducts() {
@@ -162,7 +162,18 @@ export default function Store() {
                 window.location = redirect.redirectSession.fullUrl;
             });
         } catch (error) {
-            setShowPremiumModal(true);
+            openModal("premium", {
+                title: "Upgrade to Premium",
+                content: "The checkout feature is only available to premium users. Please upgrade to access this feature.",
+                primaryText: "Upgrade",
+                secondaryText: "Cancel",
+                primaryAction: () => {
+                    window.open(
+                        `https://manage.wix.com/premium-purchase-plan/dynamo?siteGuid=${msid || ""}`,
+                        "_blank"
+                    );
+                },
+            });
         }
     }
 
@@ -276,22 +287,6 @@ export default function Store() {
                     )}
                 </div>
             </main>
-            {/* Show premium modal when the user tries to checkout and is not a premium user */}
-            <PremiumModal
-                openModal={showPremiumModal}
-                title="Upgrade to Premium"
-                content="The checkout feature is only available to premium users. Please upgrade to access this feature."
-                primaryText="Upgrade"
-                secondaryText="Cancel"
-                primaryAction={() => {
-                    window.open(
-                        `https://manage.wix.com/premium-purchase-plan/dynamo?siteGuid=${msid}`,
-                        "_blank",
-                    );
-                    setShowPremiumModal(false);
-                }}
-                secondaryAction={() => setShowPremiumModal(false)}
-            />
         </>
     );
 }
