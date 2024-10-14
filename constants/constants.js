@@ -1,2 +1,2 @@
 // CLIENT_ID constant which is used for OAuth authentication
-export const CLIENT_ID = "085a1a36-4cbe-4dfa-9644-85c37d67875a";
+export const CLIENT_ID = "9e37d7b0-3621-418f-a6b6-b82bdeaf051d";

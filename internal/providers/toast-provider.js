@@ -16,19 +16,9 @@ export function ToastProvider({children}) {
     return (
         <ToastContext.Provider value={mounted}>
             <Toast>
-                The client IDs provided in the examples are for demonstration purposes
-                only. Please use your own client ID that can be found{" "}
-                <Link
-                    href={
-                        "https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Foauth-apps-settings"
-                    }
-                    target={"_blank"}
-                    style={{color: "#116DFF"}}
-                >
-                    here
-                </Link>
-                . Edit the file <code>constants/constants.js</code> and replace the
-                value of CLIENT_ID with your own client ID.{" "}
+                Replace the CLIENT_ID in the <span style={{fontWeight: "bold"}}>constants/constants.js</span> file. You
+                can copy the Client ID from
+                your Headless project settings
                 <Link
                     href={
                         "https://dev.wix.com/docs/go-headless/getting-started/setup/authentication/create-an-oauth-app-for-visitors-and-members"
@@ -36,7 +26,7 @@ export function ToastProvider({children}) {
                     target={"_blank"}
                     style={{color: "#116DFF"}}
                 >
-                    Learn more about creating an OAuth app
+                    Learn more
                 </Link>
                 .
             </Toast>
