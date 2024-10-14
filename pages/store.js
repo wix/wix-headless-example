@@ -163,10 +163,6 @@ export default function Store() {
             });
         } catch (error) {
             openModal("premium", {
-                title: "Upgrade to Premium",
-                content: "The checkout feature is only available to premium users. Please upgrade to access this feature.",
-                primaryText: "Upgrade",
-                secondaryText: "Cancel",
                 primaryAction: () => {
                     window.open(
                         `https://manage.wix.com/premium-purchase-plan/dynamo?siteGuid=${msid || ""}`,
