@@ -9,7 +9,7 @@ import React, {useEffect} from "react";
 import {PageTitle} from "@/internal/components/ui/page-title";
 import {GlobalLoader} from "@/src/components/global-loader";
 import {LoginModal} from "@/internal/components/ui/modals/login-modal";
-import PremiumModal from "@/internal/components/ui/modals/premium-modal";
+import {PremiumModal} from "@/internal/components/ui/modals/premium-modal";
 import {checkClientIdAndRemoveSessionIfChanged} from "@/internal/utils/check-client-id-change";
 import InternalProviders from "@/internal/components/internalProviders";
 import {LoadingProvider} from "@/src/context/loading-context";
