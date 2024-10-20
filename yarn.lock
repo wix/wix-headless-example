@@ -638,8 +638,8 @@ __metadata:
   linkType: hard
 
 "@wix/ecom@npm:^1.0.164":
-  version: 1.0.778
-  resolution: "@wix/ecom@npm:1.0.778"
+  version: 1.0.779
+  resolution: "@wix/ecom@npm:1.0.779"
   dependencies:
     "@wix/ecom_abandoned-checkouts": 1.0.47
     "@wix/ecom_additional-fees": 1.0.28
@@ -668,7 +668,7 @@ __metadata:
     "@wix/ecom_orders": 1.0.124
     "@wix/ecom_orders-settings": 1.0.47
     "@wix/ecom_payment-settings": 1.0.50
-    "@wix/ecom_pickup-locations": 1.0.10
+    "@wix/ecom_pickup-locations": 1.0.11
     "@wix/ecom_recommendations": 1.0.44
     "@wix/ecom_recommendations-provider": 1.0.2
     "@wix/ecom_shipping-options": 1.0.9
@@ -676,7 +676,7 @@ __metadata:
     "@wix/ecom_shippo-configurations": 1.0.16
     "@wix/ecom_totals-calculator": 1.0.12
     "@wix/ecom_validations": 1.0.34
-  checksum: 01313a330f712d51130088bb7fdc71d2184b396a32fd0b7cc6acb53391baad4b3ae21bf07d2a902622da895f25389cd241278f0cff91b375208837fae9830623
+  checksum: b2bbbb253bc4c82e3ec771d58e2317fa17dc8ae7e3278bb52a66b857061c9ac2ed5f832407dadb98d4cfd34892649b2f24b6f03b1f5ca945de70421d9ab12eed
   languageName: node
   linkType: hard
 
@@ -1004,15 +1004,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wix/ecom_pickup-locations@npm:1.0.10":
-  version: 1.0.10
-  resolution: "@wix/ecom_pickup-locations@npm:1.0.10"
+"@wix/ecom_pickup-locations@npm:1.0.11":
+  version: 1.0.11
+  resolution: "@wix/ecom_pickup-locations@npm:1.0.11"
   dependencies:
     "@wix/metro-runtime": ^1.1792.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
     "@wix/sdk-runtime": ^0.3.14
     "@wix/sdk-types": ^1.12.3
-  checksum: 4c9fcf6488203e29343f428753f2822c0ffe229b201a435d09c8654996e252c6df284443f4f2bf6040c0528d39d6fbb30d4af6a6234cedcdf22d75d5a1a10983
+  checksum: d52bf6f4665aaf8d95dd7c9156cece15dad10b0ca00f6288dd45a5f712b18885bb42bbf8b31aaf81e4de92d3cfb64ff279d682462d4123911dcf0d79db755b62
   languageName: node
   linkType: hard
 
