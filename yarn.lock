@@ -336,8 +336,8 @@ __metadata:
   linkType: hard
 
 "@wix/bookings@npm:^1.0.127":
-  version: 1.0.452
-  resolution: "@wix/bookings@npm:1.0.452"
+  version: 1.0.453
+  resolution: "@wix/bookings@npm:1.0.453"
   dependencies:
     "@wix/bookings_attendance": 1.0.49
     "@wix/bookings_availability-calendar": 1.0.36
@@ -347,7 +347,7 @@ __metadata:
     "@wix/bookings_booking-policy-snapshots": 1.0.1
     "@wix/bookings_bookings": 1.0.57
     "@wix/bookings_categories": 1.0.37
-    "@wix/bookings_extended-bookings": 1.0.47
+    "@wix/bookings_extended-bookings": 1.0.48
     "@wix/bookings_external-calendars": 1.0.34
     "@wix/bookings_multi-service-availability-time-slots": 1.0.31
     "@wix/bookings_pricing": 1.0.37
@@ -356,7 +356,7 @@ __metadata:
     "@wix/bookings_service-options-and-variants": 1.0.46
     "@wix/bookings_services": 1.0.70
     "@wix/bookings_staff-members": 1.0.7
-  checksum: 282f438bd3d151b0723ee3e57730172aab0bee9735b2cb8659e438b94d66e2e14295a214387a89a7ce6930c8d833cc95f8f43180a49b661f26295c8046e7b25a
+  checksum: d674ae8eb1b8329231f0e9292162fbf4fd3466c761e799f5eb8dc123c26db960987471f37237d9d73616dc9b9f4401541f8d1dfaf04b700f215d05c95053e99e
   languageName: node
   linkType: hard
 
@@ -456,15 +456,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wix/bookings_extended-bookings@npm:1.0.47":
-  version: 1.0.47
-  resolution: "@wix/bookings_extended-bookings@npm:1.0.47"
+"@wix/bookings_extended-bookings@npm:1.0.48":
+  version: 1.0.48
+  resolution: "@wix/bookings_extended-bookings@npm:1.0.48"
   dependencies:
     "@wix/metro-runtime": ^1.1792.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
     "@wix/sdk-runtime": ^0.3.14
     "@wix/sdk-types": ^1.12.3
-  checksum: ba3b3e379868e7732f98ed751fe67eb4db805ec65ff0492c04c1e32ff5472a25cb62c7f45c7c547fb6ae80d306eb22b21c7ca680c45fdf54764517391d32d6fa
+  checksum: 0592bf972d84251aaaa736004d33414a967a385f07282cbf0ff4d80cb8277dead5b7d909d6f4ad98264ac73ec3b051d6e0898cf5446db60bcafaff0950526074
   languageName: node
   linkType: hard
 
@@ -638,8 +638,8 @@ __metadata:
   linkType: hard
 
 "@wix/ecom@npm:^1.0.164":
-  version: 1.0.778
-  resolution: "@wix/ecom@npm:1.0.778"
+  version: 1.0.779
+  resolution: "@wix/ecom@npm:1.0.779"
   dependencies:
     "@wix/ecom_abandoned-checkouts": 1.0.47
     "@wix/ecom_additional-fees": 1.0.28
@@ -668,7 +668,7 @@ __metadata:
     "@wix/ecom_orders": 1.0.124
     "@wix/ecom_orders-settings": 1.0.47
     "@wix/ecom_payment-settings": 1.0.50
-    "@wix/ecom_pickup-locations": 1.0.10
+    "@wix/ecom_pickup-locations": 1.0.11
     "@wix/ecom_recommendations": 1.0.44
     "@wix/ecom_recommendations-provider": 1.0.2
     "@wix/ecom_shipping-options": 1.0.9
@@ -676,7 +676,7 @@ __metadata:
     "@wix/ecom_shippo-configurations": 1.0.16
     "@wix/ecom_totals-calculator": 1.0.12
     "@wix/ecom_validations": 1.0.34
-  checksum: 01313a330f712d51130088bb7fdc71d2184b396a32fd0b7cc6acb53391baad4b3ae21bf07d2a902622da895f25389cd241278f0cff91b375208837fae9830623
+  checksum: b2bbbb253bc4c82e3ec771d58e2317fa17dc8ae7e3278bb52a66b857061c9ac2ed5f832407dadb98d4cfd34892649b2f24b6f03b1f5ca945de70421d9ab12eed
   languageName: node
   linkType: hard
 
@@ -1004,15 +1004,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wix/ecom_pickup-locations@npm:1.0.10":
-  version: 1.0.10
-  resolution: "@wix/ecom_pickup-locations@npm:1.0.10"
+"@wix/ecom_pickup-locations@npm:1.0.11":
+  version: 1.0.11
+  resolution: "@wix/ecom_pickup-locations@npm:1.0.11"
   dependencies:
     "@wix/metro-runtime": ^1.1792.0
     "@wix/motion-edm-autogen-query-wrapper": ^1.0.37
     "@wix/sdk-runtime": ^0.3.14
     "@wix/sdk-types": ^1.12.3
-  checksum: 4c9fcf6488203e29343f428753f2822c0ffe229b201a435d09c8654996e252c6df284443f4f2bf6040c0528d39d6fbb30d4af6a6234cedcdf22d75d5a1a10983
+  checksum: d52bf6f4665aaf8d95dd7c9156cece15dad10b0ca00f6288dd45a5f712b18885bb42bbf8b31aaf81e4de92d3cfb64ff279d682462d4123911dcf0d79db755b62
   languageName: node
   linkType: hard
 
