@@ -80,15 +80,9 @@ const checkStoresInstalled = async (myWixClient) => {
             ],
         });
 
-        // check if the product is in the cart
-        const cart = await myWixClient.currentCart.getCurrentCart();
-        if (cart.lineItems.length === 0) {
-            throw new Error("Product not added to cart");
-        }
-
-        // remove the product from the cart
+        const cartHasItems = (await myWixClient.currentCart.getCurrentCart()).lineItems.length > 0;
         await myWixClient.currentCart.deleteCurrentCart();
-        return true;
+        return cartHasItems;
     } catch (error) {
         return false;
     }
