@@ -38,7 +38,7 @@ const createWixClient = () => {
 };
 
 // Function to check if an app is installed
-const checkAppInstallation = async (client, queryFunction, appType) => {
+const checkAppInstallation = async (queryFunction, appType) => {
     try {
         const result = await queryFunction();
         return result ? [appType] : [];
@@ -47,33 +47,77 @@ const checkAppInstallation = async (client, queryFunction, appType) => {
     }
 };
 
+// Function to check if the store app is installed
+const checkStoresInstalled = async (myWixClient) => {
+    try {
+        const productList = await myWixClient.products.queryProducts().find();
+        const product = productList.items[0];
+        // First, we create an options object from the product's options.
+        // We use the reduce function to transform the productOptions array into an object.
+        const options = product.productOptions.reduce(
+            (selected, option) => ({
+                // For each option, we add a new property to the object with the option name as the key and the description of the first choice as the value.
+                ...selected,
+                [option.name]: option.choices[0].description,
+            }),
+            {}, // This is the initial value of the reduce function. It's an empty object that we'll add properties to.
+        );
+
+        // Then, we call the addToCurrentCart method from the currentCart module of the Wix client.
+        // This method adds items to the current user's shopping cart.
+        await myWixClient.currentCart.addToCurrentCart({
+            // We pass an object that describes the product to be added.
+            lineItems: [
+                {
+                    // Each product is identified by a catalogReference object.
+                    catalogReference: {
+                        appId: "1380b703-ce81-ff05-f115-39571d94dfcd", // This is the application ID of stores app.
+                        catalogItemId: product._id, // This is the product's ID.
+                        options: {options}, // These are the product options we created earlier.
+                    },
+                    quantity: 1, // We're adding one unit of the product.
+                },
+            ],
+        });
+
+        // check if the product is in the cart
+        const cart = await myWixClient.currentCart.getCurrentCart();
+        if (cart.lineItems.length === 0) {
+            throw new Error("Product not added to cart");
+        }
+
+        // remove the product from the cart
+        await myWixClient.currentCart.deleteCurrentCart();
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
 // Function to get the list of installed apps
 export const installedApps = async () => {
     const myWixClient = createWixClient();
 
     const appChecks = [
         checkAppInstallation(
-            myWixClient,
             () => myWixClient.services.queryServices().find(),
             WixApplications.BOOKINGS,
         ),
         checkAppInstallation(
-            myWixClient,
-            () => myWixClient.products.queryProducts().find(),
+            () => checkStoresInstalled(myWixClient),
             WixApplications.STORE,
         ),
         checkAppInstallation(
-            myWixClient,
             () => myWixClient.wixEvents.queryEvents().find(),
             WixApplications.EVENTS,
         ),
         checkAppInstallation(
-            myWixClient,
             () => myWixClient.plans.queryPublicPlans().find(),
             WixApplications.SUBSCRIPTIONS,
         ),
     ];
 
+    // check if stores app is installed
     const results = await Promise.all(appChecks);
     return results.flat();
 };

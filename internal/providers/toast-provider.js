@@ -18,7 +18,7 @@ export function ToastProvider({children}) {
             <Toast>
                 Replace the CLIENT_ID in the <span style={{fontWeight: "bold"}}>constants/constants.js</span> file. You
                 can copy the Client ID from
-                your Headless project settings {" "}
+                your Headless project settings. {" "}
                 <Link
                     href={
                         "https://dev.wix.com/docs/go-headless/getting-started/setup/authentication/create-an-oauth-app-for-visitors-and-members"
@@ -28,7 +28,7 @@ export function ToastProvider({children}) {
                 >
                     Learn more
                 </Link>
-                .
+
             </Toast>
             {children}
         </ToastContext.Provider>
