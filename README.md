@@ -17,26 +17,33 @@ There are two ways to experiment with the example site functionality:
 ### Code Sandbox
 
 1. Fork the CodeSandbox project by click **Fork** in the top right corner.
-1. In [constants.js](./constants/constants.js), replace the existing client ID with your own. You can find your client ID under [headless settings](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Foauth-apps-settings) in your project dashboard.
+2. In [constants.js](./constants/constants.js), replace the existing client ID with your own. You can find your client
+   ID
+   under [headless settings](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Foauth-apps-settings)
+   in your project dashboard.
+3. **Make sure you save any changes in order to see their effect**
 
 ### Copy the project to your local workspace
 
 1. Clone the [github repo](https://github.com/wix/wix-headless-example/tree/main).
-1. Run the following commands:
+2. Run the following commands:
 
     ```bash
     cd wix-headless-example
     npm install
     ```
 
-1. In [constants.js](./constants/constants.js), replace the existing client ID with your own. You can find your client ID under [headless settings](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Foauth-apps-settings) in your project dashboard.
-1. Run the development server:
+3. In [constants.js](./constants/constants.js), replace the existing client ID with your own. You can find your client
+   ID
+   under [headless settings](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Foauth-apps-settings)
+   in your project dashboard.
+4. Run the development server:
 
     ```bash
     npm run dev
     ```
 
-  Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
 ## Wix Headless APIs Usage
 
@@ -68,7 +75,8 @@ The authentication process is handled in the following files:
 ### Headless Bookings
 
 The [`pages/booking.js`](./pages/booking.js) file demonstrates how to use
-the [Wix Bookings API](https://dev.wix.com/docs/sdk/backend-modules/bookings/bookings/introduction) to fetch a list of services and their availability from your site.
+the [Wix Bookings API](https://dev.wix.com/docs/sdk/backend-modules/bookings/bookings/introduction) to fetch a list of
+services and their availability from your site.
 
 > **[Wix Bookings API](https://dev.wix.com/docs/sdk/backend-modules/bookings/bookings/introduction)**: This API allows
 > you to manage bookings for a site's services. It holds information about the customer and the session or schedule they
@@ -76,7 +84,8 @@ the [Wix Bookings API](https://dev.wix.com/docs/sdk/backend-modules/bookings/boo
 
 ### Headless Store
 
-The [`pages/store.js`](./pages/store.js) file demonstrates how to fetch a list of products from your site using the [Wix Stores API](https://dev.wix.com/docs/sdk/backend-modules/stores). It also demonstrates how to use
+The [`pages/store.js`](./pages/store.js) file demonstrates how to fetch a list of products from your site using
+the [Wix Stores API](https://dev.wix.com/docs/sdk/backend-modules/stores). It also demonstrates how to use
 the [Wix eCommerce API](https://dev.wix.com/docs/sdk/backend-modules/ecom/introduction) to manage carts and checkouts.
 
 > **[Wix Stores API](https://dev.wix.com/docs/sdk/backend-modules/stores)**: This API allows you to manage your store
@@ -90,29 +99,11 @@ the [Wix eCommerce API](https://dev.wix.com/docs/sdk/backend-modules/ecom/introd
 
 ### Headless Tickets
 
-The [`pages/tickets.js`](./pages/tickets.js) file demonstrates how to use the [Wix Events API](https://dev.wix.com/docs/sdk/backend-modules/events/introduction) to fetch a list of events and their available tickets from your site.
+The [`pages/tickets.js`](./pages/tickets.js) file demonstrates how to use
+the [Wix Events API](https://dev.wix.com/docs/sdk/backend-modules/events/introduction) to fetch a list of events and
+their available tickets from your site.
 
 > **[Wix Events API](https://dev.wix.com/docs/sdk/backend-modules/events/introduction)**: This API provides
 > functionality for creating, updating, and managing events.
 > It allows you to manage event details like location, scheduling, registration, tickets, RSVPs, online conferencing,
 > messaging customization, and basic registration form customization.
-
-### Headless Subscriptions
-
-The [`pages/subscriptions.js`](./pages/subscriptions.js) file demonstrates how to use
-the [Wix Pricing Plans API](https://dev.wix.com/docs/sdk/backend-modules/pricing-plans/introduction) to fetch a list of plans provided by your site.
-
-> **[Wix Pricing Plans API](https://dev.wix.com/docs/sdk/backend-modules/pricing-plans/introduction)**: This API allows
-> you to create and manage your plans and orders.
-> It supports different pricing models like subscription, single payment for duration, and single payment unlimited.
-> It also allows you to manage plan visibility, handle free plans and trial periods, and manage orders and
-> subscriptions.
-
-## Package dependency management
-
-To ensure this repo always uses the latest APIs from the Wix JavaScript SDK, the repo is preconfigured
-with [Dependabot](https://docs.github.com/en/code-security/dependabot), GitHub's automated dependency management system.
-Due to the numerous pull requests generated by Dependabot, the repo also includes a preconfigured GitHub Action called "
-Combine PRs." This action can be executed manually to merge all of Dependabot's pull requests into a single PR, allowing
-for sanity checks to be performed only once. If the sanity check fails, each Dependabot PR can be inspected
-individually.
