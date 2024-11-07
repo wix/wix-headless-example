@@ -17,7 +17,8 @@ There are two ways to experiment with the example site functionality:
 ### Code Sandbox
 
 1. Fork the CodeSandbox project by click **Fork** in the top right corner.
-2. In [constants.js](./constants/constants.js), replace the existing client ID with your own. You can find your client
+2. In [constants/constants.js](./constants/constants.js), replace the existing client ID with your own. You can find
+   your client
    ID
    under [headless settings](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Foauth-apps-settings)
    in your project dashboard.
@@ -33,7 +34,8 @@ There are two ways to experiment with the example site functionality:
     npm install
     ```
 
-3. In [constants.js](./constants/constants.js), replace the existing client ID with your own. You can find your client
+3. In [constants/constants.js](./constants/constants.js), replace the existing client ID with your own. You can find
+   your client
    ID
    under [headless settings](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Foauth-apps-settings)
    in your project dashboard.
@@ -49,29 +51,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the r
 
 This project demonstrates the usage of various Wix Headless APIs. Here's a brief overview of each:
 
-### Authentication
-
-The authentication process is handled in the following files:
-
-- [`pages/members.js`](./pages/members.js): This file contains the Login/Logout button implementation. It demonstrates
-  how to use the [Wix Members API](https://dev.wix.com/docs/sdk/backend-modules/members/members/introduction) to get the
-  current user's information.
-- [`pages/login-callback.js`](./pages/login-callback.js): This file handles the login callback process. It demonstrates
-  how to use the [Wix OAuthStrategy API](https://dev.wix.com/docs/sdk/core-modules/sdk/oauth-strategy#oauthstrategy) to
-  authenticate users.
-- [`middleware.js`](./middleware.js): This file generates a visitor cookie if no session exists. It demonstrates how to
-  use the [Wix OAuthStrategy API](https://dev.wix.com/docs/sdk/core-modules/sdk/oauth-strategy#oauthstrategy) to
-  generate a visitor cookie.
-
-> **[Wix Members API](https://dev.wix.com/docs/sdk/backend-modules/members/members/introduction)**: This API allows you
-> to manage a site's members, including creating, updating, deleting members, retrieving member's information, and
-> managing a member's community status.
->
-> **[Wix OAuthStrategy API](https://dev.wix.com/docs/sdk/core-modules/sdk/oauth-strategy#oauthstrategy)**: This is an
-> authentication strategy used with a Wix Client to authenticate API calls using OAuth tokens. It helps in identifying
-> the
-> requester's identity and their assigned roles.
-
 ### Headless Bookings
 
 The [`pages/booking.js`](./pages/booking.js) file demonstrates how to use
@@ -82,7 +61,7 @@ services and their availability from your site.
 > you to manage bookings for a site's services. It holds information about the customer and the session or schedule they
 > have booked.
 
-### Headless Store
+### Headless eCommerce
 
 The [`pages/store.js`](./pages/store.js) file demonstrates how to fetch a list of products from your site using
 the [Wix Stores API](https://dev.wix.com/docs/sdk/backend-modules/stores). It also demonstrates how to use
