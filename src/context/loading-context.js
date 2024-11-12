@@ -5,6 +5,7 @@ const LoadingContext = createContext();
 
 // Provider component to manage loading state
 export function LoadingProvider({children}) {
+
     const [loadingCount, setLoadingCount] = useState(0);
 
     // Function to increment loading count
