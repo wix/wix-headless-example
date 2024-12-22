@@ -614,8 +614,8 @@ __metadata:
   linkType: hard
 
 "@wix/ecom@npm:^1.0.164":
-  version: 1.0.863
-  resolution: "@wix/ecom@npm:1.0.863"
+  version: 1.0.864
+  resolution: "@wix/ecom@npm:1.0.864"
   dependencies:
     "@wix/ecom_abandoned-checkouts": 1.0.56
     "@wix/ecom_additional-fees": 1.0.36
@@ -629,7 +629,7 @@ __metadata:
     "@wix/ecom_currencies": 1.0.45
     "@wix/ecom_current-cart": 1.0.112
     "@wix/ecom_custom-triggers": 1.0.31
-    "@wix/ecom_delivery-profile": 1.0.36
+    "@wix/ecom_delivery-profile": 1.0.37
     "@wix/ecom_delivery-solutions": 1.0.13
     "@wix/ecom_discount-rules": 1.0.63
     "@wix/ecom_discounts": 1.0.14
@@ -658,7 +658,7 @@ __metadata:
     "@wix/ecom_tips": 1.0.6
     "@wix/ecom_totals-calculator": 1.0.24
     "@wix/ecom_validations": 1.0.47
-  checksum: 9797974a1b576032bcc20b1d916dbbf53810c77de7549e8b6d494c8c93535cc306f45f2e015c5d0e7cc4139397c72064175b24862f4ae0b35ce0ab0b61804eca
+  checksum: 21f8ca7d6f1589f9489d369c212b2c45e16e26064d854447af856e676e0ab2fd93c6992066ff53138096611f24b6794135b6cbc94d150ee0fa4d868b91a3d70f
   languageName: node
   linkType: hard
 
@@ -782,13 +782,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wix/ecom_delivery-profile@npm:1.0.36":
-  version: 1.0.36
-  resolution: "@wix/ecom_delivery-profile@npm:1.0.36"
+"@wix/ecom_delivery-profile@npm:1.0.37":
+  version: 1.0.37
+  resolution: "@wix/ecom_delivery-profile@npm:1.0.37"
   dependencies:
     "@wix/sdk-runtime": ^0.3.22
     "@wix/sdk-types": ^1.12.4
-  checksum: 977e4371a23c85452c4e83925b6e661148ef85d0c5fdcc8f5e1a966230418998bf00949c524d2f78b0bee97f426d8cca5bcda0f4bd206aeb69f88d400afcc92b
+  checksum: 55e49bea8fbab21a05ee0e2eab383560dfff9ffcfd83f77380032ee50001fa6abebd4dfc55c808aa475007b9915845e0d8cebce267952ff3869b58a100467ddb
   languageName: node
   linkType: hard
 
@@ -1484,31 +1484,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wix/redirects@npm:^1.0.12":
-  version: 1.0.64
-  resolution: "@wix/redirects@npm:1.0.64"
-  dependencies:
-    "@wix/redirects_redirects": 1.0.33
-  checksum: 100e054fd1244dcc23a7e0a5aae087b20e36b2ed5ae40c3ff8c00c625bcdfa585e7945acc9979577303388377170e49a23111ee8048cb7cfbe2965b4524f13a6
-  languageName: node
-  linkType: hard
-
-"@wix/redirects@npm:^1.0.67":
+"@wix/redirects@npm:^1.0.12, @wix/redirects@npm:^1.0.67":
   version: 1.0.67
   resolution: "@wix/redirects@npm:1.0.67"
   dependencies:
     "@wix/redirects_redirects": 1.0.36
   checksum: ad59070b0e8c8cc56233d53ad09097b53db718b86ce77b03a9849325c18bfada0a0b007f3b6bfe2a3ce0e24478aae16937a9d0a90ff6bc081b404a7f9026bd48
-  languageName: node
-  linkType: hard
-
-"@wix/redirects_redirects@npm:1.0.33":
-  version: 1.0.33
-  resolution: "@wix/redirects_redirects@npm:1.0.33"
-  dependencies:
-    "@wix/sdk-runtime": ^0.3.22
-    "@wix/sdk-types": ^1.12.4
-  checksum: f9c5c5300b46ba2eb472aa8db1f1c4c0cc874506717fc30161467376f0092b362ae4f9e49a0ab629f1586811dba37072e079eef48926177e1a80b1e4fcd3cb56
   languageName: node
   linkType: hard
 
