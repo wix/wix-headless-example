@@ -1106,15 +1106,15 @@ __metadata:
   linkType: hard
 
 "@wix/events@npm:^1.0.159":
-  version: 1.0.385
-  resolution: "@wix/events@npm:1.0.385"
+  version: 1.0.388
+  resolution: "@wix/events@npm:1.0.388"
   dependencies:
     "@wix/events_categories": 1.0.71
     "@wix/events_forms": 1.0.73
     "@wix/events_guests": 1.0.102
     "@wix/events_notifications": 1.0.63
     "@wix/events_orders": 1.0.84
-    "@wix/events_policies": 1.0.71
+    "@wix/events_policies": 1.0.72
     "@wix/events_ricos": 1.0.44
     "@wix/events_rsvp": 1.0.74
     "@wix/events_rsvp-v-2": 1.0.48
@@ -1124,8 +1124,8 @@ __metadata:
     "@wix/events_ticket-definitions": 1.0.77
     "@wix/events_ticket-definitions-v-2": 1.0.97
     "@wix/events_tickets": 1.0.70
-    "@wix/events_wix-events-v-2": 1.0.86
-  checksum: 54c4ae086559e90d1c987c530ebf33a1c694170efc4d4356bd356e43665bbfd9a02297a4c389f5ca0f35cc2b16b4cb572902a3f725a8f7dca197ba5e16952fe6
+    "@wix/events_wix-events-v-2": 1.0.88
+  checksum: 18ecc338484d061f56ce32cb39c1d6b934d1ac26357a1028e609a4cca52d11931a7c349076b23568258005227ac0f29d980a52078b60ff1b70e58edc41a380b3
   languageName: node
   linkType: hard
 
@@ -1179,13 +1179,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wix/events_policies@npm:1.0.71":
-  version: 1.0.71
-  resolution: "@wix/events_policies@npm:1.0.71"
+"@wix/events_policies@npm:1.0.72":
+  version: 1.0.72
+  resolution: "@wix/events_policies@npm:1.0.72"
   dependencies:
     "@wix/sdk-runtime": ^0.3.22
     "@wix/sdk-types": ^1.12.4
-  checksum: 79a99598dadb379c7782291aeb60ef20ea5d0d174d7b182340df69b154bcca4fd459e3759006349d02d9fd81a0ad41254caca8f16621a4e7338e0eed6ca866e2
+  checksum: 863a8b8f1e4058c360233e188e2aca613a0730ccc930e404f2858b438262593ecc1e90e4833c6d48cf6721ce78dfd6b550bbaf40aff372bafb385a4b9b14a72a
   languageName: node
   linkType: hard
 
@@ -1279,13 +1279,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wix/events_wix-events-v-2@npm:1.0.86":
-  version: 1.0.86
-  resolution: "@wix/events_wix-events-v-2@npm:1.0.86"
+"@wix/events_wix-events-v-2@npm:1.0.88":
+  version: 1.0.88
+  resolution: "@wix/events_wix-events-v-2@npm:1.0.88"
   dependencies:
     "@wix/sdk-runtime": ^0.3.22
     "@wix/sdk-types": ^1.12.4
-  checksum: be1a3f2e66f080f8e41f0d97b2cdc5bae6bb22a3c65767d2c16c39686104f98d1488a1773c39e7cf9213fb38543072b1944a10b04da87cda5d1804946f9a4b5c
+  checksum: cb668560be79762a830c5e833b6b95d9aa2d04cb2d8b863debe53a8564ab010c8cc294aa9598c82d0f7b9195a5c7022ed0ff8c4711085e419c13321b8590c674
   languageName: node
   linkType: hard
 
